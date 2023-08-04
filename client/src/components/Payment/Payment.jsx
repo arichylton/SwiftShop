@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from '../CheckoutForm/CheckoutForm.jsx';
 import { Elements } from '@stripe/react-stripe-js';
+import CartItem from '../CartItem/CartItem.jsx';
 
 function Payment(props) {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState('');
+
+  const cartItemsList = useSelector((store) => store.CART.cartItemsList);
+  const cartTotal = useSelector((store) => store.CART.cartTotal);
 
   const paymentAmount = 10000;
 
@@ -28,15 +33,30 @@ function Payment(props) {
     });
   }, []);
 
+  const renderCartItems = () => {
+    return cartItemsList.map((cartItem, i) => {
+      return (
+        <div key={i}>
+          <CartItem product={cartItem} />
+        </div>
+      );
+    });
+  };
+
   return (
-    <>
-      <h1>React Stripe and the Payment Element</h1>
-      {stripePromise && clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm />
-        </Elements>
-      )}
-    </>
+    <section className='container d-flex justify-content-center align-items-center mt-4'>
+      <div className='p-5'>
+        {stripePromise && clientSecret && (
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            <CheckoutForm />
+          </Elements>
+        )}
+      </div>
+      <div className='p-5'>
+        <h2>Cart</h2>
+        {renderCartItems()}
+      </div>
+    </section>
   );
 }
 

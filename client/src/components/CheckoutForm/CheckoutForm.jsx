@@ -39,9 +39,9 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id='payment-form' onSubmit={handleSubmit}>
+    <form id='payment-form' onSubmit={handleSubmit} className='mt-3'>
       <PaymentElement />
-      <button disabled={isProcessing} id='submit'>
+      <button disabled={isProcessing} id='submit' className='btn btn-primary mt-3'>
         <span id='button-text'>
           {isProcessing ? 'Processing ... ' : 'Pay now'}
         </span>
