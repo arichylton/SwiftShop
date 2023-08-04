@@ -1,18 +1,22 @@
 // import { s } from './style.module.css';
+import { useState } from 'react';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
 import Cart from '../Cart/Cart';
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+  
+
   return (
     <nav className='navbar bg-body-tertiary'>
       <div className='container-fluid m-2 ps-4 pe-4'>
-        <a className='navbar-brand' href='#'>
+        <Link className='navbar-brand' to='/'>
           <img
             src='../../../src/assets/images/logos/logo.png'
             alt='Logo'
             height='50'
           />
-        </a>
+        </Link>
         <a
           style={{ cursor: 'pointer' }}
           data-bs-toggle='offcanvas'

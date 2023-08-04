@@ -3,17 +3,17 @@ import Navbar from './components/Navbar/Navbar';
 import Payment from './components/Payment/Payment';
 import ProductsPage from './components/ProductsPage/ProductsPage';
 
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-
   return (
     <>
       <Navbar />
-      <div className='container d-flex align-items-center flex-column'>
-        <div className='d-flex justify-content-center p-3'>
-          <ProductsPage />
-        </div>
-        <Payment />
+      <div className='container d-flex flex-column align-items-center'>
+        <Routes>
+          <Route path='/' element={<ProductsPage />}></Route>
+          <Route path='/payment' element={<Payment />}></Route>
+        </Routes>
       </div>
     </>
   );
