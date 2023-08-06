@@ -24,7 +24,7 @@ app.get('/config', (req, res) => {
 });
 
 app.get('/products-data', async (req, res) => {
-  const productsDataInfo0 = await getAllProducts();
+  const productsDataInfo = await getAllProducts();
 
   res.send({ productsDataInfo });
 });
