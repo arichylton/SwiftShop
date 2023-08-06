@@ -9,7 +9,7 @@ const Product = ({ product }) => {
     e.preventDefault();
     dispatch(addCartItem(product));
   }
-
+  
   return (
     <div className='m-4 text-center'>
       <h3 className='text-capitalize'>{name}</h3>

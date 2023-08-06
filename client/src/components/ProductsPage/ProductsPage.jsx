@@ -7,10 +7,10 @@ const ProductsPage = () => {
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
       const { productsDataInfo } = await result.json();
-
       setProductsData(productsDataInfo);
     });
   }, []);
+
 
   const renderProducts = () => {
     if (productsData) {
@@ -21,6 +21,7 @@ const ProductsPage = () => {
           </div>
         );
       });
+      
     } else {
       return <div>No Product Information Yet</div>;
     }

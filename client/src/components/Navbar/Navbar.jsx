@@ -1,11 +1,12 @@
 // import { s } from './style.module.css';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
 import Cart from '../Cart/Cart';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  
+  const cartItemsList = useSelector((store) => store.CART.cartItemsList);
 
   return (
     <nav className='navbar bg-body-tertiary'>
@@ -17,15 +18,23 @@ const Navbar = () => {
             height='50'
           />
         </Link>
-        <a
-          style={{ cursor: 'pointer' }}
-          data-bs-toggle='offcanvas'
-          data-bs-target='#offcanvasRight'
-          aria-controls='offcanvasRight'
-          role='button'
-        >
-          <img src={cartImg} style={{ height: 30 }} />
-        </a>
+
+        <div className='d-flex '>
+          <a
+            style={{ cursor: 'pointer' }}
+            data-bs-toggle='offcanvas'
+            data-bs-target='#offcanvasRight'
+            aria-controls='offcanvasRight'
+            role='button'
+          >
+            <img src={cartImg} style={{ height: 30 }} />
+          </a>
+          {cartItemsList.length != 0 && (
+            <p className='badge bg-danger' style={{ fontSize: '.9rem' }}>
+              {cartItemsList.length}
+            </p>
+          )}
+        </div>
 
         <div
           className='offcanvas offcanvas-end'

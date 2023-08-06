@@ -1,16 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const cartItemsSlice = createSlice({
   name: 'cartItemsSlice',
   initialState: {
     cartTotal: 0,
-    cartItemsList: [],
+    cartItemsList: {},
   },
   reducers: {
     addCartItem: (currentSlice, action) => {
-      console.log('addCartItem');
-      currentSlice.cartItemsList.push(action.payload)
-      currentSlice.cartTotal += parseFloat(action.payload.price)
+      if (action.payload.docID in currentSlice.cartItemsList) {
+        currentSlice.cartItemsList[action.payload.docID].cartQuantity += 1;
+      } else {
+        currentSlice.cartItemsList[action.payload.docID] = { ...action.payload, cartQuantity: 1 };
+      }
+
+      currentSlice.cartTotal += parseFloat(action.payload.price);
     },
   },
 });

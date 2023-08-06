@@ -32,10 +32,11 @@ const getAllProducts = async () => {
   const querySnapshot = await getDocs(collection(db, 'products'));
 
   let products = [];
-
+  
   try {
     querySnapshot.forEach((doc) => {
-      products.push(doc.data());
+      let docID = doc.id
+      products.push({ ...doc.data(), docID });
     });
     return products;
   } catch (error) {

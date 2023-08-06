@@ -14,10 +14,10 @@ const Cart = () => {
       <div>
         <h3>Total: ${cartTotal.toFixed(2)}</h3>
         <div className='d-flex flex-column'>
-          {cartItemsList.map((cartItem, i) => {
+          {Object.keys(cartItemsList).map((key, i) => {
             return (
               <div key={i}>
-                <CartItem product={cartItem} />
+                <CartItem product={cartItemsList[key]} />
               </div>
             );
           })}
