@@ -2,14 +2,14 @@ import { useDispatch } from "react-redux";
 import { addCartItem } from "../../store/cartItems/cartItemsSlice";
 
 const Product = ({ product }) => {
-  const { name, productImage, productCategories, price, size } = product;
+  const { name, productImage, price, size } = product;
   const dispatch = useDispatch();
 
   const addToCart = (e) => {
     e.preventDefault();
     dispatch(addCartItem(product));
   }
-  
+
   return (
     <div className='m-4 text-center'>
       <h3 className='text-capitalize'>{name}</h3>

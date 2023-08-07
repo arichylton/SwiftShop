@@ -1,5 +1,5 @@
 const CartItem = ({ product }) => {
-  const { name, productImage, cartQuantity, price, size } = product;
+  const { name, productImage, price, count, size } = product;
 
   return (
     <div className='d-flex mb-3 mt-3'>
@@ -13,7 +13,7 @@ const CartItem = ({ product }) => {
         <div className='me-3'>
           <h4 className='text-capitalize'>{name}</h4>
           <p className='fs-6 text-uppercase'>{size}</p>
-          <div>Quantity: {cartQuantity}</div>
+          <div>Quantity: {count}</div>
         </div>
         <p className='fs-5 mb-2'>${price}</p>
       </div>
