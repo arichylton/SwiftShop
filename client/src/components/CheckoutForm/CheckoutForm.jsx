@@ -3,6 +3,8 @@ import {
   useStripe,
   useElements,
   PaymentElement,
+  AddressElement,
+  LinkAuthenticationElement
 } from '@stripe/react-stripe-js';
 
 export default function CheckoutForm() {
@@ -31,23 +33,38 @@ export default function CheckoutForm() {
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
       setMessage('Payment status: ' + paymentIntent.status + '🎉');
     } else {
-      setMessage('Unexpected state')
+      setMessage('Unexpected state');
     }
 
     setIsProcessing(false);
   };
 
   return (
-    <form id='payment-form' onSubmit={handleSubmit} className='mt-3'>
-      <PaymentElement />
-      <button disabled={isProcessing} id='submit' className='btn btn-primary mt-3'>
-        <span id='button-text'>
-          {isProcessing ? 'Processing ... ' : 'Pay now'}
-        </span>
-      </button>
+    <>
+      <h2 className=''>Contact info</h2>
+      <form className='mt-3 mb-3'>
+        <LinkAuthenticationElement />
+      </form>
+      <h2>Shipping</h2>
+      <form className='mt-3 mb-3'>
+        <AddressElement options={{ mode: 'shipping' }} />
+      </form>
+      <h2>Payment</h2>
+      <form id='payment-form' onSubmit={handleSubmit} className='mt-3'>
+        <PaymentElement />
+        <button
+          disabled={isProcessing}
+          id='submit'
+          className='btn btn-primary mt-3'
+        >
+          <span id='button-text'>
+            {isProcessing ? 'Processing ... ' : 'Pay now'}
+          </span>
+        </button>
 
-      {/* Show any error or success messages */}
-      {message && <div id='payment-message'>{message}</div>}
-    </form>
+        {/* Show any error or success messages */}
+        {message && <div id='payment-message'>{message}</div>}
+      </form>
+    </>
   );
 }

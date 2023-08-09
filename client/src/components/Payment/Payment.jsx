@@ -65,12 +65,13 @@ function Payment(props) {
     });
   };
 
+  const loader = 'auto';
+
   return (
     <section className='container d-flex justify-content-center  mt-4'>
       <div className='p-5'>
-        <h2>Payment</h2>
         {stripePromise && clientSecret && (
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <Elements stripe={stripePromise} options={{ clientSecret, loader }}>
             <CheckoutForm />
           </Elements>
         )}
