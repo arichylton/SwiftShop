@@ -4,48 +4,71 @@ import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from '../CheckoutForm/CheckoutForm.jsx';
 import { Elements } from '@stripe/react-stripe-js';
 import CartItem from '../CartItem/CartItem.jsx';
+import { countOccurrences, addToCartSet } from '../../utils/index.js';
 
 function Payment(props) {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState('');
+  const [cartTotalAmount, setCartTotalAmount] = useState(null);
+  const [intentID, setIntentID] = useState(null);
 
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
-  const cartTotal = useSelector((store) => store.CART.cartTotal);
-
-  const paymentAmount = 10000;
 
   useEffect(() => {
     fetch('/config').then(async (result) => {
       const { publishableKey } = await result.json();
-
       setStripePromise(loadStripe(publishableKey));
     });
   }, []);
 
   useEffect(() => {
-    fetch('/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ paymentAmount: 10000 }),
-    }).then(async (result) => {
-      const { clientSecret } = await result.json();
-      setClientSecret(clientSecret);
-    });
+    if (cartItemsList.length > 0) {
+      fetch('/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cartItemsList }),
+      }).then(async (result) => {
+        const { clientSecret, cartTotal, intentId } = await result.json();
+        const floatAmount = parseFloat((cartTotal / 100).toFixed(2));
+
+        setIntentID(intentId);
+        setCartTotalAmount(floatAmount);
+        setClientSecret(clientSecret);
+      });
+    }
   }, []);
 
+  useEffect(() => {
+    if (intentID && clientSecret && cartItemsList.length > 0) {
+      fetch('/update-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cartItemsList, intentId: intentID }),
+      }).then(async (result) => {
+        const { cartTotal, clientSecret } = await result.json();
+        const floatAmount = parseFloat((cartTotal / 100).toFixed(2));
+
+        setClientSecret(clientSecret);
+        setCartTotalAmount(floatAmount);
+      });
+    }
+  }, [cartItemsList, clientSecret, intentID]);
+
   const renderCartItems = () => {
-    return cartItemsList.map((cartItem, i) => {
+    return addToCartSet(cartItemsList).map((item, i) => {
+      const itemCount = countOccurrences(cartItemsList, item.docID);
       return (
         <div key={i}>
-          <CartItem product={cartItem} />
+          <CartItem product={{ ...item, count: itemCount }} />
         </div>
       );
     });
   };
 
   return (
-    <section className='container d-flex justify-content-center align-items-center mt-4'>
+    <section className='container d-flex justify-content-center  mt-4'>
       <div className='p-5'>
+        <h2>Payment</h2>
         {stripePromise && clientSecret && (
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <CheckoutForm />
@@ -54,7 +77,11 @@ function Payment(props) {
       </div>
       <div className='p-5'>
         <h2>Cart</h2>
-        {renderCartItems()}
+        {cartItemsList && renderCartItems()}
+        <h4 className='pt-3'>
+          Total: $
+          {cartTotalAmount && cartItemsList.length != 0 && cartTotalAmount}
+        </h4>
       </div>
     </section>
   );

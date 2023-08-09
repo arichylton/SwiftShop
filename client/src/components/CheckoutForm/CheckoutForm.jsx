@@ -18,7 +18,6 @@ export default function CheckoutForm() {
     if (!stripe || !elements) return;
 
     setIsProcessing(true);
-
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {

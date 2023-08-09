@@ -10,6 +10,7 @@ export default defineConfig({
       '/config': 'http://localhost:5252',
       '/create-payment-intent': 'http://localhost:5252',
       '/products-data': 'http://localhost:5252',
+      '/update-payment-intent': 'http://localhost:5252'
     },
   },
 });
