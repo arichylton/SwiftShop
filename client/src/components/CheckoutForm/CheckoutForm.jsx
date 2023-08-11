@@ -41,15 +41,15 @@ export default function CheckoutForm() {
 
   return (
     <>
-      <h2 className=''>Contact info</h2>
-      <form className='mt-3 mb-3'>
+      <h3 className='fw-bold'>Contact info</h3>
+      <form className='mt-3 mb-4'>
         <LinkAuthenticationElement />
       </form>
-      <h2>Shipping</h2>
-      <form className='mt-3 mb-3'>
+      <h3 className='fw-bold'>Shipping</h3>
+      <form className='mt-3 mb-4'>
         <AddressElement options={{ mode: 'shipping' }} />
       </form>
-      <h2>Payment</h2>
+      <h3 className='fw-bold'>Payment</h3>
       <form id='payment-form' onSubmit={handleSubmit} className='mt-3'>
         <PaymentElement />
         <button

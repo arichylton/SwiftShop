@@ -43,7 +43,10 @@ function Payment(props) {
       fetch('/update-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cartItemsList, intentId: intentID }),
+        body: JSON.stringify({
+          cartItemsList,
+          intentId: intentID,
+        }),
       }).then(async (result) => {
         const { cartTotal, clientSecret } = await result.json();
         const floatAmount = parseFloat((cartTotal / 100).toFixed(2));
@@ -51,7 +54,7 @@ function Payment(props) {
         setClientSecret(clientSecret);
         setCartTotalAmount(floatAmount);
       });
-    }
+    } 
   }, [cartItemsList, clientSecret, intentID]);
 
   const renderCartItems = () => {
@@ -77,7 +80,7 @@ function Payment(props) {
         )}
       </div>
       <div className='p-5'>
-        <h2>Cart</h2>
+        <h3 className='fw-bold'>Cart</h3>
         {cartItemsList && renderCartItems()}
         <h4 className='pt-3'>
           Total: $

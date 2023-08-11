@@ -78,7 +78,7 @@ app.post('/create-payment-intent', async (req, res) => {
     res.send({
       clientSecret: paymentIntent.client_secret,
       cartTotal,
-      intentId: paymentIntent.id
+      intentId: paymentIntent.id,
     });
   } catch (err) {
     return res.status(400).send({
