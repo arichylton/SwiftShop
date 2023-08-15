@@ -59,7 +59,7 @@ function Payment(props) {
 
   const renderCartItems = () => {
     return addToCartSet(cartItemsList).map((item, i) => {
-      const itemCount = countOccurrences(cartItemsList, item.docID);
+      const itemCount = countOccurrences(cartItemsList, item.docID, item.size);
       return (
         <div key={i}>
           <CartItem product={{ ...item, count: itemCount }} />
