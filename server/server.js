@@ -47,6 +47,7 @@ app.post('/update-payment-intent', async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.update(intentId, {
       amount: cartTotal,
+      description: 'This is a test description',
     });
 
     res.send({

@@ -18,7 +18,6 @@ const Navbar = () => {
             height='50'
           />
         </Link>
-
         <div className='d-flex '>
           <a
             style={{ cursor: 'pointer' }}
@@ -27,13 +26,15 @@ const Navbar = () => {
             aria-controls='offcanvasRight'
             role='button'
           >
-            <img src={cartImg} style={{ height: 30 }} />
+            <button type='button' className='btn btn-primary position-relative'>
+              Cart
+              {cartItemsList.length != 0 && (
+                <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
+                  {cartItemsList.length}
+                </span>
+              )}
+            </button>
           </a>
-          {cartItemsList.length != 0 && (
-            <p className='badge bg-danger' style={{ fontSize: '.9rem' }}>
-              {cartItemsList.length}
-            </p>
-          )}
         </div>
 
         <div
