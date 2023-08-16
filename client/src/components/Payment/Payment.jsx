@@ -54,7 +54,7 @@ function Payment(props) {
         setClientSecret(clientSecret);
         setCartTotalAmount(floatAmount);
       });
-    } 
+    }
   }, [cartItemsList, clientSecret, intentID]);
 
   const renderCartItems = () => {
@@ -79,13 +79,17 @@ function Payment(props) {
           </Elements>
         )}
       </div>
-      <div className='p-5'>
-        <h3 className='fw-bold'>Cart</h3>
-        {cartItemsList && renderCartItems()}
-        <h4 className='pt-3'>
+      <div className='vr'></div>
+      <div className='p-5 d-flex flex-column'>
+        <div className='flex-fill'>
+          <h3 className='fw-bold'>Cart</h3>
+          {cartItemsList && renderCartItems()}
+        </div>
+
+        <h3 className='pt-3'>
           Total: $
           {cartTotalAmount && cartItemsList.length != 0 && cartTotalAmount}
-        </h4>
+        </h3>
       </div>
     </section>
   );

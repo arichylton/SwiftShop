@@ -2,13 +2,12 @@ import { useDispatch } from 'react-redux';
 import { addCartItem } from '../../store/cartItems/cartItemsSlice';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import s from './style.module.css';
 
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
 
-  const { name, productImage, price, sizes } = location.state;
+  const { name, productImage, price, sizes, description } = location.state;
 
   useEffect(() => {
     if (sizes['s'] != 0) {
@@ -37,57 +36,64 @@ const Product = () => {
     <section className='container d-flex justify-content-center mt-4'>
       <div className='p-5 text-center'>
         <img
-          style={{ width: '240px' }}
+          style={{ width: '30vw' }}
           src={`/src/assets/images/products/${productImage}`}
           alt='productImage'
         />
       </div>
+      <div className='vr'></div>
       <div className='p-5 d-flex flex-column'>
-        <div className='flex-fill'>
-          <h2 className='text-capitalize'>{name}</h2>
-          <h4 className='mt-2 mb-2'>${price}</h4>
-          <div className='list-group list-group-horizontal'>
-            <button
-              onClick={() => changeSize('s')}
-              type='button'
-              className={`list-group-item list-group-item-action text-center ${
-                sizes.s != 0 ? '' : `disabled text-danger`
-              } ${currentSize === 's' ? 'active' : ''}`}
-            >
-              S
-            </button>
-            <button
-              onClick={() => changeSize('m')}
-              type='button'
-              className={`list-group-item list-group-item-action text-center ${
-                sizes.m != 0 ? '' : `disabled text-danger  `
-              } ${currentSize === 'm' ? 'active' : ''}`}
-            >
-              M
-            </button>
-            <button
-              onClick={() => changeSize('l')}
-              type='button'
-              className={`list-group-item list-group-item-action text-center${
-                sizes.l != 0 ? '' : `disabled text-danger`
-              } ${currentSize === 'l' ? 'active' : ''}`}
-            >
-              L
-            </button>
-            <button
-              onClick={() => changeSize('xl')}
-              type='button'
-              className={`list-group-item list-group-item-action text-center ${
-                sizes.xl != 0 ? '' : `disabled text-danger`
-              } ${currentSize === 'xl' ? 'active' : ''}`}
-            >
-              XL
-            </button>
-          </div>
+        <h2 className='text-capitalize fw-bold'>{name}</h2>
+        <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
+        <p className='m-1 mt-4 fs-5'>
+          Size: {currentSize && currentSize.toUpperCase()}
+        </p>
+        <div className='list-group list-group-horizontal w-50'>
+          <button
+            onClick={() => changeSize('s')}
+            type='button'
+            className={`list-group-item list-group-item-action text-center ${
+              sizes.s != 0 ? '' : `disabled text-danger`
+            } ${currentSize === 's' ? 'active' : ''}`}
+          >
+            S
+          </button>
+          <button
+            onClick={() => changeSize('m')}
+            type='button'
+            className={`list-group-item list-group-item-action text-center ${
+              sizes.m != 0 ? '' : `disabled text-danger  `
+            } ${currentSize === 'm' ? 'active' : ''}`}
+          >
+            M
+          </button>
+          <button
+            onClick={() => changeSize('l')}
+            type='button'
+            className={`list-group-item list-group-item-action text-center${
+              sizes.l != 0 ? '' : `disabled text-danger`
+            } ${currentSize === 'l' ? 'active' : ''}`}
+          >
+            L
+          </button>
+          <button
+            onClick={() => changeSize('xl')}
+            type='button'
+            className={`list-group-item list-group-item-action text-center ${
+              sizes.xl != 0 ? '' : `disabled text-danger`
+            } ${currentSize === 'xl' ? 'active' : ''}`}
+          >
+            XL
+          </button>
         </div>
-        <button className='btn btn-primary ps-4 pe-4 ' onClick={addToCart}>
+        <button
+          className='btn btn-primary ps-4 pe-4 mt-4 mb-4 w-50'
+          onClick={addToCart}
+        >
           Add To Cart
         </button>
+        <p className='mb-1 fw-bold'>Description: </p>
+        <h3 className='fs-5'>{description}</h3>
       </div>
     </section>
   );

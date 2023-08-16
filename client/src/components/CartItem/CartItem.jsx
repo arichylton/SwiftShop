@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { removeCartItem, addCartItem } from '../../store/cartItems/cartItemsSlice';
 
 const CartItem = ({ product }) => {
-  const { name, productImage, price, count, size } = product;
+  const { name, productImage, price, count, size, description } = product;
   const dispatch = useDispatch();
 
   const addAnotherItem = (e) => {
@@ -19,16 +19,17 @@ const CartItem = ({ product }) => {
     <div className='d-flex mb-3 mt-3'>
       <img
         className='me-3'
-        style={{ width: '120px' }}
+        style={{ width: '140px' }}
         src={`/src/assets/images/products/${productImage}`}
         alt='productImage'
       />
       <div className='d-flex justify-content-between'>
-        <div className='me-3 d-flex flex-column justify-content-between'>
-          <h4 className='text-capitalize'>{name}</h4>
-          <p className='fs-6 text-uppercase'>{size}</p>
+        <div className='me-3 d-flex flex-column'>
+          <h3 className='text-capitalize'>{name}</h3>
+          <p className='fs-4 mb-1'>${price}</p>
+          <p className='fs-5 text-uppercase'>{size}</p>
 
-          <div className='d-flex align-items-center'>
+          <div className='d-flex align-items-center flex-fill'>
             <button className='btn btn-secondary' onClick={removeItem}>
               -
             </button>
@@ -38,7 +39,6 @@ const CartItem = ({ product }) => {
             </button>
           </div>
         </div>
-        <p className='fs-5 mb-2'>${price}</p>
       </div>
     </div>
   );

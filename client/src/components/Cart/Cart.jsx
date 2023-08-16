@@ -6,15 +6,13 @@ import { countOccurrences, addToCartSet } from '../../utils';
 const Cart = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const cartTotal = useSelector((store) => store.CART.cartTotal);
-
-  console.log(cartItemsList)
   return (
     <div
       className='d-flex flex-column align-items-center justify-content-between'
       style={{ height: '100%' }}
     >
       <div>
-        <h3>Total: ${cartTotal.toFixed(2)}</h3>
+        
         {(cartItemsList && (
           <div className='d-flex flex-column'>
             {addToCartSet(cartItemsList).map((item, i) => {
@@ -52,6 +50,7 @@ const Cart = () => {
           </button>
         </p>
       )}
+      
     </div>
   );
 };

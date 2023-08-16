@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Product from '../../containers/Product/Product.jsx';
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
 
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
-
+  
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
       const { productsDataInfo } = await result.json();

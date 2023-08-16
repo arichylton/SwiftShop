@@ -1,18 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { addCartItem } from '../../store/cartItems/cartItemsSlice';
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-
 const ProductPageItem = ({product}) => {
 
   const { name, productImage, price, size } = product;
-
-  const dispatch = useDispatch();
-
-  const addToCart = (e) => {
-    e.preventDefault();
-    dispatch(addCartItem(location.state));
-  };
 
   return (
     <div className='m-4 text-center'>
@@ -24,9 +12,6 @@ const ProductPageItem = ({product}) => {
       />
       <p className='fs-4 mt-2 mb-2'>${price}</p>
       <p className='fs-5 text-uppercase'>{size}</p>
-      {/* <button className='btn btn-primary ps-4 pe-4' onClick={addToCart}>
-        Add To Cart
-      </button> */}
     </div>
   );
 };
