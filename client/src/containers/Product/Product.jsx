@@ -2,13 +2,14 @@ import { useDispatch } from 'react-redux';
 import { addCartItem } from '../../store/cartItems/cartItemsSlice';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import s from './style.module.css';
 
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
 
   const { name, productImage, price, sizes } = location.state;
-  
+
   useEffect(() => {
     if (sizes['s'] != 0) {
       setCurrentSize('s');
@@ -43,14 +44,14 @@ const Product = () => {
       </div>
       <div className='p-5 d-flex flex-column'>
         <div className='flex-fill'>
-          <h3 className='text-capitalize'>{name}</h3>
-          <p className='fs-4 mt-2 mb-2'>${price}</p>
+          <h2 className='text-capitalize'>{name}</h2>
+          <h4 className='mt-2 mb-2'>${price}</h4>
           <div className='list-group list-group-horizontal'>
             <button
               onClick={() => changeSize('s')}
               type='button'
-              className={`list-group-item list-group-item-action ${
-                sizes.s != 0 ? '' : 'disabled'
+              className={`list-group-item list-group-item-action text-center ${
+                sizes.s != 0 ? '' : `disabled text-danger`
               } ${currentSize === 's' ? 'active' : ''}`}
             >
               S
@@ -58,8 +59,8 @@ const Product = () => {
             <button
               onClick={() => changeSize('m')}
               type='button'
-              className={`list-group-item list-group-item-action ${
-                sizes.m != 0 ? '' : 'disabled'
+              className={`list-group-item list-group-item-action text-center ${
+                sizes.m != 0 ? '' : `disabled text-danger  `
               } ${currentSize === 'm' ? 'active' : ''}`}
             >
               M
@@ -67,8 +68,8 @@ const Product = () => {
             <button
               onClick={() => changeSize('l')}
               type='button'
-              className={`list-group-item list-group-item-action ${
-                sizes.l != 0 ? '' : 'disabled'
+              className={`list-group-item list-group-item-action text-center${
+                sizes.l != 0 ? '' : `disabled text-danger`
               } ${currentSize === 'l' ? 'active' : ''}`}
             >
               L
@@ -76,8 +77,8 @@ const Product = () => {
             <button
               onClick={() => changeSize('xl')}
               type='button'
-              className={`list-group-item list-group-item-action ${
-                sizes.xl != 0 ? '' : 'disabled'
+              className={`list-group-item list-group-item-action text-center ${
+                sizes.xl != 0 ? '' : `disabled text-danger`
               } ${currentSize === 'xl' ? 'active' : ''}`}
             >
               XL
