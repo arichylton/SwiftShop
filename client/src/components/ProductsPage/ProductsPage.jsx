@@ -4,7 +4,7 @@ import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.js
 
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
-  
+
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
       const { productsDataInfo } = await result.json();
@@ -16,11 +16,7 @@ const ProductsPage = () => {
     if (productsData) {
       return productsData.map((product, index) => {
         return (
-          <Link
-            key={index}
-            to={`/product/${product.docID}`}
-            state={ product }
-          >
+          <Link key={index} to={`/product/${product.docID}`} state={product}>
             <ProductPageItem product={product} />
           </Link>
         );
@@ -30,6 +26,15 @@ const ProductsPage = () => {
     }
   };
 
-  return <div className='d-flex'>{renderProducts()}</div>;
+  return (
+    <div className='d-flex flex-column mt-4'>
+      <h2 className='fw-bold ms-3'>Featured</h2>
+      <div className='d-flex '>{renderProducts()}</div>
+      <h2 className='fw-bold ms-3'>New</h2>
+      <div className='d-flex '>{renderProducts()}</div>
+      <h2 className='fw-bold ms-3'>New</h2>
+      <div className='d-flex '>{renderProducts()}</div>
+    </div>
+  );
 };
 export default ProductsPage;

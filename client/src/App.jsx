@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className='container d-flex flex-column align-items-center'>
+      <div className='container d-flex flex-column align-items-center' style={{minHeight: '100vh'}}>
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>
           <Route path='/payment' element={<Payment />}></Route>

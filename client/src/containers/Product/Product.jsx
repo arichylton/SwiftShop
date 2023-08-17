@@ -33,7 +33,7 @@ const Product = () => {
   };
 
   return (
-    <section className='container d-flex justify-content-center mt-4'>
+    <section className='container d-flex justify-content-center mt-5'>
       <div className='p-5 text-center'>
         <img
           style={{ width: '30vw' }}
