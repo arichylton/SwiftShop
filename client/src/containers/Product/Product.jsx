@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux';
 import { addCartItem } from '../../store/cartItems/cartItemsSlice';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import RatingIcons from '../../components/RatingIcons/RatingIcons';
 
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
-
-  const { name, productImage, price, sizes, description } = location.state;
+  const { name, productImage, price, sizes, description, productRating } = location.state;
 
   useEffect(() => {
     if (sizes['s'] != 0) {
@@ -44,6 +44,7 @@ const Product = () => {
       <div className='vr'></div>
       <div className='p-5 d-flex flex-column'>
         <h2 className='text-capitalize fw-bold'>{name}</h2>
+        <RatingIcons userRating={productRating} />
         <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
         <p className='m-1 mt-4 fs-5'>
           Size: {currentSize && currentSize.toUpperCase()}

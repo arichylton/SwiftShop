@@ -27,12 +27,14 @@ const ProductsPage = () => {
   };
 
   return (
-    <div className='d-flex flex-column mt-4'>
-      <h2 className='fw-bold ms-3'>Featured</h2>
+    <div className='d-flex flex-column mt-5'>
+      <h4 className='fw-bold ms-4'>New</h4>
       <div className='d-flex '>{renderProducts()}</div>
-      <h2 className='fw-bold ms-3'>New</h2>
+      <h4 className='fw-bold ms-4 mt-3'>Featured</h4>
       <div className='d-flex '>{renderProducts()}</div>
-      <h2 className='fw-bold ms-3'>New</h2>
+      <h4 className='fw-bold ms-4 mt-3'>All</h4>
+      <div className='d-flex '>{renderProducts()}</div>
+      <h4 className='fw-bold ms-4 mt-3'>All</h4>
       <div className='d-flex '>{renderProducts()}</div>
     </div>
   );

@@ -4,14 +4,13 @@ const ProductPageItem = ({product}) => {
 
   return (
     <div className='m-4 text-center'>
-      <h3 className='text-capitalize'>{name}</h3>
       <img
         style={{ width: '240px' }}
         src={`/src/assets/images/products/${productImage}`}
         alt='productImage'
       />
-      <p className='fs-4 mt-2 mb-2'>${price}</p>
-      <p className='fs-5 text-uppercase'>{size}</p>
+      <h4 className='text-capitalize mt-2 mb-1'>{name}</h4>
+      <p className='fs-4'>${price}</p>
     </div>
   );
 };
