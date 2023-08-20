@@ -8,7 +8,7 @@ swiftshop had login authentiion through google or user created accounts. Users h
 swiftshop uses react, redux, swype, and express to get it up and running.
 
 # installation
-simply get on the internet browser of your choice and go to swiftshop.com
+simply get on an internet browser of your choice and go to swiftshop.com
 
 # setup
 cd into ./server 
