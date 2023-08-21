@@ -3,7 +3,9 @@ const app = express();
 const { resolve } = require('path');
 // Replace if using a different env file or config
 const env = require('dotenv').config({ path: './.env' });
-const { getAllProducts } = require('./firebase.utils');
+const {
+  getAllProducts,
+} = require('./firebase.utils');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',
@@ -31,6 +33,26 @@ app.get('/config', (req, res) => {
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
+});
+
+app.get('/googleSignIn', async (req, res) => {
+
+  let currentUser = null
+
+  const fetchData = async () => {
+    const response = await signInWithGoogleRedirect();
+    if (response) {
+      await createUserDocumentFromAuth(response.user);
+      currentUser = response.user;
+    }
+  };
+  
+  try {
+    res.send(currentUser)
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    console.log(error.message);
+  }
 });
 
 app.get('/products-data', async (req, res) => {

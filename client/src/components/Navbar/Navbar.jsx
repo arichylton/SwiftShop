@@ -1,12 +1,25 @@
 // import { s } from './style.module.css';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
 import Cart from '../Cart/Cart';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
+  const [userData, setUserData] = useState(null);
+
+  const loginWithGoogle = () => {
+    fetch('/googleSignIn')
+      .then(async (result) => {
+        console.log('Response:', result); // Log the response
+        const data = result.body;
+        setUserData(data);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+      });
+  };
 
   return (
     <nav className='navbar bg-body-tertiary'>
@@ -18,23 +31,32 @@ const Navbar = () => {
             height='50'
           />
         </Link>
-        <div className='d-flex '>
-          <a
-            style={{ cursor: 'pointer' }}
-            data-bs-toggle='offcanvas'
-            data-bs-target='#offcanvasRight'
-            aria-controls='offcanvasRight'
-            role='button'
-          >
-            <button type='button' className='btn btn-primary position-relative'>
-              Cart
+        <div className='d-flex p-2'>
+          <div className='d-flex pe-5'>
+            <a
+              style={{ cursor: 'pointer' }}
+              data-bs-toggle='offcanvas'
+              data-bs-target='#offcanvasRight'
+              aria-controls='offcanvasRight'
+              role='button'
+            >
+              <img
+                src={cartImg}
+                alt='cartImg'
+                style={{ width: 35 }}
+                className='position-relative'
+              />
+
               {cartItemsList.length != 0 && (
-                <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
+                <span className='position-absolute translate-middle badge rounded-pill bg-danger'>
                   {cartItemsList.length}
                 </span>
               )}
-            </button>
-          </a>
+            </a>
+          </div>
+          <Link className='navbar-brand' to='/signin'>
+            <h5>Sign In</h5>
+          </Link>
         </div>
 
         <div

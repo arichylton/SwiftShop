@@ -5,6 +5,7 @@ import ProductsPage from './components/ProductsPage/ProductsPage';
 import Product from './containers/Product/Product';
 
 import { Routes, Route } from 'react-router-dom';
+import SignInPage from './containers/SignInPage/SignInPage';
 
 
 function App() {
@@ -17,8 +18,9 @@ function App() {
       >
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>
-          <Route path='/payment' element={<Payment />}></Route>
+          <Route path='payment' element={<Payment />}></Route>
           <Route path={`product/:id`} element={<Product />} />
+          <Route path='signin' element={<SignInPage />}/>
         </Routes>
       </div>
     </main>
