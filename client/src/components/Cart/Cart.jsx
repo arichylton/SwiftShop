@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import CartItem from '../CartItem/CartItem';
 import { Link } from 'react-router-dom';
 import { countOccurrences, addToCartSet } from '../../utils';
+import Button from '../button/button';
 
 const Cart = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
@@ -12,11 +13,14 @@ const Cart = () => {
       style={{ height: '100%' }}
     >
       <div>
-        
         {(cartItemsList && (
           <div className='d-flex flex-column'>
             {addToCartSet(cartItemsList).map((item, i) => {
-              const itemCount = countOccurrences(cartItemsList, item.docID, item.size);
+              const itemCount = countOccurrences(
+                cartItemsList,
+                item.docID,
+                item.size
+              );
               return (
                 <div key={i}>
                   <CartItem product={{ ...item, count: itemCount }} />
@@ -28,15 +32,15 @@ const Cart = () => {
       </div>
       {(cartItemsList.length > 0 && (
         <Link to='/payment'>
-          <button
-            className='btn btn-primary mb-4 ps-4 pe-4'
+          <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'
             aria-controls='offcanvasRight'
             to='/payment'
+            otherProps='mb-4'
           >
             Checkout
-          </button>
+          </Button>
         </Link>
       )) || (
         <p>
@@ -50,7 +54,6 @@ const Cart = () => {
           </button>
         </p>
       )}
-      
     </div>
   );
 };

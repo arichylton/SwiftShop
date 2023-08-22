@@ -3,24 +3,10 @@ import { useSelector } from 'react-redux';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
 import Cart from '../Cart/Cart';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
-  const [userData, setUserData] = useState(null);
-
-  const loginWithGoogle = () => {
-    fetch('/googleSignIn')
-      .then(async (result) => {
-        console.log('Response:', result); // Log the response
-        const data = result.body;
-        setUserData(data);
-      })
-      .catch((error) => {
-        console.error('Fetch error:', error);
-      });
-  };
-
+  const currentUser = useSelector((store) => store.USER.currentUser);
   return (
     <nav className='navbar bg-body-tertiary'>
       <div className='container-fluid m-2 ps-4 pe-4'>
@@ -32,7 +18,7 @@ const Navbar = () => {
           />
         </Link>
         <div className='d-flex p-2'>
-          <div className='d-flex pe-5'>
+          <div className='d-flex pe-5 align-items-center'>
             <a
               style={{ cursor: 'pointer' }}
               data-bs-toggle='offcanvas'
@@ -54,9 +40,13 @@ const Navbar = () => {
               )}
             </a>
           </div>
-          <Link className='navbar-brand' to='/signin'>
-            <h5>Sign In</h5>
-          </Link>
+          {currentUser ? (
+            <a style={{cursor: 'pointer'}}><img src={currentUser.photoURL} alt="user_IMG" style={{width: '40px'}}/></a>
+          ) : (
+            <Link className='navbar-brand' to='/signin'>
+              Sign In
+            </Link>
+          )}
         </div>
 
         <div

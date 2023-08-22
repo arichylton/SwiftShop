@@ -15,6 +15,7 @@ import {
   setDoc,
   Firestore,
 } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -37,32 +38,34 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGoogleRedirect = () =>
+export const signInWithGoogleRedirect = () => {
   signInWithRedirect(auth, googleProvider);
+};
 
 // FIRESTORE
 export const db = getFirestore(firebaseApp);
 
-export const createUserDocumentFromAuth = async (
-  userAuth,
-  additionalInformation = {}
-) => {
+export const createUserDocumentFromAuth = async (userAuth) => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
-
+  console.log(userAuth);
   //if user data does not exist then create it
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, photoURL } = userAuth;
     const createdAt = new Date();
+    const cart = [];
+    const reviews = {};
 
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
-        ...additionalInformation,
+        cart,
+        reviews,
+        photoURL,
       });
     } catch (error) {
       console.log('error creating the user', error.message);
@@ -89,4 +92,17 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const onAuthStateChangedListener = (callback) => {
   if (!callback) return;
   onAuthStateChanged(auth, callback);
+};
+
+export const getUserData = async () => {
+  const docRef = doc(db, 'users', auth.currentUser.uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists) {
+    try {
+      return docSnap.data();
+    } catch (error) {
+      console.log('error creating the user', error.message);
+    }
+  }
 };
