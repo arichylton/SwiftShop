@@ -7,7 +7,8 @@ import RatingIcons from '../../components/RatingIcons/RatingIcons';
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
-  const { name, productImage, price, sizes, description, productRating } = location.state;
+  const { name, productImage, price, sizes, description, productRating } =
+    location.state;
 
   useEffect(() => {
     if (sizes['s'] != 0) {

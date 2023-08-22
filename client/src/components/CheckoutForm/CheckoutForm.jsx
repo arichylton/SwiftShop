@@ -6,6 +6,7 @@ import {
   AddressElement,
   LinkAuthenticationElement
 } from '@stripe/react-stripe-js';
+import Button from '../button/button';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -35,7 +36,6 @@ export default function CheckoutForm() {
     } else {
       setMessage('Unexpected state');
     }
-
     setIsProcessing(false);
   };
 
@@ -52,15 +52,13 @@ export default function CheckoutForm() {
       <h3 className='fw-bold'>Payment</h3>
       <form id='payment-form' onSubmit={handleSubmit} className='mt-3'>
         <PaymentElement />
-        <button
-          disabled={isProcessing}
-          id='submit'
-          className='btn btn-primary mt-3'
-        >
-          <span id='button-text'>
-            {isProcessing ? 'Processing ... ' : 'Pay now'}
-          </span>
-        </button>
+        <div className='mt-4'>
+          <Button disabled={isProcessing} id='submit'>
+            <span id='button-text'>
+              {isProcessing ? 'Processing ... ' : 'Pay now'}
+            </span>
+          </Button>
+        </div>
 
         {/* Show any error or success messages */}
         {message && <div id='payment-message'>{message}</div>}

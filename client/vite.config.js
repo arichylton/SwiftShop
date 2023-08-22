@@ -11,7 +11,6 @@ export default defineConfig({
       '/create-payment-intent': 'http://localhost:5252',
       '/products-data': 'http://localhost:5252',
       '/update-payment-intent': 'http://localhost:5252',
-      '/googleSignIn': 'http://localhost:5252',
     },
   },
 });

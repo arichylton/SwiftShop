@@ -7,7 +7,6 @@ export const userSlice = createSlice({
   },
   reducers: {
     setCurrentUser: (currentSlice, action) => {
-      console.log(action.payload)
       currentSlice.currentUser = action.payload;
     }
   },

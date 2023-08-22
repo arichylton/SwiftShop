@@ -13,9 +13,8 @@ import {
   doc,
   getDoc,
   setDoc,
-  Firestore,
+  updateDoc,
 } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -105,4 +104,12 @@ export const getUserData = async () => {
       console.log('error creating the user', error.message);
     }
   }
+};
+
+export const updateUserCart = async (cartData) => {
+  const currentUserDocRef = doc(db, 'users', auth.currentUser.uid);
+  console.log(cartData)
+  await updateDoc(currentUserDocRef, {
+    cart: cartData,
+  });
 };

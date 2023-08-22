@@ -3,10 +3,19 @@ import CartItem from '../CartItem/CartItem';
 import { Link } from 'react-router-dom';
 import { countOccurrences, addToCartSet } from '../../utils';
 import Button from '../button/button';
+import { useEffect } from 'react';
+import { updateUserCart } from '../../utils/firebase.utils';
 
 const Cart = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
+  const currentUser = useSelector((store) => store.USER.currentUser);
   const cartTotal = useSelector((store) => store.CART.cartTotal);
+
+  useEffect(() => {
+    if (currentUser) {
+      updateUserCart(cartItemsList);
+    }
+  }, [cartItemsList]);
   return (
     <div
       className='d-flex flex-column align-items-center justify-content-between'
@@ -31,28 +40,26 @@ const Cart = () => {
         )) || <div>Nothing in your cart yet!</div>}
       </div>
       {(cartItemsList.length > 0 && (
-        <Link to='/payment'>
+        <Link to='/payment' className='mb-4'>
           <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'
             aria-controls='offcanvasRight'
             to='/payment'
-            otherProps='mb-4'
           >
             Checkout
           </Button>
         </Link>
       )) || (
-        <p>
-          <button
-            className='btn btn-secondary mb-4 ps-4 pe-4'
+        <div className='mb-4'>
+          <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'
             aria-controls='offcanvasRight'
           >
             Nothing in your cart yet!
-          </button>
-        </p>
+          </Button>
+        </div>
       )}
     </div>
   );

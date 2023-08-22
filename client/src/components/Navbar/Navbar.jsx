@@ -41,7 +41,13 @@ const Navbar = () => {
             </a>
           </div>
           {currentUser ? (
-            <a style={{cursor: 'pointer'}}><img src={currentUser.photoURL} alt="user_IMG" style={{width: '40px'}}/></a>
+            <a style={{ cursor: 'pointer' }}>
+              <img
+                src={currentUser.photoURL}
+                alt='user_IMG'
+                style={{ width: '40px', borderRadius: '50%' }}
+              />
+            </a>
           ) : (
             <Link className='navbar-brand' to='/signin'>
               Sign In
