@@ -13,10 +13,10 @@ export const cartItemsSlice = createSlice({
     },
     removeCartItem: (currentSlice, action) => {
       const docIDToRemove = action.payload.docID;
-
+      const sizeToRemove = action.payload.size;
       // Find the index of the item with the given docID in the cartItemsList
       const itemIndex = currentSlice.cartItemsList.findIndex(
-        (item) => item.docID === docIDToRemove
+        (item) => item.docID === docIDToRemove && item.size === sizeToRemove
       );
 
       if (itemIndex !== -1) {

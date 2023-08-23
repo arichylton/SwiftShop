@@ -12,7 +12,11 @@ function Payment(props) {
   const [cartTotalAmount, setCartTotalAmount] = useState(null);
   const [intentID, setIntentID] = useState(null);
 
-  const cartItemsList = useSelector((store) => store.CART.cartItemsList);
+  let cartItemsList = useSelector((store) => store.CART.cartItemsList);
+  const currentUser = useSelector((store) => store.USER.currentUser);
+  if (currentUser) {
+    cartItemsList = currentUser.cart
+  }
 
   useEffect(() => {
     fetch('/config').then(async (result) => {

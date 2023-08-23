@@ -3,25 +3,26 @@ import CartItem from '../CartItem/CartItem';
 import { Link } from 'react-router-dom';
 import { countOccurrences, addToCartSet } from '../../utils';
 import Button from '../button/button';
-import { useEffect } from 'react';
-import { updateUserCart } from '../../utils/firebase.utils';
+import { useEffect, useState } from 'react';
 
-export const Cart = () => {
-  const cartItemsList = useSelector((store) => store.CART.cartItemsList);
+export const CartUser = () => {
   const currentUser = useSelector((store) => store.USER.currentUser);
-  const cartTotal = useSelector((store) => store.CART.cartTotal);
+  const [userCart, setUserCart] = useState(currentUser.cart)
 
+  useEffect(() => {
+    setUserCart(currentUser.cart);
+  }, [currentUser.cart])
   return (
     <div
       className='d-flex flex-column align-items-center justify-content-between'
       style={{ height: '100%' }}
     >
       <div>
-        {(cartItemsList && (
+        {(userCart && (
           <div className='d-flex flex-column'>
-            {addToCartSet(cartItemsList).map((item, i) => {
+            {addToCartSet(userCart).map((item, i) => {
               const itemCount = countOccurrences(
-                cartItemsList,
+                userCart,
                 item.docID,
                 item.size
               );
@@ -34,7 +35,7 @@ export const Cart = () => {
           </div>
         )) || <div>Nothing in your cart yet!</div>}
       </div>
-      {(cartItemsList.length > 0 && (
+      {(userCart.length > 0 && (
         <Link to='/payment' className='mb-4'>
           <Button
             data-bs-toggle='offcanvas'

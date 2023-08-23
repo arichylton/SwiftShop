@@ -14,6 +14,8 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -44,7 +46,10 @@ export const signInWithGoogleRedirect = () => {
 // FIRESTORE
 export const db = getFirestore(firebaseApp);
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -65,6 +70,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         cart,
         reviews,
         photoURL,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log('error creating the user', error.message);
@@ -108,8 +114,45 @@ export const getUserData = async () => {
 
 export const updateUserCart = async (cartData) => {
   const currentUserDocRef = doc(db, 'users', auth.currentUser.uid);
-  console.log(cartData)
-  await updateDoc(currentUserDocRef, {
-    cart: cartData,
-  });
+
+  try {
+    const userDoc = await getDoc(currentUserDocRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      const updatedCart = userData.cart.concat(cartData);
+      await updateDoc(currentUserDocRef, {
+        cart: updatedCart,
+      });
+
+      console.log('Cart update successful');
+    } else {
+      console.log('User document not found');
+    }
+  } catch (error) {
+    console.error('Error updating cart:', error);
+  }
+};
+
+export const removeUserCartItem = async (docIdToRemove, sizeToRemove) => {
+  const currentUserDocRef = doc(db, 'users', auth.currentUser.uid);
+
+  try {
+    const userDoc = await getDoc(currentUserDocRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      const updatedCart = userData.cart.filter((item) => {
+        return item.docId !== docIdToRemove && item.size !== sizeToRemove;
+      });
+
+      await updateDoc(currentUserDocRef, {
+        cart: updatedCart,
+      });
+
+      console.log('Item removed from cart successfully');
+    } else {
+      console.log('User document not found');
+    }
+  } catch (error) {
+    console.error('Error removing item from cart:', error);
+  }
 };

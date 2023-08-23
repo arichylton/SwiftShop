@@ -13,8 +13,7 @@ function App() {
     <main className='bg-light'>
       <Navbar />
       <div
-        className='container d-flex flex-column align-items-center'
-        style={{ minHeight: '100vh' }}
+        className='container d-flex flex-column align-items-center' style={{ minHeight: '100vh'}}
       >
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>

@@ -1,14 +1,34 @@
 // import { s } from './style.module.css';
 import { useSelector } from 'react-redux';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
-import Cart from '../Cart/Cart';
+import { Cart } from '../Cart/Cart.jsx';
+import { CartUser } from '../Cart_User/CartUser.jsx';
 import { Link } from 'react-router-dom';
+import defaultUserImage from '../../assets/images/components/circle-user-regular.svg';
+import './style.module.scss';
 
 const Navbar = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const currentUser = useSelector((store) => store.USER.currentUser);
+
+  const renderNumberOfItemsInCart = () => {
+    if (currentUser && currentUser.cart.length > 0) {
+      return (
+        <span className='position-absolute translate-middle badge rounded-pill bg-danger'>
+          {currentUser.cart.length}
+        </span>
+      );
+    } else if (cartItemsList.length > 0) {
+      return (
+        <span className='position-absolute translate-middle badge rounded-pill bg-danger'>
+          {cartItemsList.length}
+        </span>
+      );
+    }
+  };
+
   return (
-    <nav className='navbar bg-body-tertiary'>
+    <nav className='navbar fixed-top bg-body-tertiary'>
       <div className='container-fluid m-2 ps-4 pe-4'>
         <Link className='navbar-brand' to='/'>
           <img
@@ -32,20 +52,17 @@ const Navbar = () => {
                 style={{ width: 35 }}
                 className='position-relative'
               />
-
-              {cartItemsList.length != 0 && (
-                <span className='position-absolute translate-middle badge rounded-pill bg-danger'>
-                  {cartItemsList.length}
-                </span>
-              )}
+              {renderNumberOfItemsInCart()}
             </a>
           </div>
           {currentUser ? (
             <a style={{ cursor: 'pointer' }}>
               <img
-                src={currentUser.photoURL}
+                src={
+                  currentUser.photoURL ? currentUser.photoURL : defaultUserImage
+                }
                 alt='user_IMG'
-                style={{ width: '40px', borderRadius: '50%' }}
+                style={{ width: '37px', borderRadius: '50%' }}
               />
             </a>
           ) : (
@@ -70,7 +87,7 @@ const Navbar = () => {
               aria-label='Close'
             ></button>
           </div>
-          <Cart />
+          {currentUser ? <CartUser /> : <Cart />}
         </div>
       </div>
     </nav>

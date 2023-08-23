@@ -9,7 +9,6 @@ import {
   getUserData,
 } from '../../utils/firebase.utils';
 import { getRedirectResult } from 'firebase/auth';
-
 import './sign-in-form.styles.scss';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
@@ -20,7 +19,7 @@ const defaultFormFields = {
   password: '',
 };
 
-const SignInForm = () => {
+const SignInForm = ({ loadFromLogin }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -30,6 +29,7 @@ const SignInForm = () => {
     const fetchData = async () => {
       const response = await getRedirectResult(auth);
       if (response) {
+        loadFromLogin(true);
         await createUserDocumentFromAuth(response.user);
         const { displayName, email, reviews, cart, photoURL } =
           await getUserData();
@@ -47,11 +47,12 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(response);
+      await signInAuthUserWithEmailAndPassword(email, password).then((res) => {
+        const { displayName, email, reviews, cart, photoURL } = res.user;
+        dispatch(scu({ displayName, email, reviews, cart, photoURL }));
+        navigate('/');
+      });
+
       resetFormFields();
     } catch (err) {
       switch (err.code) {
@@ -95,7 +96,7 @@ const SignInForm = () => {
         />
         <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
-          <Button buttonType='google' onClick={signInWithGoogleRedirect}>
+          <Button buttonType='google' type='button' onClick={signInWithGoogleRedirect}>
             Google Sign In
           </Button>
         </div>

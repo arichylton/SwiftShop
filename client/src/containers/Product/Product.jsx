@@ -1,12 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from '../../store/cartItems/cartItemsSlice';
+import { addUserCartItem } from '../../store/user/userSlice';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import RatingIcons from '../../components/RatingIcons/RatingIcons';
+import { updateUserCart } from '../../utils/firebase.utils';
 
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
+  const currentUser = useSelector((store) => store.USER.currentUser);
   const { name, productImage, price, sizes, description, productRating } =
     location.state;
 
@@ -30,7 +33,13 @@ const Product = () => {
 
   const addToCart = (e) => {
     e.preventDefault();
-    dispatch(addCartItem({ ...location.state, size: currentSize }));
+    const cartItem = { ...location.state, size: currentSize };
+    if (currentUser) {
+      updateUserCart(cartItem);
+      dispatch(addUserCartItem(cartItem))
+    } else {
+      dispatch(addCartItem(cartItem));
+    }
   };
 
   return (

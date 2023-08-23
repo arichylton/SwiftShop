@@ -1,18 +1,37 @@
-import { useDispatch } from 'react-redux';
-import { removeCartItem, addCartItem } from '../../store/cartItems/cartItemsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  removeCartItem,
+  addCartItem,
+} from '../../store/cartItems/cartItemsSlice';
+import { updateUserCart, removeUserCartItem } from '../../utils/firebase.utils';
+import {
+  addUserCartItem,
+  removeFromUserCart,
+} from '../../store/user/userSlice';
 
 const CartItem = ({ product }) => {
   const { name, productImage, price, count, size, description } = product;
+  const currentUser = useSelector((store) => store.USER.currentUser);
   const dispatch = useDispatch();
 
   const addAnotherItem = (e) => {
     e.preventDefault();
-    dispatch(addCartItem(product));
+    if (currentUser) {
+      updateUserCart(product);
+      dispatch(addUserCartItem(product))
+    } else {
+      dispatch(addCartItem(product));
+    }
   };
 
   const removeItem = (e) => {
     e.preventDefault();
-    dispatch(removeCartItem(product));
+    if (currentUser) {
+      removeUserCartItem(product.docID, size)
+      dispatch(removeFromUserCart(product))
+    } else {
+      dispatch(removeCartItem(product));
+    }
   };
 
   return (
