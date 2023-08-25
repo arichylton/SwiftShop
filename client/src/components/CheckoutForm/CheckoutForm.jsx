@@ -4,9 +4,10 @@ import {
   useElements,
   PaymentElement,
   AddressElement,
-  LinkAuthenticationElement
+  LinkAuthenticationElement,
 } from '@stripe/react-stripe-js';
 import Button from '../button/button';
+import { removeAllFromUserCart } from '../../utils/firebase.utils';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -14,6 +15,7 @@ export default function CheckoutForm() {
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const currentUser = useSelector((store) => store.USER.currentUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +35,9 @@ export default function CheckoutForm() {
       setMessage(error.message);
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
       setMessage('Payment status: ' + paymentIntent.status + '🎉');
+      if (currentUser) {
+        removeAllFromUserCart();
+      }
     } else {
       setMessage('Unexpected state');
     }

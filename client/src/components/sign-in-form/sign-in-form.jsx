@@ -47,11 +47,16 @@ const SignInForm = ({ loadFromLogin }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInAuthUserWithEmailAndPassword(email, password).then((res) => {
-        const { displayName, email, reviews, cart, photoURL } = res.user;
-        dispatch(scu({ displayName, email, reviews, cart, photoURL }));
-        navigate('/');
-      });
+      await signInAuthUserWithEmailAndPassword(email, password).then(
+        async (res) => {
+          console.log(res.user);
+          loadFromLogin(true);
+          const { displayName, email, reviews, cart, photoURL } =
+            await getUserData();
+          dispatch(scu({ displayName, email, reviews, cart, photoURL }));
+          navigate('/');
+        }
+      );
 
       resetFormFields();
     } catch (err) {
@@ -96,7 +101,11 @@ const SignInForm = ({ loadFromLogin }) => {
         />
         <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
-          <Button buttonType='google' type='button' onClick={signInWithGoogleRedirect}>
+          <Button
+            buttonType='google'
+            type='button'
+            onClick={signInWithGoogleRedirect}
+          >
             Google Sign In
           </Button>
         </div>

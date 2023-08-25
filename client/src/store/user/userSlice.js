@@ -26,8 +26,11 @@ export const userSlice = createSlice({
         currentSlice.currentUser.cart.splice(itemIndex, 1)[0];
       }
     },
+    clearUserCart: (currentSlice, action) => {
+      currentSlice.currentUser.cart = [];
+    },
   },
 });
 
-export const { setCurrentUser, addUserCartItem, removeFromUserCart } =
+export const { setCurrentUser, addUserCartItem, removeFromUserCart, clearUserCart } =
   userSlice.actions;

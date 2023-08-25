@@ -25,7 +25,11 @@ export const cartItemsSlice = createSlice({
         currentSlice.cartTotal -= parseFloat(removedItem.price);
       }
     },
+    clearCart: (currentSlice, action) => {
+      currentSlice.cartItemsList = [];
+      currentSlice.cartTotal = 0;
+    },
   },
 });
 
-export const { addCartItem, removeCartItem } = cartItemsSlice.actions;
+export const { addCartItem, removeCartItem, clearCart } = cartItemsSlice.actions;

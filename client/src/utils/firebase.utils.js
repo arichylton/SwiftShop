@@ -156,3 +156,24 @@ export const removeUserCartItem = async (docIdToRemove, sizeToRemove) => {
     console.error('Error removing item from cart:', error);
   }
 };
+
+export const removeAllFromUserCart = async () => {
+  const currentUserDocRef = doc(db, 'users', auth.currentUser.uid);
+
+  try {
+    const userDoc = await getDoc(currentUserDocRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      const updatedCart = [];
+      await updateDoc(currentUserDocRef, {
+        cart: updatedCart,
+      });
+
+      console.log('Cart update successful');
+    } else {
+      console.log('User document not found');
+    }
+  } catch (error) {
+    console.error('Error updating cart:', error);
+  }
+};
