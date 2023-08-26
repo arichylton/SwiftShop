@@ -8,13 +8,16 @@ import {
 } from '@stripe/react-stripe-js';
 import Button from '../button/button';
 import { removeAllFromUserCart } from '../../utils/firebase.utils';
+import { clearCart } from '../../store/cartItems/cartItemsSlice';
+import { clearUserCart } from '../../store/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.USER.currentUser);
 
   const handleSubmit = async (e) => {
@@ -37,6 +40,9 @@ export default function CheckoutForm() {
       setMessage('Payment status: ' + paymentIntent.status + '🎉');
       if (currentUser) {
         removeAllFromUserCart();
+        dispatch(clearUserCart());
+      } else {
+        dispatch(clearCart());
       }
     } else {
       setMessage('Unexpected state');

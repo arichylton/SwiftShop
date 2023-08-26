@@ -12,6 +12,7 @@ function Payment(props) {
   const [cartTotalAmount, setCartTotalAmount] = useState(null);
   const [intentID, setIntentID] = useState(null);
 
+
   let cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const currentUser = useSelector((store) => store.USER.currentUser);
   if (currentUser) {
@@ -61,6 +62,10 @@ function Payment(props) {
     }
   }, [cartItemsList, clientSecret, intentID]);
 
+  useEffect(() => {
+
+  }, [cartItemsList])
+
   const renderCartItems = () => {
     return addToCartSet(cartItemsList).map((item, i) => {
       const itemCount = countOccurrences(cartItemsList, item.docID, item.size);
@@ -75,7 +80,7 @@ function Payment(props) {
   const loader = 'auto';
 
   return (
-    <section className='container d-flex justify-content-center  mt-4'>
+    <section className='container d-flex justify-content-center  mt-5'>
       <div className='p-5'>
         {stripePromise && clientSecret && (
           <Elements stripe={stripePromise} options={{ clientSecret, loader }}>

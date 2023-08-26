@@ -3,13 +3,9 @@ import CartItem from '../CartItem/CartItem';
 import { Link } from 'react-router-dom';
 import { countOccurrences, addToCartSet } from '../../utils';
 import Button from '../button/button';
-import { useEffect } from 'react';
-import { updateUserCart } from '../../utils/firebase.utils';
 
 export const Cart = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
-  const currentUser = useSelector((store) => store.USER.currentUser);
-  const cartTotal = useSelector((store) => store.CART.cartTotal);
 
   return (
     <div
