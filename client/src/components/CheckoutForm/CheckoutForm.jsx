@@ -11,10 +11,12 @@ import { removeAllFromUserCart } from '../../utils/firebase.utils';
 import { clearCart } from '../../store/cartItems/cartItemsSlice';
 import { clearUserCart } from '../../store/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, redirect, useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const dispatch = useDispatch();
@@ -44,6 +46,7 @@ export default function CheckoutForm() {
       } else {
         dispatch(clearCart());
       }
+      navigate('completion');
     } else {
       setMessage('Unexpected state');
     }

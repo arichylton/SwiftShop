@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import Payment from './components/Payment/Payment';
 import ProductsPage from './components/ProductsPage/ProductsPage';
 import Product from './containers/Product/Product';
+import PaymentSuccessPage from './containers/PaymentSuccessPage/PaymentSuccessPage';
 
 import { Routes, Route } from 'react-router-dom';
 import SignInPage from './containers/SignInPage/SignInPage';
@@ -20,6 +21,7 @@ function App() {
           <Route path='payment' element={<Payment />}></Route>
           <Route path={`product/:id`} element={<Product />} />
           <Route path='signin' element={<SignInPage />}/>
+          <Route path={`payment/completion`} element={<PaymentSuccessPage />} />
         </Routes>
       </div>
     </main>
