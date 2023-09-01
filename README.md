@@ -21,10 +21,8 @@ npm run dev
 
 replace api keys with ypur own in .env
 
-
 # contributors
 Aric Hylton
 
 # app status
 alpha
-
