@@ -1,15 +1,23 @@
 // import { s } from './style.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
 import { Cart } from '../Cart/Cart.jsx';
 import { CartUser } from '../Cart_User/CartUser.jsx';
 import { Link } from 'react-router-dom';
 import defaultUserImage from '../../assets/images/components/circle-user-regular.svg';
 import './style.module.scss';
+import { signOutUser } from '../../utils/firebase.utils';
+import { setCurrentUser } from '../../store/user/userSlice';
 
 const Navbar = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const currentUser = useSelector((store) => store.USER.currentUser);
+  const dispatch = useDispatch();
+
+   const signOutHandler = async () => {
+     await signOutUser();
+     dispatch(setCurrentUser(null));
+   };
 
   const renderNumberOfItemsInCart = () => {
     if (currentUser && currentUser.cart.length > 0) {
@@ -30,13 +38,22 @@ const Navbar = () => {
   return (
     <nav className='navbar fixed-top bg-body-tertiary'>
       <div className='container-fluid m-2 ps-4 pe-4'>
-        <Link className='navbar-brand' to='/'>
-          <img
-            src='../../../src/assets/images/logos/logo.png'
-            alt='Logo'
-            height='50'
-          />
-        </Link>
+        <div className='d-flex justify-content-center align-items-center'>
+          <Link className='navbar-brand' to='/'>
+            <img
+              src='../../../src/assets/images/logos/logo.png'
+              alt='Logo'
+              height='50'
+            />
+          </Link>
+          <Link className='fs-4 ms-4 me-4' to='/mens'>
+            <p>Mens</p>
+          </Link>
+          <Link className='fs-4' to='/womens'>
+            <p>Womens</p>
+          </Link>
+        </div>
+
         <div className='d-flex p-2'>
           <div className='d-flex pe-5 align-items-center'>
             <a
@@ -56,15 +73,22 @@ const Navbar = () => {
             </a>
           </div>
           {currentUser ? (
-            <a style={{ cursor: 'pointer' }}>
-              <img
-                src={
-                  currentUser.photoURL ? currentUser.photoURL : defaultUserImage
-                }
-                alt='user_IMG'
-                style={{ width: '37px', borderRadius: '50%' }}
-              />
-            </a>
+            <div className='d-flex'>
+              <a style={{ cursor: 'pointer' }}>
+                <img
+                  src={
+                    currentUser.photoURL
+                      ? currentUser.photoURL
+                      : defaultUserImage
+                  }
+                  alt='user_IMG'
+                  style={{ width: '37px', borderRadius: '50%' }}
+                />
+              </a>
+              <button className='btn btn-primary ms-5' onClick={signOutHandler}>
+                Sign Out
+              </button>
+            </div>
           ) : (
             <Link className='navbar-brand' to='/signin'>
               Sign In

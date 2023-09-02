@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from 'firebase/auth';
 
 import {
@@ -177,3 +178,6 @@ export const removeAllFromUserCart = async () => {
     console.error('Error updating cart:', error);
   }
 };
+
+
+export const signOutUser = async () => await signOut(auth);
