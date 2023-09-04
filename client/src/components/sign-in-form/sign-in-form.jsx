@@ -31,9 +31,9 @@ const SignInForm = ({ loadFromLogin }) => {
       if (response) {
         loadFromLogin(true);
         await createUserDocumentFromAuth(response.user);
-        const { displayName, email, reviews, cart, photoURL } =
+        const { displayName, email, reviews, cart, photoURL, isAdmin } =
           await getUserData();
-        dispatch(scu({ displayName, email, reviews, cart, photoURL }));
+        dispatch(scu({ displayName, email, reviews, cart, photoURL, isAdmin }));
         navigate('/');
       }
     };
@@ -51,9 +51,9 @@ const SignInForm = ({ loadFromLogin }) => {
         async (res) => {
           console.log(res.user);
           loadFromLogin(true);
-          const { displayName, email, reviews, cart, photoURL } =
+          const { displayName, email, reviews, cart, photoURL, isAdmin } =
             await getUserData();
-          dispatch(scu({ displayName, email, reviews, cart, photoURL }));
+          dispatch(scu({ displayName, email, reviews, cart, photoURL, isAdmin }));
           navigate('/');
         }
       );

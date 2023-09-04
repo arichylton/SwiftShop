@@ -60,6 +60,7 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     const { displayName, email, photoURL } = userAuth;
     const createdAt = new Date();
+    const isAdmin = false;
     const cart = [];
     const reviews = {};
 
@@ -68,6 +69,7 @@ export const createUserDocumentFromAuth = async (
         displayName,
         email,
         createdAt,
+        isAdmin,
         cart,
         reviews,
         photoURL,
@@ -164,7 +166,6 @@ export const removeAllFromUserCart = async () => {
   try {
     const userDoc = await getDoc(currentUserDocRef);
     if (userDoc.exists()) {
-      const userData = userDoc.data();
       const updatedCart = [];
       await updateDoc(currentUserDocRef, {
         cart: updatedCart,

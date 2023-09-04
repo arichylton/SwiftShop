@@ -14,10 +14,11 @@ const Navbar = () => {
   const currentUser = useSelector((store) => store.USER.currentUser);
   const dispatch = useDispatch();
 
-   const signOutHandler = async () => {
-     await signOutUser();
-     dispatch(setCurrentUser(null));
-   };
+  const signOutHandler = async () => {
+    await signOutUser();
+    dispatch(setCurrentUser(null));
+  };
+  console.log(currentUser);
 
   const renderNumberOfItemsInCart = () => {
     if (currentUser && currentUser.cart.length > 0) {
@@ -73,8 +74,9 @@ const Navbar = () => {
             </a>
           </div>
           {currentUser ? (
-            <div className='d-flex'>
-              <a style={{ cursor: 'pointer' }}>
+
+            <div className="dropdown">
+              <a className="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img
                   src={
                     currentUser.photoURL
@@ -85,9 +87,14 @@ const Navbar = () => {
                   style={{ width: '37px', borderRadius: '50%' }}
                 />
               </a>
-              <button className='btn btn-primary ms-5' onClick={signOutHandler}>
-                Sign Out
-              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a className='dropdown-item' onClick={signOutHandler}>
+                    Sign Out
+                  </a>
+                </li>
+                <li>{currentUser.isAdmin ? <p>Hey</p> : null}</li>
+              </ul>
             </div>
           ) : (
             <Link className='navbar-brand' to='/signin'>
