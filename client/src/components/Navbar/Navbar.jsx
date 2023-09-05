@@ -74,9 +74,14 @@ const Navbar = () => {
             </a>
           </div>
           {currentUser ? (
-
-            <div className="dropdown">
-              <a className="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className='dropstart'>
+              <a
+                className='dropdown-toggle'
+                type='button'
+                id='dropdownMenuButton1'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'
+              >
                 <img
                   src={
                     currentUser.photoURL
@@ -87,13 +92,30 @@ const Navbar = () => {
                   style={{ width: '37px', borderRadius: '50%' }}
                 />
               </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <a className='dropdown-item' onClick={signOutHandler}>
+              <ul
+                className='dropdown-menu dropdown-menu-dark'
+                aria-labelledby='dropdownMenuButton1'
+              >
+                <li className='text-center fs-5 p-2'>
+                  {currentUser.isAdmin ? (
+                    <Link
+                      className='dropdown-item text-primary fw-bold'
+                      style={{ cursor: 'pointer' }}
+                      to='/admin/products'
+                    >
+                      Admin
+                    </Link>
+                  ) : null}
+                </li>
+                <li className='p-2 text-center fs-5 '>
+                  <a
+                    className='dropdown-item text-danger fw-bold'
+                    onClick={signOutHandler}
+                    style={{ cursor: 'pointer' }}
+                  >
                     Sign Out
                   </a>
                 </li>
-                <li>{currentUser.isAdmin ? <p>Hey</p> : null}</li>
               </ul>
             </div>
           ) : (

@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import SignInPage from './containers/SignInPage/SignInPage';
 import MensStorePage from './containers/MensStorePage/MensStorePage';
 import WomensStorePage from './containers/WomensStorePage/WomensStorePage';
+import AdminProductsPage from './containers/AdminProductsPage/AdminProductsPage';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path='mens' element={<MensStorePage />} />
           <Route path='womens' element={<WomensStorePage />} />
           <Route path={`payment/completion`} element={<PaymentSuccessPage />} />
+          <Route path={`admin/products`} element={<AdminProductsPage />} />
         </Routes>
       </div>
     </main>
