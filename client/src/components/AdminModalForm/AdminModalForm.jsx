@@ -1,6 +1,43 @@
-const AdminModalForm = ({ product }) => {
-  const { id, name, productImage, price, sizes, description,docID } = product;
-  const modalId = `exampleModal-${docID}`; // Generate a unique modal ID based on the product ID
+import { useEffect, useState } from 'react';
+import FormInput from '../form-input/form-input';
+import '../form-input/form-input.styles.scss';
+import { updateProduct } from '../../utils/firebase.utils';
+
+const AdminModalForm = ({ product, toggleChangeMade }) => {
+  const [formFields, setFormFields] = useState(product);
+  const { name, price, description } = formFields;
+  const { docID, sizes } = product;
+  const [productSizes, setProductSizes] = useState(sizes);
+  const modalId = `exampleModal-${docID}`;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormFields({ ...formFields, [name]: value });
+  };
+
+  const handleSizeChange = (sizeKey, event) => {
+    const { value } = event.target;
+    setProductSizes({ ...productSizes, [sizeKey]: parseInt(value) });
+  };
+  useEffect(() => {
+    // Update the formFields state whenever productSizes change
+    setFormFields({ ...formFields, sizes: { ...productSizes } });
+  }, [productSizes]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await updateProduct(formFields, docID);
+      toggleChangeMade();
+    } catch (err) {
+      if (err.code === 'auth/email-already-in-use') {
+        alert('Cannot create user, email already in use');
+      }
+      console.log('user creation encoutered an error', err);
+    }
+  };
 
   return (
     <div>
@@ -37,50 +74,53 @@ const AdminModalForm = ({ product }) => {
             </div>
             <div className='modal-body'>
               {/* MODAL CONTENT ______________________________________________________________ */}
-              <form>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputEmail1' className='form-label'>
-                    Name
-                  </label>
-                  <input
-                    type='email'
-                    className='form-control'
-                    id='exampleInputEmail1'
-                    aria-describedby='emailHelp'
-                  />
-                  <div id='emailHelp' className='form-text'>
-                    We'll never share your email with anyone else.
-                  </div>
-                </div>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputPassword1' className='form-label'>
-                    Price
-                  </label>
-                  <input
-                    type='password'
-                    className='form-control'
-                    id='exampleInputPassword1'
-                  />
-                </div>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputPassword1' className='form-label'>
-                    Description
-                  </label>
-                  <input
-                    type='password'
-                    className='form-control'
-                    id='exampleInputPassword1'
+              <form id={`updateProductForm${modalId}`} onSubmit={handleSubmit}>
+                <FormInput
+                  label='Name'
+                  type='text'
+                  required
+                  onChange={handleChange}
+                  name='name'
+                  value={name}
+                />
+                <FormInput
+                  label='Price'
+                  type='number'
+                  autoComplete='off'
+                  required
+                  onChange={handleChange}
+                  name='price'
+                  value={price}
+                />
+                <div className=''>
+                  <FormInput
+                    label='Description'
+                    type='text'
+                    required
+                    onChange={handleChange}
+                    name='description'
+                    value={description}
                   />
                 </div>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputPassword1' className='form-label'>
-                    Sizes
-                  </label>
-                  <input
-                    type='password'
-                    className='form-control'
-                    id='exampleInputPassword1'
-                  />
+
+                <div className='group'>
+                  {Object.keys(productSizes).map((sizeKey) => (
+                    <div key={sizeKey} className='mb-3'>
+                      <label
+                        htmlFor={`sizeInput_${sizeKey}`}
+                        className='form-label'
+                      >
+                        Size {sizeKey.toUpperCase()}
+                      </label>
+                      <input
+                        type='number'
+                        className='form-control form-input-control'
+                        id={`sizeInput_${sizeKey}`}
+                        value={parseInt(productSizes[sizeKey])}
+                        onChange={(event) => handleSizeChange(sizeKey, event)}
+                      />
+                    </div>
+                  ))}
                 </div>
               </form>
               {/* MODAL CONTENT ______________________________________________________________ */}
@@ -93,7 +133,13 @@ const AdminModalForm = ({ product }) => {
               >
                 Close
               </button>
-              <button type='button' className='btn btn-primary'>
+              <button
+                type='submit'
+                form={`updateProductForm${modalId}`}
+                data-bs-toggle='modal'
+                data-bs-target={`#${modalId}`}
+                className='btn btn-primary'
+              >
                 Save changes
               </button>
             </div>

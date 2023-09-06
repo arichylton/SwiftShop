@@ -6,12 +6,12 @@ const FormInput = ({ label, ...otherProps }) => {
       <input
         className='form-input'
         {...otherProps}
-        autoComplete='off'
+        
       />
       {label && (
         <label
           className={`${
-            otherProps.value.length ? 'shrink' : ''
+            otherProps.value ? 'shrink' : ''
           } form-input-label`}
         >
           {label}

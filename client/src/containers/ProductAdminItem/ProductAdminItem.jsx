@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import AdminModalForm from '../../components/AdminModalForm/AdminModalForm';
 import './ProductAdminItem.styles.scss';
-const ProductAdminItem = ({ product }) => {
+const ProductAdminItem = ({ product, toggleChangeMade }) => {
   const { name, productImage, price, sizes, description } = product;
+
+  useEffect(() => {}, [product]);
 
   return (
     <div
@@ -17,7 +20,7 @@ const ProductAdminItem = ({ product }) => {
         <h4 className='text-capitalize mb-1'>{name}</h4>
         <p className='fs-4'>${price}</p>
         <p>{description}</p>
-        <AdminModalForm product={product} />
+        <AdminModalForm product={product} toggleChangeMade={toggleChangeMade} />
       </div>
       <ul
         className='list-group list-group-flush fs-5 flex-fill ps-5 ms-5'

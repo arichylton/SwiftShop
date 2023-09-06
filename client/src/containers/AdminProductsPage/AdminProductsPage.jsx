@@ -1,23 +1,30 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import ProductAdminItem from '../ProductAdminItem/ProductAdminItem';
 
 const AdminProductsPage = () => {
-  const [productsData, setProductsData] = useState();
+  const [productsData, setProductsData] = useState(null);
+  const [productChangeMade, setProductChangeMade] = useState(false);
 
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
       const { productsDataInfo } = await result.json();
       setProductsData(productsDataInfo);
     });
-  }, []);
+  }, [productChangeMade]);
+
+  const toggleChangeMade = () => {
+    setProductChangeMade(!productChangeMade)
+  }
 
   const renderProducts = () => {
     if (productsData) {
       return productsData.map((product, index) => {
         return (
-          <div key={index} to={`/product/${product.docID}`} state={product}>
-            <ProductAdminItem product={product} />
+          <div key={index}>
+            <ProductAdminItem
+              product={product}
+              toggleChangeMade={toggleChangeMade}
+            />
           </div>
         );
       });
