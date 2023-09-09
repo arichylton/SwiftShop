@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import FormInput from '../form-input/form-input';
 import '../form-input/form-input.styles.scss';
 import { updateProduct } from '../../utils/firebase.utils';
+import AdminDeleteModal from '../AdminDeleteModal/AdminDeleteModal';
 
 const AdminModalForm = ({ product, toggleChangeMade }) => {
   const [formFields, setFormFields] = useState(product);
@@ -41,14 +42,14 @@ const AdminModalForm = ({ product, toggleChangeMade }) => {
 
   return (
     <div>
-      <button
-        type='button'
-        className='btn btn-outline-secondary edit-button'
-        data-bs-toggle='modal'
-        data-bs-target={`#${modalId}`} // Use the unique modal ID
-      >
-        Edit
-      </button>
+        <button
+          type='button'
+          className='btn btn-outline-secondary edit-button me-3'
+          data-bs-toggle='modal'
+          data-bs-target={`#${modalId}`} // Use the unique modal ID
+        >
+          Edit
+        </button>
       <div
         className='modal fade'
         id={modalId} // Use the unique modal ID
@@ -136,7 +137,7 @@ const AdminModalForm = ({ product, toggleChangeMade }) => {
               <button
                 type='submit'
                 form={`updateProductForm${modalId}`}
-                data-bs-toggle='modal'
+                data-bs-dismiss='modal'
                 data-bs-target={`#${modalId}`}
                 className='btn btn-primary'
               >

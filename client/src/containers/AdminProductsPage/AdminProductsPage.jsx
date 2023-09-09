@@ -34,8 +34,9 @@ const AdminProductsPage = () => {
   };
 
   return (
-    <div className='mt-5 pt-5'>
-      <ul>{renderProducts()}</ul>
+    <div className='mt-5 pt-5' style={{paddingTop: '300px'}}>
+      <button className='btn btn-primary'>Create New Product</button>
+      <div>{renderProducts()}</div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ function App() {
       <Navbar />
       <div
         className='container d-flex flex-column align-items-center'
-        style={{ minHeight: '100vh' }}
+        style={{ minHeight: '100vh', paddingTop: 100 }}
       >
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>

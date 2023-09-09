@@ -153,6 +153,23 @@ export const updateProduct = async (newProductData, productUID) => {
   }
 };
 
+export const removeProduct = async (productUID) => {
+  const productRef = doc(db, 'products', productUID);
+
+  try {
+    const productDoc = await getDoc(productRef);
+
+    if (productDoc.exists()) {
+      await deleteDoc(productRef);
+      console.log('Product removed successfully');
+    } else {
+      console.log('Product not found');
+    }
+  } catch (error) {
+    console.error('Error removing product:', error);
+  }
+};
+
 export const removeUserCartItem = async (docIdToRemove, sizeToRemove) => {
   const currentUserDocRef = doc(db, 'users', auth.currentUser.uid);
 
@@ -196,6 +213,5 @@ export const removeAllFromUserCart = async () => {
     console.error('Error updating cart:', error);
   }
 };
-
 
 export const signOutUser = async () => await signOut(auth);

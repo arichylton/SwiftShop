@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import AdminModalForm from '../../components/AdminModalForm/AdminModalForm';
+import AdminDeleteModal from '../../components/AdminDeleteModal/AdminDeleteModal';
 import './ProductAdminItem.styles.scss';
 const ProductAdminItem = ({ product, toggleChangeMade }) => {
   const { name, productImage, price, sizes, description } = product;
@@ -12,7 +13,6 @@ const ProductAdminItem = ({ product, toggleChangeMade }) => {
       style={{ minWidth: '700px', height: 200 }}
     >
       <img
-        style={{}}
         src={`/src/assets/images/products/${productImage}`}
         alt='productImage'
       />
@@ -20,7 +20,13 @@ const ProductAdminItem = ({ product, toggleChangeMade }) => {
         <h4 className='text-capitalize mb-1'>{name}</h4>
         <p className='fs-4'>${price}</p>
         <p>{description}</p>
-        <AdminModalForm product={product} toggleChangeMade={toggleChangeMade} />
+        <div className='d-flex'>
+          <AdminModalForm
+            product={product}
+            toggleChangeMade={toggleChangeMade}
+          />
+          <AdminDeleteModal product={product} />
+        </div>
       </div>
       <ul
         className='list-group list-group-flush fs-5 flex-fill ps-5 ms-5'
