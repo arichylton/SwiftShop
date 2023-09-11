@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ProductAdminItem from '../ProductAdminItem/ProductAdminItem';
+
 
 const AdminProductsPage = () => {
   const [productsData, setProductsData] = useState(null);
@@ -35,7 +37,7 @@ const AdminProductsPage = () => {
 
   return (
     <div className='mt-5 pt-5' style={{paddingTop: '300px'}}>
-      <button className='btn btn-primary'>Create New Product</button>
+      <Link className='btn btn-primary' to='new'>Create New Product</Link>
       <div>{renderProducts()}</div>
     </div>
   );

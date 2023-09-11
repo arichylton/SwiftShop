@@ -10,6 +10,7 @@ import SignInPage from './containers/SignInPage/SignInPage';
 import MensStorePage from './containers/MensStorePage/MensStorePage';
 import WomensStorePage from './containers/WomensStorePage/WomensStorePage';
 import AdminProductsPage from './containers/AdminProductsPage/AdminProductsPage';
+import NewProductPage from './containers/NewProductPage/NewProductPage';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path='womens' element={<WomensStorePage />} />
           <Route path={`payment/completion`} element={<PaymentSuccessPage />} />
           <Route path={`admin/products`} element={<AdminProductsPage />} />
+          <Route path='admin/products/new' element={<NewProductPage />} />
         </Routes>
       </div>
     </main>

@@ -15,8 +15,8 @@ const AdminDeleteModal = ({ modalId }) => {
           Link with href
         </a>
       </p>
-      <div class='collapse' id='collapseExample'>
-        <div class='card card-body'>
+      <div className='collapse' id='collapseExample'>
+        <div className='card card-body'>
           Some placeholder content for the collapse component. This panel is
           hidden by default but revealed when the user activates the relevant
           trigger.
