@@ -47,7 +47,7 @@ const Product = () => {
       <div className='p-5 text-center'>
         <img
           style={{ width: '30vw' }}
-          src={`/src/assets/images/products/${productImage}`}
+          src={productImage}
           alt='productImage'
         />
       </div>

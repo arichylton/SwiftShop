@@ -39,7 +39,7 @@ const CartItem = ({ product }) => {
       <img
         className='me-3'
         style={{ width: '140px' }}
-        src={`/src/assets/images/products/${productImage}`}
+        src={productImage}
         alt='productImage'
       />
       <div className='d-flex justify-content-between'>

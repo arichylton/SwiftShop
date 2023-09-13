@@ -9,14 +9,19 @@ import {
   signOut,
 } from 'firebase/auth';
 
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 import {
   getFirestore,
   doc,
+  getDocs,
+  query,
+  where,
   getDoc,
   setDoc,
   updateDoc,
-  arrayUnion,
-  arrayRemove,
+  collection,
+  addDoc,
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -38,6 +43,9 @@ const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
+
+// Initialize Firebase Storage
+const storage = getStorage(firebaseApp); 
 
 export const auth = getAuth();
 export const signInWithGoogleRedirect = () => {
@@ -133,6 +141,84 @@ export const updateUserCart = async (cartData) => {
     }
   } catch (error) {
     console.error('Error updating cart:', error);
+  }
+};
+
+export const handleImageUpload = async (newProductId) => {
+  const imageInput = document.getElementById('imageInput');
+  const file = imageInput.files[0];
+
+  if (file) {
+    try {
+      // Upload the file to Firebase Storage
+      const storageRef = ref(
+        storage,
+        `productImages/${newProductId}/${file.name}`
+      );
+      await uploadBytes(storageRef, file);
+
+      // Get the download URL of the uploaded image
+      const imageURL = await getDownloadURL(storageRef);
+
+      // Save the image URL to Firestore (replace 'products' and 'productId' with your collection and document names)
+      const productDocRef = doc(db, 'products', newProductId);
+      const productDoc = await getDoc(productDocRef);
+
+      if (productDoc.exists()) {
+        await setDoc(
+          productDocRef,
+          { productImage: imageURL },
+          { merge: true }
+        );
+      }
+
+      console.log('Image uploaded successfully.');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+};
+
+export const createNewProduct = async (newProductData) => {
+  try {
+    // Reference to the 'products' collection in Firestore
+    const productsCollection = collection(db, 'products');
+
+    // Check if a product with the same name exists
+    const nameQuery = query(
+      productsCollection,
+      where('name', '==', newProductData.name)
+    );
+
+    // Check if a product with the same productImage exists
+    const productImageQuery = query(
+      productsCollection,
+      where('productImage', '==', newProductData.productImage)
+    );
+
+    const nameQuerySnapshot = await getDocs(nameQuery);
+    const productImageQuerySnapshot = await getDocs(productImageQuery);
+
+    // If a matching product exists based on either condition, return
+    if (!nameQuerySnapshot.empty || !productImageQuerySnapshot.empty) {
+      console.warn(
+        'Product with the same name or productImage already exists.'
+      );
+      return;
+    }
+
+    // If no matching product exists based on either condition, proceed to add the new product
+    const docRef = await addDoc(productsCollection, newProductData);
+
+    // The ID of the newly created document
+    const newProductId = docRef.id;
+
+    handleImageUpload(newProductId);
+    return newProductId;
+  } catch (error) {
+    // Handle any errors that occurred during the creation
+    console.error('Error creating product:', error);
+    throw error;
   }
 };
 

@@ -13,7 +13,7 @@ const ProductAdminItem = ({ product, toggleChangeMade }) => {
       style={{ minWidth: '700px', height: 200 }}
     >
       <img
-        src={`/src/assets/images/products/${productImage}`}
+        src={productImage}
         alt='productImage'
       />
       <div className='d-flex flex-column align-items-start ps-4'>

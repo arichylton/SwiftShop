@@ -21,9 +21,11 @@ const AdminModalForm = ({ product, toggleChangeMade }) => {
     const { value } = event.target;
     setProductSizes({ ...productSizes, [sizeKey]: parseInt(value) });
   };
+
   useEffect(() => {
     // Update the formFields state whenever productSizes change
     setFormFields({ ...formFields, sizes: { ...productSizes } });
+
   }, [productSizes]);
 
   const handleSubmit = async (event) => {

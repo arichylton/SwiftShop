@@ -1,33 +1,53 @@
 import FormInput from '../../components/form-input/form-input';
+import { createNewProduct, handleImageUpload  } from '../../utils/firebase.utils';
 import { useState, useEffect } from 'react';
 
 const defaultFormFields = {
   name: '',
-  price: '',
+  price: 0,
   description: '',
-  productSizes: {
+  sizes: {
     s: 0,
     m: 0,
     l: 0,
     xl: 0,
   },
+  theme: 'light',
+  season: 'summer',
+  gender: 'M',
+  productImage: '', // To store the URL of the uploaded image
+  userRatings: [],
 };
 
 const NewProductPage = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { name, price, description } = formFields;
-  const [productSizes, setProductSizes] = useState(sizes);
+  const { name, price, description, season, theme, gender, productImage } =
+    formFields;
+  const [productSizes, setProductSizes] = useState(defaultFormFields.sizes);
+
+  console.log(formFields);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    // Convert the price value to a number using parseFloat
+    const parsedValue = name === 'price' ? parseFloat(value) : value;
 
-    setFormFields({ ...formFields, [name]: value });
+    setFormFields({ ...formFields, [name]: parsedValue });
   };
 
   const handleSizeChange = (sizeKey, event) => {
     const { value } = event.target;
     setProductSizes({ ...productSizes, [sizeKey]: parseInt(value) });
+  }; 
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0]; // Get the uploaded file
+    if (file) {
+      const imageURL = URL.createObjectURL(file); // Create a URL for the uploaded image
+      setFormFields({ ...formFields, productImage: imageURL });
+    }
   };
+
   useEffect(() => {
     // Update the formFields state whenever productSizes change
     setFormFields({ ...formFields, sizes: { ...productSizes } });
@@ -37,8 +57,7 @@ const NewProductPage = () => {
     event.preventDefault();
 
     try {
-      await updateProduct(formFields, docID);
-      toggleChangeMade();
+      await createNewProduct(formFields);
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
@@ -49,6 +68,7 @@ const NewProductPage = () => {
 
   return (
     <div className='mt-5 pt-5' style={{ paddingTop: '300px' }}>
+      <h1>New Product</h1>
       <div className='modal-body'>
         {/* MODAL CONTENT ______________________________________________________________ */}
         <form id='AdminProductNewForm' onSubmit={handleSubmit}>
@@ -69,17 +89,41 @@ const NewProductPage = () => {
             name='price'
             value={price}
           />
-          <div className=''>
-            <FormInput
-              label='Description'
-              type='text'
-              required
-              onChange={handleChange}
-              name='description'
-              value={description}
-            />
+          <FormInput
+            label='Description'
+            type='text'
+            required
+            onChange={handleChange}
+            name='description'
+            value={description}
+          />
+          <div>
+            <label>
+              Select Season:
+              <select value={season} onChange={handleChange} name='season'>
+                <option value='summer'>Summer</option>
+                <option value='winter'>Winter</option>
+              </select>
+            </label>
           </div>
-
+          <div>
+            <label>
+              Select Theme:
+              <select value={theme} onChange={handleChange} name='theme'>
+                <option value='light'>Light</option>
+                <option value='dark'>Dark</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Select Gender:
+              <select value={gender} onChange={handleChange} name='gender'>
+                <option value='M'>Male</option>
+                <option value='F'>Female</option>
+              </select>
+            </label>
+          </div>
           <div className='group'>
             {Object.keys(productSizes).map((sizeKey) => (
               <div key={sizeKey} className='mb-3'>
@@ -96,10 +140,30 @@ const NewProductPage = () => {
               </div>
             ))}
           </div>
+          <div>
+            {/* File input for image upload */}
+            <input type='file' accept='.png' id='imageInput' onChange={handleImageUpload}/>
+          </div>
+          <div>
+            {/* Display the uploaded image */}
+            {productImage && (
+              <div>
+                <img
+                  src={productImage}
+                  alt='Uploaded'
+                  style={{ maxWidth: '200px' }}
+                />
+              </div>
+            )}
+          </div>
+          <button className='btn btn-primary' type='submit'>
+            Submit
+          </button>
         </form>
         {/* MODAL CONTENT ______________________________________________________________ */}
       </div>
     </div>
   );
 };
+
 export default NewProductPage;
