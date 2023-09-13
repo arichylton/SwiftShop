@@ -22,6 +22,7 @@ import {
   updateDoc,
   collection,
   addDoc,
+  deleteDoc
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -238,6 +239,8 @@ export const updateProduct = async (newProductData, productUID) => {
     console.error('Error updating cart:', error);
   }
 };
+
+
 
 export const removeProduct = async (productUID) => {
   const productRef = doc(db, 'products', productUID);

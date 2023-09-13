@@ -3,7 +3,7 @@ import AdminModalForm from '../../components/AdminModalForm/AdminModalForm';
 import AdminDeleteModal from '../../components/AdminDeleteModal/AdminDeleteModal';
 import './ProductAdminItem.styles.scss';
 const ProductAdminItem = ({ product, toggleChangeMade }) => {
-  const { name, productImage, price, sizes, description } = product;
+  const { name, productImage, price, sizes, description, docID  } = product;
 
   useEffect(() => {}, [product]);
 
@@ -12,10 +12,7 @@ const ProductAdminItem = ({ product, toggleChangeMade }) => {
       className='m-4 text-center d-flex edit-button-container'
       style={{ minWidth: '700px', height: 200 }}
     >
-      <img
-        src={productImage}
-        alt='productImage'
-      />
+      <img src={productImage} alt='productImage' />
       <div className='d-flex flex-column align-items-start ps-4'>
         <h4 className='text-capitalize mb-1'>{name}</h4>
         <p className='fs-4'>${price}</p>
@@ -25,7 +22,7 @@ const ProductAdminItem = ({ product, toggleChangeMade }) => {
             product={product}
             toggleChangeMade={toggleChangeMade}
           />
-          <AdminDeleteModal product={product} />
+          <AdminDeleteModal modalId={docID} />
         </div>
       </div>
       <ul
