@@ -13,6 +13,7 @@ const Product = () => {
   const { name, productImage, price, sizes, description, productRating } =
     location.state;
 
+  console.log(sizes)
   useEffect(() => {
     if (sizes['s'] != 0) {
       setCurrentSize('s');
@@ -73,7 +74,7 @@ const Product = () => {
             onClick={() => changeSize('m')}
             type='button'
             className={`list-group-item list-group-item-action text-center ${
-              sizes.m != 0 ? '' : `disabled text-danger  `
+              sizes.m != 0 ? '' : `disabled text-danger `
             } ${currentSize === 'm' ? 'active' : ''}`}
           >
             M
