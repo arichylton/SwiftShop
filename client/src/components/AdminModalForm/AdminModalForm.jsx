@@ -6,10 +6,10 @@ import AdminDeleteModal from '../AdminDeleteModal/AdminDeleteModal';
 
 const AdminModalForm = ({ product, toggleChangeMade }) => {
   const [formFields, setFormFields] = useState(product);
-  const { name, price, description } = formFields;
-  const { docID, sizes } = product;
+  const { name, price, description, featured, docID, sizes } = formFields;
   const [productSizes, setProductSizes] = useState(sizes);
   const modalId = `exampleModal-${docID}`;
+  console.log(product)
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -44,14 +44,14 @@ const AdminModalForm = ({ product, toggleChangeMade }) => {
 
   return (
     <div>
-        <button
-          type='button'
-          className='btn btn-outline-secondary edit-button me-3'
-          data-bs-toggle='modal'
-          data-bs-target={`#${modalId}`} // Use the unique modal ID
-        >
-          Edit
-        </button>
+      <button
+        type='button'
+        className='btn btn-outline-secondary edit-button me-3'
+        data-bs-toggle='modal'
+        data-bs-target={`#${modalId}`} // Use the unique modal ID
+      >
+        Edit
+      </button>
       <div
         className='modal fade'
         id={modalId} // Use the unique modal ID
@@ -105,7 +105,16 @@ const AdminModalForm = ({ product, toggleChangeMade }) => {
                     value={description}
                   />
                 </div>
-
+                <label>
+                  Featured:
+                  <input
+                    type='checkbox'
+                    checked={featured}
+                    onChange={() =>
+                      setFormFields({ ...formFields, featured: !featured })
+                    }
+                  />
+                </label>
                 <div className='group'>
                   {Object.keys(productSizes).map((sizeKey) => (
                     <div key={sizeKey} className='mb-3'>

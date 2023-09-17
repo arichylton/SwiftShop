@@ -17,15 +17,15 @@ const defaultFormFields = {
   gender: 'M',
   productImage: '', // To store the URL of the uploaded image
   userRatings: [],
+  featured: false
 };
 
 const NewProductPage = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { name, price, description, season, theme, gender, productImage } =
+  const { name, price, description, season, theme, gender, productImage, featured } =
     formFields;
   const [productSizes, setProductSizes] = useState(defaultFormFields.sizes);
 
-  console.log(formFields);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,6 +66,7 @@ const NewProductPage = () => {
     }
   };
 
+  console.log(featured)
   return (
     <div className='mt-5 pt-5' style={{ paddingTop: '300px' }}>
       <h1>New Product</h1>
@@ -124,6 +125,11 @@ const NewProductPage = () => {
               </select>
             </label>
           </div>
+          <label>
+            Featured: 
+            <input type='checkbox' onChange={() => setFormFields({ ...formFields, featured: !featured })} />
+          </label>
+
           <div className='group'>
             {Object.keys(productSizes).map((sizeKey) => (
               <div key={sizeKey} className='mb-3'>
@@ -142,7 +148,12 @@ const NewProductPage = () => {
           </div>
           <div>
             {/* File input for image upload */}
-            <input type='file' accept='.png' id='imageInput' onChange={handleImageUpload}/>
+            <input
+              type='file'
+              accept='.png'
+              id='imageInput'
+              onChange={handleImageUpload}
+            />
           </div>
           <div>
             {/* Display the uploaded image */}

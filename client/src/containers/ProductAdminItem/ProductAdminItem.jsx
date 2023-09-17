@@ -3,20 +3,23 @@ import AdminModalForm from '../../components/AdminModalForm/AdminModalForm';
 import AdminDeleteModal from '../../components/AdminDeleteModal/AdminDeleteModal';
 import './ProductAdminItem.styles.scss';
 const ProductAdminItem = ({ product, toggleChangeMade }) => {
-  const { name, productImage, price, sizes, description, docID  } = product;
-
+  const { name, productImage, price, sizes, description, featured, docID  } = product;
   useEffect(() => {}, [product]);
 
   return (
     <div
-      className='m-4 text-center d-flex edit-button-container'
+      className='mt-4 text-center d-flex edit-button-container'
       style={{ minWidth: '700px', height: 200 }}
     >
       <img src={productImage} alt='productImage' />
       <div className='d-flex flex-column align-items-start ps-4'>
-        <h4 className='text-capitalize mb-1'>{name}</h4>
-        <p className='fs-4'>${price}</p>
-        <p>{description}</p>
+        <h4 className='text-capitalize fw-bold'>{name}</h4>
+        <p className='fs-4 mb-2'>${price}</p>
+        {featured ? (
+          <h6 className='fw-bold text-warning bg-dark p-2'>FEATURED</h6>
+        ) : null}
+        <p className='text-start'>{description}</p>
+
         <div className='d-flex'>
           <AdminModalForm
             product={product}

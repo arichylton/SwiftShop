@@ -10,10 +10,10 @@ const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
   const currentUser = useSelector((store) => store.USER.currentUser);
-  const { name, productImage, price, sizes, description, productRating } =
+  const { name, productImage, price, sizes, description, productRating, featured } =
     location.state;
 
-  console.log(sizes)
+  console.log(sizes);
   useEffect(() => {
     if (sizes['s'] != 0) {
       setCurrentSize('s');
@@ -37,7 +37,7 @@ const Product = () => {
     const cartItem = { ...location.state, size: currentSize };
     if (currentUser) {
       updateUserCart(cartItem);
-      dispatch(addUserCartItem(cartItem))
+      dispatch(addUserCartItem(cartItem));
     } else {
       dispatch(addCartItem(cartItem));
     }
@@ -46,15 +46,14 @@ const Product = () => {
   return (
     <section className='container d-flex justify-content-center mt-5'>
       <div className='p-5 text-center'>
-        <img
-          style={{ width: '30vw' }}
-          src={productImage}
-          alt='productImage'
-        />
+        <img style={{ width: '30vw' }} src={productImage} alt='productImage' />
       </div>
       <div className='vr'></div>
       <div className='p-5 d-flex flex-column'>
         <h2 className='text-capitalize fw-bold'>{name}</h2>
+        {featured ? (
+          <h6 className='fw-bold text-warning bg-dark p-2 w-25 text-center'>FEATURED</h6>
+        ) : null}
         <RatingIcons userRating={productRating} />
         <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
         <p className='m-1 mt-4 fs-5'>
@@ -82,8 +81,8 @@ const Product = () => {
           <button
             onClick={() => changeSize('l')}
             type='button'
-            className={`list-group-item list-group-item-action text-center${
-              sizes.l != 0 ? '' : `disabled text-danger`
+            className={`list-group-item list-group-item-action text-center ${
+              sizes.xl != 0 ? '' : `disabled text-danger`
             } ${currentSize === 'l' ? 'active' : ''}`}
           >
             L
