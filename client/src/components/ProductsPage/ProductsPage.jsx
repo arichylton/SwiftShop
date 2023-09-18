@@ -62,6 +62,7 @@ const ProductsPage = () => {
     }
   }
 
+  
   return (
     <div className='d-flex flex-column'>
       {renderHero()}
