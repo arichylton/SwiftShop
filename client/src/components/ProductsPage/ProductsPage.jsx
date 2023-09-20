@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import summerBackground from '../../assets/images/backgrounds/summer_background.jpg'
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
 
 const ProductsPage = () => {
@@ -32,7 +33,7 @@ const ProductsPage = () => {
       return productsData
         .filter((product) => {
           if (heroFeature == null && product.featured == true) {
-            setHeroFeature(product)
+            setHeroFeature(product);
           }
           return product.featured == true;
         })
@@ -53,16 +54,15 @@ const ProductsPage = () => {
       return (
         <div>
           <img
-            src={heroFeature.productImage}
+            src={summerBackground}
             alt=''
-            style={{ width: '700px', aspectRatio: '1/1' }}
+            style={{ width: '100vw', height: '50vh', objectFit: 'cover' }}
           />
         </div>
       );
     }
-  }
+  };
 
-  
   return (
     <div className='d-flex flex-column'>
       {renderHero()}
