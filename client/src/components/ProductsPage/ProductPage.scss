@@ -1,0 +1,33 @@
+.image-container {
+  position: relative;
+}
+
+.image {
+  width: 100vw;
+  height: 63vh;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 63vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3); /* You can adjust the overlay background color and opacity as needed */
+  z-index: 1; /* Ensure the overlay is on top of the image */
+}
+
+/* Style for individual product items within the overlay */
+.overlay a {
+  text-decoration: none;
+  color: #fff; /* Text color for product links */
+  margin: 10px; /* Adjust the spacing between product items */
+}
+
+/* Style for ProductPageItem components */
+/* You can define styles for your product items here, such as background color, padding, border, etc. */

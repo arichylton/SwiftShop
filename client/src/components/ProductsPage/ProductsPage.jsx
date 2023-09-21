@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import summerBackground from '../../assets/images/backgrounds/summer_background.jpg'
+import summerBackground from '../../assets/images/backgrounds/summer_background.jpg';
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
+import './ProductPage.scss';
 
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
@@ -40,7 +41,15 @@ const ProductsPage = () => {
         .map((product, index) => {
           return (
             <Link key={index} to={`/product/${product.docID}`} state={product}>
-              <ProductPageItem product={product} />
+              <div className='m-4 text-center'>
+                <img
+                  style={{ width: '240px' }}
+                  src={product.productImage}
+                  alt='productImage'
+                />
+                <h4 className='text-capitalize mt-2 mb-1'>{product.name}</h4>
+                <p className='fs-4'>${product.price}</p>
+              </div>
             </Link>
           );
         });
@@ -52,12 +61,18 @@ const ProductsPage = () => {
   const renderHero = () => {
     if (heroFeature) {
       return (
-        <div>
+        <div className='image-container'>
+          {/* Hero Background Image */}
           <img
             src={summerBackground}
             alt=''
-            style={{ width: '100vw', height: '50vh', objectFit: 'cover' }}
+            className='image'
           />
+
+          {/* Overlay with Featured Products */}
+          <div className='d-flex overlay'>
+            {renderFeatured()}
+          </div>
         </div>
       );
     }
@@ -66,12 +81,14 @@ const ProductsPage = () => {
   return (
     <div className='d-flex flex-column'>
       {renderHero()}
-      <h4 className='fw-bold ms-4 mt-3'>Featured</h4>
-      <div className='d-flex '>{renderFeatured()}</div>
-      <h4 className='fw-bold ms-4'>New</h4>
-      <div className='d-flex '>{renderProducts()}</div>
-      <h4 className='fw-bold ms-4 mt-3'>All</h4>
-      <div className='d-flex '>{renderProducts()}</div>
+      <div className='m-5'>
+        <h4 className='fw-bold ms-4 mt-3'>Featured</h4>
+        <div className='d-flex '>{renderFeatured()}</div>
+        <h4 className='fw-bold ms-4'>New</h4>
+        <div className='d-flex '>{renderProducts()}</div>
+        <h4 className='fw-bold ms-4 mt-3'>All</h4>
+        <div className='d-flex '>{renderProducts()}</div>
+      </div>
     </div>
   );
 };
