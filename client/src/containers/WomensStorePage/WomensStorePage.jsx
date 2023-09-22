@@ -8,6 +8,7 @@ const WomensStorePage = () => {
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
       const { productsDataInfo } = await result.json();
+      console.log(productsDataInfo);
       setProductsData(productsDataInfo);
     });
   }, []);

@@ -4,13 +4,23 @@ import { addUserCartItem } from '../../store/user/userSlice';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import RatingIcons from '../../components/RatingIcons/RatingIcons';
-import { Rating } from 'semantic-ui-react'
-import { updateUserCart } from '../../utils/firebase.utils';
+import { Rating } from 'semantic-ui-react';
+import { updateProduct, updateUserCart } from '../../utils/firebase.utils';
+import Button from '../../components/button/button';
+import FormInput from '../../components/form-input/form-input';
+
+const defaultFormFields = {
+  title: '',
+  rating: 3,
+  reviewDescription: '',
+};
 
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
-  const [currentRating, setCurrentRating] = useState({rating: 3, maxRating: 5});
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { title, rating, reviewDescription } = formFields;
+  const [productRating, setProductRating] = useState(0);
   const currentUser = useSelector((store) => store.USER.currentUser);
   const {
     name,
@@ -18,9 +28,23 @@ const Product = () => {
     price,
     sizes,
     description,
-    productRating,
     featured,
+    userRatings,
+    docID,
   } = location.state;
+
+  useEffect(() => {
+    console.log(userRatings)
+    if (userRatings.length > 0) {
+      let avgRating = 0;
+      for (let i = 0; i < userRatings.length; i++) {
+        avgRating += userRatings[i].rating;
+      }
+      avgRating = avgRating / userRatings.length;
+      
+      setProductRating(avgRating);
+    }
+  }, [userRatings]);
 
   useEffect(() => {
     if (sizes['s'] != 0) {
@@ -34,7 +58,22 @@ const Product = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (currentUser) {
+      setFormFields({
+        ...formFields,
+        userEmail: currentUser.email,
+        displayName: currentUser.displayName,
+      });
+    }
+  }, [currentUser]);
+
   const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
 
   const changeSize = (cSize) => {
     setCurrentSize(cSize);
@@ -65,8 +104,14 @@ const Product = () => {
     );
   };
 
-  const handleRate = (e, { rating, maxRating }) =>
-    setCurrentRating({ rating, maxRating });
+  const submitReviewForm = async () => {
+    console.log(userRatings)
+    const updatedUserRatings = [...userRatings, formFields];
+    await updateProduct({ userRatings: updatedUserRatings }, docID);
+  };
+
+  const handleRate = (e, { rating }) =>
+    setFormFields({ ...formFields, ['rating']: rating });
 
   const renderLeaveReview = () => {
     return (
@@ -91,19 +136,19 @@ const Product = () => {
             data-bs-parent='#accordionExample'
           >
             <div className='accordion-body'>
-              <div className='mb-3'>
-                <label for='exampleFormControlInput1' className='form-label'>
-                  Title
-                </label>
-                <input
-                  type='email'
-                  className='form-control'
-                  id='exampleFormControlInput1'
-                  placeholder='Goes well with a lot of my outfits!'
-                />
-              </div>
-              <div className='mb-3'>
-                <label for='exampleFormControlInput3' className='form-label'>
+              <FormInput
+                label='Title'
+                type='text'
+                required
+                onChange={handleChange}
+                name='title'
+                value={title}
+              />
+              <div className='mb-3 d-flex align-items-center'>
+                <label
+                  htmlFor='exampleFormControlInput3'
+                  className='form-label fs-5 me-2'
+                >
                   Rating
                 </label>
                 <Rating
@@ -111,19 +156,32 @@ const Product = () => {
                   defaultRating={3}
                   maxRating={5}
                   onRate={handleRate}
+                  className='fs-5'
                 />
-                <pre>{JSON.stringify(currentRating, null, 2)}</pre>
               </div>
               <div className='mb-3'>
-                <label for='exampleFormControlTextarea1' className='form-label'>
+                <label
+                  htmlFor='exampleFormControlTextarea1'
+                  className='form-label fs-5'
+                >
                   Description
                 </label>
                 <textarea
                   className='form-control'
                   id='exampleFormControlTextarea1'
                   rows='3'
+                  name='reviewDescription'
+                  value={reviewDescription}
+                  onChange={handleChange}
                 ></textarea>
               </div>
+              <Button
+                onClick={submitReviewForm}
+                data-bs-toggle='collapse'
+                data-bs-target='#collapseOne'
+              >
+                Submit Review
+              </Button>
             </div>
           </div>
         </div>
