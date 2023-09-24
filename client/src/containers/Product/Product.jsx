@@ -18,11 +18,13 @@ const defaultFormFields = {
 const Product = () => {
   const location = useLocation();
   const [currentSize, setCurrentSize] = useState();
+  const [updatedProductData, setUpdatedProductData] = useState(location.state);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { title, rating, reviewDescription } = formFields;
   const [productRating, setProductRating] = useState(0);
+  const [doesUserReviewExist, setDoesUserReviewExist] = useState(false);
   const currentUser = useSelector((store) => store.USER.currentUser);
-  const {
+  let {
     name,
     productImage,
     price,
@@ -31,20 +33,27 @@ const Product = () => {
     featured,
     userRatings,
     docID,
-  } = location.state;
+  } = updatedProductData;
 
   useEffect(() => {
-    console.log(userRatings)
-    if (userRatings.length > 0) {
+    if (updatedProductData.userRatings.length > 0) {
       let avgRating = 0;
-      for (let i = 0; i < userRatings.length; i++) {
-        avgRating += userRatings[i].rating;
+      for (let i = 0; i < updatedProductData.userRatings.length; i++) {
+        avgRating += updatedProductData.userRatings[i].rating;
+
+        if (currentUser) {
+          if (
+            updatedProductData.userRatings[i].userEmail === currentUser.email
+          ) {
+            setDoesUserReviewExist(true);
+          }
+        }
       }
-      avgRating = avgRating / userRatings.length;
-      
+      avgRating = avgRating / updatedProductData.userRatings.length;
+
       setProductRating(avgRating);
     }
-  }, [userRatings]);
+  }, [updatedProductData, currentUser]);
 
   useEffect(() => {
     if (sizes['s'] != 0) {
@@ -105,8 +114,17 @@ const Product = () => {
   };
 
   const submitReviewForm = async () => {
-    console.log(userRatings)
+    // Update the userRatings in the state variable
     const updatedUserRatings = [...userRatings, formFields];
+    const newProductData = {
+      ...updatedProductData,
+      userRatings: updatedUserRatings,
+    };
+
+    // Update the product data in the state variable
+    setUpdatedProductData(newProductData);
+
+    // Update the product data in the database (if needed)
     await updateProduct({ userRatings: updatedUserRatings }, docID);
   };
 
@@ -189,44 +207,80 @@ const Product = () => {
     );
   };
 
+  const renderReview = () => {
+    if (currentUser) {
+      if (!doesUserReviewExist) {
+        return renderLeaveReview();
+      }
+    } else {
+      return <h4 className='mt-3'>Sign in to leave a review.</h4>;
+    }
+  };
+
+  const renderProductReviews = () => {
+    if (updatedProductData.userRatings.length > 0) {
+      return updatedProductData.userRatings.map((review, index) => {
+
+        return (
+          <div key={index} className='card mb-3'>
+            <h4 className='card-header'>{review.title}</h4>
+            <div className='card-body'>
+              <h5 className='card-title'>User: {review.displayName}</h5>
+              <h5 className='d-flex'>
+                Rating: {<RatingIcons userRating={review.rating} />}
+              </h5>
+              <p className='card-text'>{review.reviewDescription}</p>
+            </div>
+          </div>
+        );
+      });
+    }
+  };
+
   return (
-    <section className='container d-flex justify-content-center mt-5 pt-5'>
-      <div className='p-5 text-center'>
-        <img style={{ width: '30vw' }} src={productImage} alt='productImage' />
-      </div>
-      <div className='vr'></div>
-      <div className='p-5 d-flex flex-column'>
-        <h2 className='text-capitalize fw-bold'>{name}</h2>
-        {featured ? (
-          <h6 className='fw-bold text-warning bg-dark p-2 w-25 text-center'>
-            FEATURED
-          </h6>
-        ) : null}
-        <RatingIcons userRating={productRating} />
-        <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
-        <p className='m-1 mt-4 fs-5'>
-          Size: {currentSize && currentSize.toUpperCase()}
-        </p>
-        <div className='list-group list-group-horizontal w-50'>
-          {renderButtonSize('s')}
-          {renderButtonSize('m')}
-          {renderButtonSize('l')}
-          {renderButtonSize('xl')}
+    <section className='container d-flex flex-column justify-content-center mt-5 pt-5'>
+      <div className='d-flex'>
+        <div className='p-5 text-center'>
+          <img
+            style={{ width: '30vw' }}
+            src={updatedProductData.productImage}
+            alt='productImage'
+          />
         </div>
-        <button
-          className='btn btn-primary ps-4 pe-4 mt-4 mb-4 w-50'
-          onClick={addToCart}
-        >
-          Add To Cart
-        </button>
-        <p className='mb-1 fw-bold'>Description: </p>
-        <h3 className='fs-5'>{description}</h3>
-        {true ? (
-          renderLeaveReview()
-        ) : (
-          <h4 className='mt-3'>Sign in to leave a review.</h4>
-        )}
+        <div className='vr'></div>
+        <div className='p-5 d-flex flex-column'>
+          <h2 className='text-capitalize fw-bold'>{name}</h2>
+          {featured ? (
+            <h6 className='fw-bold text-warning bg-dark p-2 w-25 text-center'>
+              FEATURED
+            </h6>
+          ) : null}
+          <RatingIcons userRating={productRating} />
+          <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
+          <p className='m-1 mt-4 fs-5'>
+            Size: {currentSize && currentSize.toUpperCase()}
+          </p>
+          <div className='list-group list-group-horizontal w-50'>
+            {renderButtonSize('s')}
+            {renderButtonSize('m')}
+            {renderButtonSize('l')}
+            {renderButtonSize('xl')}
+          </div>
+          <button
+            className='btn btn-primary ps-4 pe-4 mt-4 mb-4 w-50'
+            onClick={addToCart}
+          >
+            Add To Cart
+          </button>
+          <p className='mb-1 fw-bold'>Description: </p>
+          <h3 className='fs-5' style={{ minWidth: '33vw' }}>
+            {description}
+          </h3>
+          {renderReview()}
+        </div>
       </div>
+
+      <div>{renderProductReviews()}</div>
     </section>
   );
 };
