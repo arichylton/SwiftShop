@@ -63,27 +63,19 @@ const ProductsPage = () => {
       return (
         <div className='image-container'>
           {/* Hero Background Image */}
-          <img
-            src={summerBackground}
-            alt=''
-            className='image'
-          />
+          <img src={summerBackground} alt='' className='image' />
 
           {/* Overlay with Featured Products */}
-          <div className='d-flex overlay'>
-            {renderFeatured()}
-          </div>
+          <div className='d-flex overlay'>{renderFeatured()}</div>
         </div>
       );
     }
   };
-
+  renderFeatured();
   return (
     <div className='d-flex flex-column'>
       {renderHero()}
       <div className='m-5'>
-        <h4 className='fw-bold ms-4 mt-3'>Featured</h4>
-        <div className='d-flex '>{renderFeatured()}</div>
         <h4 className='fw-bold ms-4'>New</h4>
         <div className='d-flex '>{renderProducts()}</div>
         <h4 className='fw-bold ms-4 mt-3'>All</h4>

@@ -36,7 +36,7 @@ const AdminProductsPage = () => {
   };
 
   return (
-    <div className='mt-5 pt-5' style={{paddingTop: '300px'}}>
+    <div style={{marginTop: '150px'}}>
       <Link className='btn btn-primary' to='new'>Create New Product</Link>
       <div>{renderProducts()}</div>
     </div>

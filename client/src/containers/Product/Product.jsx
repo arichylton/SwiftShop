@@ -154,14 +154,20 @@ const Product = () => {
             data-bs-parent='#accordionExample'
           >
             <div className='accordion-body'>
-              <FormInput
-                label='Title'
-                type='text'
-                required
-                onChange={handleChange}
-                name='title'
-                value={title}
-              />
+              <div className='group mt-3 mb-4'>
+                <input
+                  className='form-input-review'
+                  label='Title'
+                  type='text'
+                  required
+                  onChange={handleChange}
+                  name='title'
+                  value={title}
+                />
+                <label className={`${title ? 'shrink' : ''} form-input-label`}>
+                  {'Title'}
+                </label>
+              </div>
               <div className='mb-3 d-flex align-items-center'>
                 <label
                   htmlFor='exampleFormControlInput3'
@@ -220,7 +226,6 @@ const Product = () => {
   const renderProductReviews = () => {
     if (updatedProductData.userRatings.length > 0) {
       return updatedProductData.userRatings.map((review, index) => {
-
         return (
           <div key={index} className='card mb-3'>
             <h4 className='card-header'>{review.title}</h4>
@@ -239,7 +244,7 @@ const Product = () => {
 
   return (
     <section className='container d-flex flex-column justify-content-center mt-5 pt-5'>
-      <div className='d-flex'>
+      <div className='d-flex' style={{ maxHeight: '50vh' }}>
         <div className='p-5 text-center'>
           <img
             style={{ width: '30vw' }}
@@ -255,7 +260,7 @@ const Product = () => {
               FEATURED
             </h6>
           ) : null}
-          <RatingIcons userRating={productRating} />
+          <RatingIcons userRating={productRating} size={'fs-5'}/>
           <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
           <p className='m-1 mt-4 fs-5'>
             Size: {currentSize && currentSize.toUpperCase()}
@@ -279,8 +284,10 @@ const Product = () => {
           {renderReview()}
         </div>
       </div>
-
-      <div>{renderProductReviews()}</div>
+      <div style={{marginTop: '100px'}}>
+        <h3 className='mt-5 pt-5 ms-4'>What are customers saying?</h3>
+      </div>
+      <div className='mt-3 '>{renderProductReviews()}</div>
     </section>
   );
 };
