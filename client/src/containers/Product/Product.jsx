@@ -260,7 +260,10 @@ const Product = () => {
               FEATURED
             </h6>
           ) : null}
-          <RatingIcons userRating={productRating} size={'fs-5'}/>
+          <div className='d-flex align-items-center'>
+            <RatingIcons userRating={productRating} size={'fs-5'} />
+            <span className='f2-4 fw-bold ms-1'>{`(${updatedProductData.userRatings.length})`}</span>
+          </div>
           <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
           <p className='m-1 mt-4 fs-5'>
             Size: {currentSize && currentSize.toUpperCase()}
@@ -284,7 +287,7 @@ const Product = () => {
           {renderReview()}
         </div>
       </div>
-      <div style={{marginTop: '100px'}}>
+      <div style={{ marginTop: '100px' }}>
         <h3 className='mt-5 pt-5 ms-4'>What are customers saying?</h3>
       </div>
       <div className='mt-3 '>{renderProductReviews()}</div>

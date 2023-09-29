@@ -9,7 +9,7 @@ const AdminModalForm = ({ product, toggleChangeMade }) => {
   const { name, price, description, featured, docID, sizes } = formFields;
   const [productSizes, setProductSizes] = useState(sizes);
   const modalId = `exampleModal-${docID}`;
-  console.log(product)
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;

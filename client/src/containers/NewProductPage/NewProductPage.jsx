@@ -40,14 +40,6 @@ const NewProductPage = () => {
     setProductSizes({ ...productSizes, [sizeKey]: parseInt(value) });
   }; 
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0]; // Get the uploaded file
-    if (file) {
-      const imageURL = URL.createObjectURL(file); // Create a URL for the uploaded image
-      setFormFields({ ...formFields, productImage: imageURL });
-    }
-  };
-
   useEffect(() => {
     // Update the formFields state whenever productSizes change
     setFormFields({ ...formFields, sizes: { ...productSizes } });
@@ -66,7 +58,7 @@ const NewProductPage = () => {
     }
   };
 
-  console.log(featured)
+
   return (
     <div className='mt-5 pt-5' style={{ paddingTop: '300px' }}>
       <h1>New Product</h1>
