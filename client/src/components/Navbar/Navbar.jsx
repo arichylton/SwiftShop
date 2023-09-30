@@ -37,110 +37,120 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar fixed-top bg-body-tertiary' style={{ backgroundColor: '#eeeeee'}}>
-      <div className='container m-2 ps-4 pe-4 m-auto' >
-        <div className='d-flex justify-content-center align-items-center'>
-          <Link className='navbar-brand' to='/'>
-            <img
-              src='../../../src/assets/images/logos/logo.png'
-              alt='Logo'
-              height='50'
-            />
-          </Link>
-          <Link className='fs-4 ms-4 me-4' to='/mens'>
-            <p>Mens</p>
-          </Link>
-          <Link className='fs-4' to='/womens'>
-            <p>Womens</p>
-          </Link>
+    <nav className='navbar fixed-top bg-body-tertiary p-0'>
+      <div className='w-100'>
+        <div
+          style={{ backgroundColor: '#eeeeee', height: '35px' }}
+          className='d-flex justify-content-around align-items-center'
+        >
+          <p className='m-auto'>$ USD . EN</p>
+          <p className='m-auto'>We donate $1 from every purchase</p>
+          <p className='m-auto'>Log in</p>
         </div>
-
-        <div className='d-flex p-2'>
-          <div className='d-flex pe-5 align-items-center'>
-            <a
-              style={{ cursor: 'pointer' }}
-              data-bs-toggle='offcanvas'
-              data-bs-target='#offcanvasRight'
-              aria-controls='offcanvasRight'
-              role='button'
-            >
+        <div className='ps-4 pe-4 pb-1 pt-1 d-flex justify-content-between m-auto' style={{width: '75%'}}>
+          <div className='d-flex justify-content-center align-items-center'>
+            <Link className='navbar-brand' to='/'>
               <img
-                src={cartImg}
-                alt='cartImg'
-                style={{ width: 35 }}
-                className='position-relative'
+                src='../../../src/assets/images/logos/logo.png'
+                alt='Logo'
+                height='45'
               />
-              {renderNumberOfItemsInCart()}
-            </a>
+            </Link>
+            <Link className='fs-4 ms-4 me-4' to='/mens'>
+              <p>Mens</p>
+            </Link>
+            <Link className='fs-4' to='/womens'>
+              <p>Womens</p>
+            </Link>
           </div>
-          {currentUser ? (
-            <div className='dropstart'>
+
+          <div className='d-flex p-2'>
+            <div className='d-flex align-items-center'>
               <a
-                className='dropdown-toggle'
-                type='button'
-                id='dropdownMenuButton1'
-                data-bs-toggle='dropdown'
-                aria-expanded='false'
+                style={{ cursor: 'pointer' }}
+                data-bs-toggle='offcanvas'
+                data-bs-target='#offcanvasRight'
+                aria-controls='offcanvasRight'
+                role='button'
               >
                 <img
-                  src={
-                    currentUser.photoURL
-                      ? currentUser.photoURL
-                      : defaultUserImage
-                  }
-                  alt='user_IMG'
-                  style={{ width: '37px', borderRadius: '50%' }}
+                  src={cartImg}
+                  alt='cartImg'
+                  style={{ width: 35 }}
+                  className='position-relative'
                 />
+                {renderNumberOfItemsInCart()}
               </a>
-              <ul
-                className='dropdown-menu dropdown-menu-dark'
-                aria-labelledby='dropdownMenuButton1'
-              >
-                <li className='text-center fs-5 p-2'>
-                  {currentUser.isAdmin ? (
-                    <Link
-                      className='dropdown-item text-primary fw-bold'
-                      style={{ cursor: 'pointer' }}
-                      to='/admin/products'
-                    >
-                      Admin
-                    </Link>
-                  ) : null}
-                </li>
-                <li className='p-2 text-center fs-5 '>
-                  <a
-                    className='dropdown-item text-danger fw-bold'
-                    onClick={signOutHandler}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    Sign Out
-                  </a>
-                </li>
-              </ul>
             </div>
-          ) : (
-            <Link className='navbar-brand' to='/signin'>
-              Sign In
-            </Link>
-          )}
-        </div>
-
-        <div
-          className='offcanvas offcanvas-end'
-          tabIndex='-1'
-          id='offcanvasRight'
-          aria-labelledby='offcanvasRightLabel'
-        >
-          <div className='offcanvas-header'>
-            <h5 id='offcanvasRightLabel'>Cart</h5>
-            <button
-              type='button'
-              className='btn-close text-reset'
-              data-bs-dismiss='offcanvas'
-              aria-label='Close'
-            ></button>
+            {/* {currentUser ? (
+              <div className='dropstart'>
+                <a
+                  className='dropdown-toggle'
+                  type='button'
+                  id='dropdownMenuButton1'
+                  data-bs-toggle='dropdown'
+                  aria-expanded='false'
+                >
+                  <img
+                    src={
+                      currentUser.photoURL
+                        ? currentUser.photoURL
+                        : defaultUserImage
+                    }
+                    alt='user_IMG'
+                    style={{ width: '37px', borderRadius: '50%' }}
+                  />
+                </a>
+                <ul
+                  className='dropdown-menu dropdown-menu-dark'
+                  aria-labelledby='dropdownMenuButton1'
+                >
+                  <li className='text-center fs-5 p-2'>
+                    {currentUser.isAdmin ? (
+                      <Link
+                        className='dropdown-item text-primary fw-bold'
+                        style={{ cursor: 'pointer' }}
+                        to='/admin/products'
+                      >
+                        Admin
+                      </Link>
+                    ) : null}
+                  </li>
+                  <li className='p-2 text-center fs-5 '>
+                    <a
+                      className='dropdown-item text-danger fw-bold'
+                      onClick={signOutHandler}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Sign Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <Link className='navbar-brand' to='/signin'>
+                Sign In
+              </Link>
+            )} */}
           </div>
-          {currentUser ? <CartUser /> : <Cart />}
+
+          <div
+            className='offcanvas offcanvas-end'
+            tabIndex='-1'
+            id='offcanvasRight'
+            aria-labelledby='offcanvasRightLabel'
+          >
+            <div className='offcanvas-header'>
+              <h5 id='offcanvasRightLabel'>Cart</h5>
+              <button
+                type='button'
+                className='btn-close text-reset'
+                data-bs-dismiss='offcanvas'
+                aria-label='Close'
+              ></button>
+            </div>
+            {currentUser ? <CartUser /> : <Cart />}
+          </div>
         </div>
       </div>
     </nav>
