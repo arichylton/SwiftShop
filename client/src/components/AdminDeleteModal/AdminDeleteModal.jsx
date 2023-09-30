@@ -1,7 +1,6 @@
 import { removeProduct } from '../../utils/firebase.utils';
 
 const AdminDeleteModal = ({ modalId }) => {
-  console.log(modalId)
   return (
     <div className='edit-button'>
       <p>

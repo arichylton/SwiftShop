@@ -37,8 +37,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar fixed-top bg-body-tertiary'>
-      <div className='container-fluid m-2 ps-4 pe-4'>
+    <nav className='navbar fixed-top bg-body-tertiary' style={{ backgroundColor: '#eeeeee'}}>
+      <div className='container m-2 ps-4 pe-4 m-auto' >
         <div className='d-flex justify-content-center align-items-center'>
           <Link className='navbar-brand' to='/'>
             <img

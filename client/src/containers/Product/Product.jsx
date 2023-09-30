@@ -8,11 +8,13 @@ import { Rating } from 'semantic-ui-react';
 import { updateProduct, updateUserCart } from '../../utils/firebase.utils';
 import Button from '../../components/button/button';
 import FormInput from '../../components/form-input/form-input';
+import { formatDateToMonthDDYYYY } from '../../utils';
 
 const defaultFormFields = {
   title: '',
   rating: 3,
   reviewDescription: '',
+  dateReviewed: new Date()
 };
 
 const Product = () => {
@@ -231,6 +233,7 @@ const Product = () => {
             <h4 className='card-header'>{review.title}</h4>
             <div className='card-body'>
               <h5 className='card-title'>User: {review.displayName}</h5>
+              <h5 className='card-title'>{formatDateToMonthDDYYYY(review.dateReviewed)}</h5>
               <h5 className='d-flex'>
                 Rating: {<RatingIcons userRating={review.rating} />}
               </h5>

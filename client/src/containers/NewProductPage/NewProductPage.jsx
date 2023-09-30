@@ -1,5 +1,8 @@
 import FormInput from '../../components/form-input/form-input';
-import { createNewProduct, handleImageUpload  } from '../../utils/firebase.utils';
+import {
+  createNewProduct,
+  handleImageUpload,
+} from '../../utils/firebase.utils';
 import { useState, useEffect } from 'react';
 
 const defaultFormFields = {
@@ -17,15 +20,23 @@ const defaultFormFields = {
   gender: 'M',
   productImage: '', // To store the URL of the uploaded image
   userRatings: [],
-  featured: false
+  featured: false,
+  dateCreated: new Date(),
 };
 
 const NewProductPage = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { name, price, description, season, theme, gender, productImage, featured } =
-    formFields;
+  const {
+    name,
+    price,
+    description,
+    season,
+    theme,
+    gender,
+    productImage,
+    featured,
+  } = formFields;
   const [productSizes, setProductSizes] = useState(defaultFormFields.sizes);
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,7 +49,7 @@ const NewProductPage = () => {
   const handleSizeChange = (sizeKey, event) => {
     const { value } = event.target;
     setProductSizes({ ...productSizes, [sizeKey]: parseInt(value) });
-  }; 
+  };
 
   useEffect(() => {
     // Update the formFields state whenever productSizes change
@@ -57,7 +68,6 @@ const NewProductPage = () => {
       console.log('user creation encoutered an error', err);
     }
   };
-
 
   return (
     <div className='mt-5 pt-5' style={{ paddingTop: '300px' }}>
@@ -118,8 +128,13 @@ const NewProductPage = () => {
             </label>
           </div>
           <label>
-            Featured: 
-            <input type='checkbox' onChange={() => setFormFields({ ...formFields, featured: !featured })} />
+            Featured:
+            <input
+              type='checkbox'
+              onChange={() =>
+                setFormFields({ ...formFields, featured: !featured })
+              }
+            />
           </label>
 
           <div className='group'>

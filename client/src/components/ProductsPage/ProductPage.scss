@@ -8,16 +8,31 @@
   object-fit: cover;
 }
 
+.window--wide {
+  margin: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0,1fr));
+}
+
+.h-full {
+  height: 100%;
+  grid-row: span 1 / span 1; 
+}
+
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 63vh;
+  height: 88vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   background-color: rgba(0, 0, 0, 0.3); /* You can adjust the overlay background color and opacity as needed */
   z-index: 1; /* Ensure the overlay is on top of the image */
 }
@@ -28,6 +43,8 @@
   color: #fff; /* Text color for product links */
   margin: 10px; /* Adjust the spacing between product items */
 }
+
+
 
 /* Style for ProductPageItem components */
 /* You can define styles for your product items here, such as background color, padding, border, etc. */
