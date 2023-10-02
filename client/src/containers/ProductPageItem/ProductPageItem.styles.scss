@@ -1,0 +1,39 @@
+.product__image-container {
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.product__image {
+  border-radius: 3px;
+  width: 300px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.product__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+  /* You can adjust the overlay background color and opacity as needed */
+  z-index: 1; /* Ensure the overlay is on top of the image */
+}
+
+.product__text-bubble {
+  border-radius: 50px;
+  color: white;
+  background-color: #161625;
+  padding: 0.25rem .7rem;
+  margin-right: .25rem;
+}
+
+.product__overlay:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}

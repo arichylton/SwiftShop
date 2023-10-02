@@ -43,11 +43,14 @@ const Navbar = () => {
           style={{ backgroundColor: '#eeeeee', height: '35px' }}
           className='d-flex justify-content-around align-items-center'
         >
-          <p className='m-auto'>$ USD . EN</p>
-          <p className='m-auto'>We donate $1 from every purchase</p>
+          <p className='m-auto'>$ USD &#183; EN</p>
+          <p className='m-auto fs-5'>We donate $1 from every purchase</p>
           <p className='m-auto'>Log in</p>
         </div>
-        <div className='ps-4 pe-4 pb-1 pt-1 d-flex justify-content-between m-auto' style={{width: '75%'}}>
+        <div
+          className='ps-4 pe-4 pb-1 pt-1 d-flex justify-content-between m-auto'
+          style={{ width: '75%' }}
+        >
           <div className='d-flex justify-content-center align-items-center'>
             <Link className='navbar-brand' to='/'>
               <img

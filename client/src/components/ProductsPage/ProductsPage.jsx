@@ -24,11 +24,14 @@ const ProductsPage = () => {
     if (productsData) {
       return productsData.map((product, index) => {
         return (
-          <div className='col-md-auto' key={index}>
-            <Link to={`/product/${product.docID}`} state={product}>
-              <ProductPageItem product={product} />
-            </Link>
-          </div>
+          <Link
+            to={`/product/${product.docID}`}
+            state={product}
+            className='col-md-auto'
+            key={index}
+          >
+            <ProductPageItem product={product} />
+          </Link>
         );
       });
     } else {
@@ -44,11 +47,14 @@ const ProductsPage = () => {
         })
         .map((product, index) => {
           return (
-            <div className='col-md-auto' key={index}>
-              <Link to={`/product/${product.docID}`} state={product}>
-                <ProductPageItem product={product} />
-              </Link>
-            </div>
+            <Link
+              to={`/product/${product.docID}`}
+              state={product}
+              className='col-md-auto'
+              key={index}
+            >
+              <ProductPageItem product={product} />
+            </Link>
           );
         });
     } else {
@@ -67,16 +73,13 @@ const ProductsPage = () => {
         })
         .map((product, index) => {
           return (
-            <Link key={index} to={`/product/${product.docID}`} state={product}>
-              <div className='m-4 text-center col'>
-                <img
-                  style={{ width: '240px', borderRadius: '5px' }}
-                  src={product.productImage}
-                  alt='productImage'
-                />
-                <h4 className='text-capitalize mt-2 mb-1'>{product.name}</h4>
-                <p className='fs-4'>${product.price}</p>
-              </div>
+            <Link
+              to={`/product/${product.docID}`}
+              state={product}
+              className='col-md-auto'
+              key={index}
+            >
+              <ProductPageItem product={product} />
             </Link>
           );
         });
@@ -103,7 +106,7 @@ const ProductsPage = () => {
                 style={{ width: '30%' }}
                 className='text-center mb-5 justify-self-center'
               >
-                <h1 className='text-white mb-5'>
+                <h1 className='text-white mb-5' style={{ fontFamily: 'merriweather'}}>
                   Bring Your Wardrobe to Life With Our Stunning Collection
                 </h1>
                 <div
@@ -196,7 +199,9 @@ const ProductsPage = () => {
       {renderHero()}
       <div className='m-5'>
         <div>
-          <h4 className='fw-bold ms-4'>New</h4>
+          <h4 className='fw-bold ms-3 fs-3 mb-4'style={{fontFamily: 'merriweather'}}>
+            Featured
+          </h4>
           <div className='row align-items-start'>{renderNewProducts()}</div>
         </div>
         <div>
