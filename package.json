@@ -1,9 +1,5 @@
 {
   "name": "swiftshop",
-  "engines": {
-    "node": "18.x",
-    "npm": "9.x"
-  },
   "version": "1.0.0",
   "main": "",
   "scripts": {
