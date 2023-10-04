@@ -11,9 +11,6 @@
   "engines": {
     "node": "14.x"
   },
-  "dependencies": {
-    "react-spinners": "^0.13.8"
-  },
   "devDependencies": {
     "vite": "^4.4.10"
   }
