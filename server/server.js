@@ -20,8 +20,8 @@ const calculateCartTotal = (cart) => {
 };
 
 // Serve static files from the 'public' directory
-app.use(express.static(process.env.STATIC_DIR + '/index.html'));
-app.use(express.static(process.env.STATIC_DIR));
+const staticPath = path.resolve(process.env.STATIC_DIR + '/index.html'); // Adjust 'public' to your static directory
+app.use(express.static(staticPath));
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -113,6 +113,4 @@ app.post('/create-payment-intent', async (req, res) => {
 
 const PORT = process.env.PORT || 5252;
 
-app.listen(PORT, () =>
-  console.log(`Node server listening`)
-);
+app.listen(PORT, () => console.log(`Node server listening`));
