@@ -1,11 +1,9 @@
 const express = require('express');
+const path = require('path');
 const app = express();
-const { resolve } = require('path');
-// Replace if using a different env file or config
 const env = require('dotenv').config({ path: './.env' });
-const {
-  getAllProducts,
-} = require('./firebase.utils');
+const { resolve } = require('path');
+const { getAllProducts } = require('./firebase.utils');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',
@@ -21,6 +19,8 @@ const calculateCartTotal = (cart) => {
   return parseInt(currentCartTotal.toFixed(2).toString().replace('.', ''));
 };
 
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
 app.use(express.static(process.env.STATIC_DIR));
 app.use(express.json());
 
@@ -36,8 +36,7 @@ app.get('/config', (req, res) => {
 });
 
 app.get('/googleSignIn', async (req, res) => {
-
-  let currentUser = null
+  let currentUser = null;
 
   const fetchData = async () => {
     const response = await signInWithGoogleRedirect();
@@ -46,9 +45,9 @@ app.get('/googleSignIn', async (req, res) => {
       currentUser = response.user;
     }
   };
-  
+
   try {
-    res.send(currentUser)
+    res.send(currentUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
     console.log(error.message);

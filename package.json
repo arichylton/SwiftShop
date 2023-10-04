@@ -13,6 +13,8 @@
     "heroku-postbuild": "npm run install-client && npm run install-server"
   },
   "dependencies": {
-    "react-spinners": "^0.13.8"
+    "path": "^0.12.7",
+    "react-spinners": "^0.13.8",
+    "serve-static": "^1.15.0"
   }
 }
