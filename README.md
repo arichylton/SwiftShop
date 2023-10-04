@@ -19,7 +19,7 @@ cd into ./client
 npm i
 npm run dev
 
-replace api keys with ypur own in .env
+replace api keys with your own in .env
 
 # contributors
 Aric Hylton

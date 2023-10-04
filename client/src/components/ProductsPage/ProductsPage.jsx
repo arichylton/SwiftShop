@@ -5,6 +5,7 @@ import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.js
 import './ProductPage.scss';
 import { isProductNew } from '../../utils';
 import Button from '../button/button';
+import mensCategory from '../../assets/images/backgrounds/mens_category.jpg';
 import starSolid from '../../assets/images/components/star-solid.svg';
 import truckFast from '../../assets/images/components/truck-fast-solid.svg';
 import planeSolid from '../../assets/images/components/plane-solid.svg';
@@ -24,12 +25,7 @@ const ProductsPage = () => {
     if (productsData) {
       return productsData.map((product, index) => {
         return (
-          <Link
-            to={`/product/${product.docID}`}
-            state={product}
-            className='col-md-auto'
-            key={index}
-          >
+          <Link to={`/product/${product.docID}`} state={product} key={index}>
             <ProductPageItem product={product} />
           </Link>
         );
@@ -47,12 +43,7 @@ const ProductsPage = () => {
         })
         .map((product, index) => {
           return (
-            <Link
-              to={`/product/${product.docID}`}
-              state={product}
-              className='col-md-auto'
-              key={index}
-            >
+            <Link to={`/product/${product.docID}`} state={product} key={index}>
               <ProductPageItem product={product} />
             </Link>
           );
@@ -73,12 +64,7 @@ const ProductsPage = () => {
         })
         .map((product, index) => {
           return (
-            <Link
-              to={`/product/${product.docID}`}
-              state={product}
-              className='col-md-auto'
-              key={index}
-            >
+            <Link to={`/product/${product.docID}`} state={product} key={index}>
               <ProductPageItem product={product} />
             </Link>
           );
@@ -106,7 +92,10 @@ const ProductsPage = () => {
                 style={{ width: '30%' }}
                 className='text-center mb-5 justify-self-center'
               >
-                <h1 className='text-white mb-5' style={{ fontFamily: 'merriweather'}}>
+                <h1
+                  className='text-white mb-5'
+                  style={{ fontFamily: 'merriweather' }}
+                >
                   Bring Your Wardrobe to Life With Our Stunning Collection
                 </h1>
                 <div
@@ -124,12 +113,12 @@ const ProductsPage = () => {
               </div>
             </div>
           </div>
-          <section>
+          <section style={{ backgroundColor: '#eeeeee' }}>
             <div
               className='window--wide'
               style={{
-                paddingTop: '36px',
-                paddingBottom: '36px',
+                paddingTop: '30px',
+                paddingBottom: '30px',
                 width: '65%',
               }}
             >
@@ -195,18 +184,71 @@ const ProductsPage = () => {
   };
   renderFeatured();
   return (
-    <div className='d-flex flex-column'>
+    <div className='d-flex flex-column align-items-center'>
       {renderHero()}
-      <div className='m-5'>
-        <div>
-          <h4 className='fw-bold ms-3 fs-3 mb-4'style={{fontFamily: 'merriweather'}}>
-            Featured
-          </h4>
-          <div className='row align-items-start'>{renderNewProducts()}</div>
+      <div className='m-5 d-flex flex-column container align-items-center'>
+        <div
+          className=' mb-5'
+          style={{
+            gridTemplateColumns: 'repeat(3, minmax(0,1fr))',
+            gap: '10px',
+            display: 'grid',
+          }}
+        >
+          <div className='product__feature__section__container image-container'>
+            <img
+              src={mensCategory}
+              alt=''
+              className='h-full product-image'
+              style={{ width: '100%' }}
+            />
+            <div className='product__feature__overlay'>
+              <div className='text-white'>Hello</div>
+            </div>
+            <div className='bg-dark'>Hello</div>
+          </div>
+          <div className='product__feature__section__container image-container '>
+            <img
+              src={mensCategory}
+              alt=''
+              className='h-full product-image'
+              style={{ width: '100%' }}
+            />
+            <div className='product__feature__overlay'>
+              <div className='text-white'>Hello</div>
+            </div>
+            <div className='bg-dark text-white'>Hello</div>
+          </div>
+          <div className='product__feature__section__container image-container '>
+            <img
+              src={mensCategory}
+              alt=''
+              className='h-full product-image'
+              style={{ width: '100%' }}
+            />
+            <div className='product__feature__overlay'>
+              <div className='text-white '>Hello</div>
+            </div>
+            <div className='bg-dark'>Hello</div>
+          </div>
         </div>
         <div>
-          <h4 className='fw-bold ms-4 mt-3'>All</h4>
-          <div className='row align-items-start'>{renderProducts()}</div>
+          <h4
+            className='fw-bold ms-3 fs-3 mb-4'
+            style={{ fontFamily: 'merriweather' }}
+          >
+            New
+          </h4>
+          <div className='grid grid-cols-4 mb-5'>{renderNewProducts()}</div>
+        </div>
+        <div>
+          <h4
+            className='fw-bold ms-3 fs-3 mb-4'
+            style={{ fontFamily: 'merriweather' }}
+          >
+            All
+          </h4>
+          <div className='grid grid-cols-4'>{renderProducts()}</div>
         </div>
       </div>
     </div>

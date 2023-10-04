@@ -15,6 +15,16 @@ export function addToCartSet(cartItems) {
   return uniqueObjectsArray;
 }
 
+export function getAverageRating(updatedProductData) {
+  let avgRating = 0;
+  for (let i = 0; i < updatedProductData.userRatings.length; i++) {
+    avgRating += updatedProductData.userRatings[i].rating;
+  }
+  avgRating = avgRating / updatedProductData.userRatings.length;
+
+  return avgRating
+}
+
 export function isProductNew(product) {
   const currentTimestamp = Math.floor(Date.now() / 1000); // Current time in Unix epoch format
   const twoWeeksInSeconds = 2 * 7 * 24 * 60 * 60; // Two weeks in seconds

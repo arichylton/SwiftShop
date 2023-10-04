@@ -15,7 +15,7 @@ import NewProductPage from './containers/NewProductPage/NewProductPage';
 
 function App() {
   return (
-    <main style={{ backgroundColor: '#eeeeee'}}>
+    <main className='bg-light'>
       <Navbar />
       <div
         className='container d-flex flex-column align-items-center'

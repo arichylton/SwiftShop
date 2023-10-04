@@ -15,12 +15,26 @@
 }
 
 .grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0,1fr));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid {
+  display: grid;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.product__feature__section__container {
+  height: 500px;
 }
 
 .h-full {
   height: 100%;
-  grid-row: span 1 / span 1; 
+  grid-row: span 1 / span 1;
 }
 
 .overlay {
@@ -32,8 +46,28 @@
   display: flex;
   align-items: end;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3); /* You can adjust the overlay background color and opacity as needed */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* You can adjust the overlay background color and opacity as needed */
   z-index: 1; /* Ensure the overlay is on top of the image */
+}
+
+.product__feature__overlay {
+    position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+  /* You can adjust the overlay background color and opacity as needed */
+  z-index: 1; /* Ensure the overlay is on top of the image */
+  
 }
 
 /* Style for individual product items within the overlay */
@@ -43,7 +77,11 @@
   margin: 10px; /* Adjust the spacing between product items */
 }
 
-
-
 /* Style for ProductPageItem components */
 /* You can define styles for your product items here, such as background color, padding, border, etc. */
+
+@media (max-width: 900px) {
+  .grid-cols-4 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+}

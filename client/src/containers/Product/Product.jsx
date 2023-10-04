@@ -8,13 +8,13 @@ import { Rating } from 'semantic-ui-react';
 import { updateProduct, updateUserCart } from '../../utils/firebase.utils';
 import Button from '../../components/button/button';
 import FormInput from '../../components/form-input/form-input';
-import { formatDateToMonthDDYYYY } from '../../utils';
+import { formatDateToMonthDDYYYY, getAverageRating } from '../../utils';
 
 const defaultFormFields = {
   title: '',
   rating: 3,
   reviewDescription: '',
-  dateReviewed: new Date()
+  dateReviewed: new Date(),
 };
 
 const Product = () => {
@@ -39,21 +39,12 @@ const Product = () => {
 
   useEffect(() => {
     if (updatedProductData.userRatings.length > 0) {
-      let avgRating = 0;
-      for (let i = 0; i < updatedProductData.userRatings.length; i++) {
-        avgRating += updatedProductData.userRatings[i].rating;
-
-        if (currentUser) {
-          if (
-            updatedProductData.userRatings[i].userEmail === currentUser.email
-          ) {
-            setDoesUserReviewExist(true);
-          }
+      if (currentUser) {
+        if (updatedProductData.userRatings[i].userEmail === currentUser.email) {
+          setDoesUserReviewExist(true);
         }
       }
-      avgRating = avgRating / updatedProductData.userRatings.length;
-
-      setProductRating(avgRating);
+      setProductRating(getAverageRating(updatedProductData));
     }
   }, [updatedProductData, currentUser]);
 
@@ -233,7 +224,9 @@ const Product = () => {
             <h4 className='card-header'>{review.title}</h4>
             <div className='card-body'>
               <h5 className='card-title'>User: {review.displayName}</h5>
-              <h5 className='card-title'>{formatDateToMonthDDYYYY(review.dateReviewed)}</h5>
+              <h5 className='card-title'>
+                {formatDateToMonthDDYYYY(review.dateReviewed)}
+              </h5>
               <h5 className='d-flex'>
                 Rating: {<RatingIcons userRating={review.rating} />}
               </h5>
