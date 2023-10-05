@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     port: 4242,
     build: {
-      outDir: 'build',
+      outDir: 'dist',
     },
     proxy: {
       '/config': 'http://localhost:5252',
