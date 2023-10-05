@@ -4,6 +4,7 @@ const app = express();
 const env = require('dotenv').config({ path: './.env' });
 const { resolve } = require('path');
 const { getAllProducts } = require('./firebase.utils');
+;
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',
