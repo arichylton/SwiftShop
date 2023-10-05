@@ -22,7 +22,7 @@ const calculateCartTotal = (cart) => {
 
 // Serve static files from the 'public' directory
 const staticPath = path.resolve(process.env.STATIC_DIR + '/index.html'); // Adjust 'public' to your static directory
-app.use(express.static('public'));
+app.use(express.static(process.env.STATIC_DIR));
 app.use(express.static(staticPath));
 app.use(express.json());
 
