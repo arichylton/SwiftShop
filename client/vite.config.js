@@ -8,13 +8,6 @@ export default defineConfig({
   server: {
     port: 4242,
     // client/vite.config.js
-    build: {
-      outDir: '/dist',
-    },
-    mimeTypes: {
-      // Ensure that the MIME type for JavaScript modules is correct
-      'application/javascript': ['js', 'mjs'],
-    },
     proxy: {
       '/config': 'http://localhost:5252',
       '/create-payment-intent': 'http://localhost:5252',
