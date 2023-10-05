@@ -4,11 +4,15 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  build: {
-    target: 'modules', // Ensure that modules are the target
-  },
+
   server: {
     port: 4242,
+    // client/vite.config.js
+
+    build: {
+      outDir: '/dist',
+    },
+
     proxy: {
       '/config': 'http://localhost:5252',
       '/create-payment-intent': 'http://localhost:5252',
