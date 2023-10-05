@@ -6,9 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 4242,
-    build: {
-      outDir: 'dist',
-    },
     proxy: {
       '/config': 'http://localhost:5252',
       '/create-payment-intent': 'http://localhost:5252',
