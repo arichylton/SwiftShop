@@ -29,12 +29,17 @@
 }
 
 .product__feature__section__container {
-  height: 500px;
+  border-radius: 5px;
+  min-height: 500px;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgb(221, 220, 220);
+  display: flex;
+  flex-direction: column;
 }
 
 .h-full {
   height: 100%;
-  grid-row: span 1 / span 1;
 }
 
 .overlay {
@@ -56,7 +61,7 @@
 }
 
 .product__feature__overlay {
-    position: absolute;
+  position: absolute;
   top: 0;
   left: 0;
   height: 100%;
@@ -67,7 +72,27 @@
   align-items: start;
   /* You can adjust the overlay background color and opacity as needed */
   z-index: 1; /* Ensure the overlay is on top of the image */
+}
+
+.product__feature__overlay-img {
   
+}
+
+.product__feature__overlay-img::after {
+  content: '' attr(alt) !important;
+  position: absolute;
+  top: 0;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  white-space: normal;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  align-items: center;
 }
 
 /* Style for individual product items within the overlay */
@@ -82,6 +107,6 @@
 
 @media (max-width: 900px) {
   .grid-cols-4 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

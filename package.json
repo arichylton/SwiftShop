@@ -1,21 +1,44 @@
 {
   "name": "swiftshop",
-  "engines": {
-    "node": "18.x",
-    "npm": "9.x"
-  },
   "version": "1.0.0",
-  "main": "",
-  "scripts": {
-    "start": "npm start --prefix server",
-    "install-client": "cd client && npm install && npm run build && cd ..",
-    "install-server": "cd server && npm install && cd .. ",
-    "heroku-postbuild": "npm run install-client && npm run install-server"
-  },
+  "description": "is an ecommerce web app that allows users to recieve specialized recommendations for products they would like.",
+  "main": "index.js",
   "dependencies": {
+    "debug": "^2.6.9",
+    "depd": "^2.0.0",
+    "destroy": "^1.2.0",
+    "ee-first": "^1.1.1",
+    "encodeurl": "^1.0.2",
+    "escape-html": "^1.0.3",
+    "etag": "^1.8.1",
+    "fresh": "^0.5.2",
+    "http-errors": "^2.0.0",
+    "inherits": "^2.0.4",
+    "js-tokens": "^4.0.0",
+    "loose-envify": "^1.4.0",
+    "mime": "^1.6.0",
+    "ms": "^2.1.3",
+    "on-finished": "^2.4.1",
+    "parseurl": "^1.3.3",
     "path": "^0.12.7",
+    "process": "^0.11.10",
+    "range-parser": "^1.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-spinners": "^0.13.8",
+    "scheduler": "^0.23.0",
+    "send": "^0.18.0",
     "serve-static": "^1.15.0",
-    "vite": "^3.1.0"
-  }
+    "setprototypeof": "^1.2.0",
+    "statuses": "^2.0.1",
+    "toidentifier": "^1.0.1",
+    "util": "^0.10.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

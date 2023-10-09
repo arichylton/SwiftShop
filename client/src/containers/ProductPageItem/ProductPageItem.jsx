@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAverageRating } from '../../utils';
+import { getAverageRating, isProductNew } from '../../utils';
 import starSolid from '../../assets/images/components/star-solid.svg';
 import './ProductPageItem.styles.scss';
 
@@ -34,8 +34,12 @@ const ProductPageItem = ({ product }) => {
                 />
               </div>
             ) : null}
-            { product.featured ? <div className='product__text-bubble'>Featured</div> : null}
-            <div className='product__text-bubble'>Best Seller</div>
+            {product.featured ? (
+              <div className='product__text-bubble'>Featured</div>
+            ) : null}
+            {isProductNew(product) ? (
+              <div className='product__text-bubble'>New</div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -18,7 +18,6 @@ const Navbar = () => {
     await signOutUser();
     dispatch(setCurrentUser(null));
   };
-  console.log(currentUser);
 
   const renderNumberOfItemsInCart = () => {
     if (currentUser && currentUser.cart.length > 0) {
@@ -59,11 +58,21 @@ const Navbar = () => {
                 height='45'
               />
             </Link>
-            <Link className='fs-4 ms-4 me-4' to='/mens'>
-              <p>Mens</p>
+            <Link className='fs-4 ms-4' to='/mens'>
+              <p className='fs-5'>Themes</p>
             </Link>
-            <Link className='fs-4' to='/womens'>
-              <p>Womens</p>
+            <Link className='fs-4 ms-4' to='/mens'>
+              <p className='fs-5'>Themes</p>
+            </Link>
+            <Link className='fs-4 ms-4' to='/mens'>
+              <p className='fs-5'>Seasonal</p>
+            </Link>
+            <Link className='fs-4 ms-4' to='/mens'>
+              <p className='fs-5'>Mens</p>
+            </Link>
+
+            <Link className='fs-4 ms-4' to='/womens'>
+              <p className='fs-5'>Womens</p>
             </Link>
           </div>
 

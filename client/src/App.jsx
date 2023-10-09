@@ -11,15 +11,14 @@ import MensStorePage from './containers/MensStorePage/MensStorePage';
 import WomensStorePage from './containers/WomensStorePage/WomensStorePage';
 import AdminProductsPage from './containers/AdminProductsPage/AdminProductsPage';
 import NewProductPage from './containers/NewProductPage/NewProductPage';
+import Footer from './components/Footer/Footer';
 
 
 function App() {
   return (
     <main className='bg-light'>
       <Navbar />
-      <div
-        className='container d-flex flex-column align-items-center'
-      >
+      <div className='container d-flex flex-column align-items-center'>
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>
           <Route path='payment' element={<Payment />}></Route>
@@ -32,6 +31,7 @@ function App() {
           <Route path='admin/products/new' element={<NewProductPage />} />
         </Routes>
       </div>
+      <Footer />
     </main>
   );
 }
