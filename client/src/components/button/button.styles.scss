@@ -38,8 +38,9 @@
     min-width: 40px;
 
     &:hover {
-      background-color: #161625;
-      color: white;
+      background-color: white;
+      color: #161625;
+      border: 1px solid #161625;
     }
   }
 

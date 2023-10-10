@@ -220,16 +220,25 @@ const Product = () => {
     if (updatedProductData.userRatings.length > 0) {
       return updatedProductData.userRatings.map((review, index) => {
         return (
-          <div key={index} className='card mb-3'>
-            <h4 className='card-header'>{review.title}</h4>
-            <div className='card-body'>
-              <h5 className='card-title'>User: {review.displayName}</h5>
-              <h5 className='card-title'>
+          <div
+            key={index}
+            className='pb-0'
+            style={{
+              paddingTop: '24px',
+              marginTop: '24px',
+              borderTop: 'solid 1px #ECECEC',
+            }}
+          >
+            <h5 className='d-flex' style={{ marginBottom: '.5em' }}>
+              {<RatingIcons userRating={review.rating} />}
+            </h5>
+            <h5 className=''>{review.title}</h5>
+            <div>
+              <h5 className=''>User: {review.displayName}</h5>
+              <h5 className=''>
                 {formatDateToMonthDDYYYY(review.dateReviewed)}
               </h5>
-              <h5 className='d-flex'>
-                Rating: {<RatingIcons userRating={review.rating} />}
-              </h5>
+
               <p className='card-text'>{review.reviewDescription}</p>
             </div>
           </div>
@@ -240,7 +249,7 @@ const Product = () => {
 
   return (
     <section className='container d-flex flex-column justify-content-center mt-5 pt-5'>
-      <div className='d-flex' style={{ maxHeight: '50vh' }}>
+      <div className='d-flex'>
         <div className='p-5 text-center'>
           <img
             style={{ width: '30vw' }}
@@ -283,10 +292,29 @@ const Product = () => {
           {renderReview()}
         </div>
       </div>
-      <div style={{ marginTop: '100px' }}>
-        <h3 className='mt-5 pt-5 ms-4'>What are customers saying?</h3>
+      <div
+        style={{
+          border: 'solid .1rem #ECECEC',
+          borderRadius: 1,
+          padding: '24px',
+          margin: '100px 0',
+        }}
+      >
+        <div style={{  }}>
+          <h4 style={{ fontFamily: 'merriweather' }} className='mb-3'>
+            Customer Reviews
+          </h4>
+          <div className='text-white fs-4'>
+            ⭐⭐⭐⭐⭐ Over 1000+ 5 star reviews
+          </div>
+          <div className='fs-4'>Based on 1 Review</div>
+          <div className='fs-5 text-decoration-underline text-end'>
+            Leave Review
+          </div>
+        </div>
+
+        {renderProductReviews()}
       </div>
-      <div className='mt-3 '>{renderProductReviews()}</div>
     </section>
   );
 };

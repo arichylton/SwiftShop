@@ -123,11 +123,11 @@ const ProductsPage = () => {
           </div>
           <section style={{ backgroundColor: '#eeeeee' }}>
             <div
-              className='window--wide'
+              className='container'
               style={{
                 paddingTop: '30px',
                 paddingBottom: '30px',
-                width: '65%',
+
               }}
             >
               <div className='row'>

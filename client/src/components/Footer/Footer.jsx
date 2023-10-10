@@ -9,6 +9,9 @@ const Footer = () => {
         backgroundColor: '#eee',
         borderTop: 'solid 1px #d9d9d9',
         color: '#161625',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
       }}
     >
       <div className='container d-flex flex-column' style={{ height: '70%' }}>
@@ -21,7 +24,7 @@ const Footer = () => {
             flexGrow: 1,
             justifyContent: 'space-between',
           }}
-          className='flex-wrap flex-fill'
+          className='flex-wrap'
         >
           <div>
             <h5 className='fw-bold mb-3'>Save 10%</h5>
@@ -61,11 +64,18 @@ const Footer = () => {
       <div style={{ borderTop: 'solid 1px #d9d9d9' }}>
         <div
           className='container d-flex flex-wrap flex-column'
-          style={{ gap: '1rem', paddingTop: '.5rem', paddingBottom: '.5rem', height: '100%' }}
+          style={{
+            gap: '1rem',
+            paddingTop: '.5rem',
+            paddingBottom: '.5rem',
+            height: '100%',
+          }}
         >
           <div className='d-flex justify-content-end fs-5 '>
-            <div className='me-3'>Terms of Service</div>
-            <div>Privacy Policy</div>
+            <div className='me-3 text-decoration-underline'>
+              Terms of Service
+            </div>
+            <div className='text-decoration-underline'>Privacy Policy</div>
           </div>
           <div className='d-flex align-items-center'>
             <div className='text-secondary flex-fill d-flex align-items-center'>

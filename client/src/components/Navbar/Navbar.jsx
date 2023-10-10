@@ -40,17 +40,15 @@ const Navbar = () => {
       <div className='w-100'>
         <div
           style={{ backgroundColor: '#eeeeee', height: '35px' }}
-          className='d-flex justify-content-around align-items-center'
         >
-          <p className='m-auto'>$ USD &#183; EN</p>
-          <p className='m-auto fs-5'>We donate $1 from every purchase</p>
-          <p className='m-auto'>Log in</p>
+          <div className='container d-flex justify-content-between align-items-center h-100'>
+            <div>$ USD &#183; EN</div>
+            <div className=' fs-5'>We donate $1 from every purchase</div>
+            <div>Log in</div>
+          </div>
         </div>
-        <div
-          className='ps-4 pe-4 pb-1 pt-1 d-flex justify-content-between m-auto'
-          style={{ width: '75%' }}
-        >
-          <div className='d-flex justify-content-center align-items-center'>
+        <div className='pb-1 pt-1 d-flex justify-content-between m-auto container'>
+          <div className='d-flex align-items-center'>
             <Link className='navbar-brand' to='/'>
               <img
                 src='../../../src/assets/images/logos/logo.png'
@@ -59,7 +57,7 @@ const Navbar = () => {
               />
             </Link>
             <Link className='fs-4 ms-4' to='/mens'>
-              <p className='fs-5'>Themes</p>
+              <p className='fs-5'>All</p>
             </Link>
             <Link className='fs-4 ms-4' to='/mens'>
               <p className='fs-5'>Themes</p>
@@ -76,7 +74,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className='d-flex p-2'>
+          <div className='d-flex'>
             <div className='d-flex align-items-center'>
               <a
                 style={{ cursor: 'pointer' }}
