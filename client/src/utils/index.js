@@ -1,5 +1,7 @@
 export function countOccurrences(arr, targetDocID, targetSize) {
-  return arr.filter((item) => item.docID === targetDocID && item.size === targetSize).length;
+  return arr.filter(
+    (item) => item.docID === targetDocID && item.size === targetSize
+  ).length;
 }
 
 export function addToCartSet(cartItems) {
@@ -22,7 +24,7 @@ export function getAverageRating(updatedProductData) {
   }
   avgRating = avgRating / updatedProductData.userRatings.length;
 
-  return avgRating
+  return avgRating;
 }
 
 export function isProductNew(product) {
@@ -31,10 +33,15 @@ export function isProductNew(product) {
   return product.dateCreated.seconds > currentTimestamp - twoWeeksInSeconds;
 }
 
-export function formatDateToMonthDDYYYY(customDate) {
-  const seconds = customDate.seconds;
-  const milliseconds = seconds * 1000; // Convert seconds to milliseconds
-  const fullDate = new Date(milliseconds);
+export const formatDateToMonthDDYYYY = (customDate) => {
+  let fullDate = null;
+  if (customDate.seconds) {
+    const seconds = customDate.seconds;
+    const milliseconds = seconds * 1000; // Convert seconds to milliseconds
+    fullDate = new Date(milliseconds);
+  } else {
+    fullDate = customDate;
+  }
 
   const monthNames = [
     'January',
@@ -58,4 +65,4 @@ export function formatDateToMonthDDYYYY(customDate) {
   const formattedDate = `${month} ${day}, ${year}`;
 
   return formattedDate;
-}
+};

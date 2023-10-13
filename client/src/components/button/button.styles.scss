@@ -55,3 +55,36 @@
     }
   }
 }
+
+.dropdown-button-container {
+  min-width: 105px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 14px;
+  background-color: #161625;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Sen';
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+
+  &:hover {
+    background-color: white;
+    color: #161625;
+    border: 1px solid #161625;
+  }
+}
+
+.dropdown-button-item {
+  &:hover {
+    background-color: #d9d9d9;
+  }
+}

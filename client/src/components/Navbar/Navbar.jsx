@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import cartImg from '../../assets/images/components/cart-shopping-solid.svg';
 import { Cart } from '../Cart/Cart.jsx';
 import { CartUser } from '../Cart_User/CartUser.jsx';
-import { Link } from 'react-router-dom';
-import defaultUserImage from '../../assets/images/components/circle-user-regular.svg';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { updateURL } from '../../store/currentURL/currentURLSlice';
 import './style.module.scss';
 import { signOutUser } from '../../utils/firebase.utils';
 import { setCurrentUser } from '../../store/user/userSlice';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const currentUser = useSelector((store) => store.USER.currentUser);
   const dispatch = useDispatch();
@@ -36,15 +38,65 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar fixed-top bg-body-tertiary p-0'>
+    <nav
+      className='navbar fixed-top bg-body-tertiary p-0'
+      style={{ borderBottom: 'solid 1px #d9d9d9' }}
+    >
       <div className='w-100'>
-        <div
-          style={{ backgroundColor: '#eeeeee', height: '35px' }}
-        >
+        <div style={{ backgroundColor: '#eeeeee', height: '35px' }}>
           <div className='container d-flex justify-content-between align-items-center h-100'>
             <div>$ USD &#183; EN</div>
             <div className=' fs-5'>We donate $1 from every purchase</div>
-            <div>Log in</div>
+            <div>
+              {currentUser ? (
+                <div className='dropstart'>
+                  <a
+                    className='dropdown-toggle'
+                    type='button'
+                    id='dropdownMenuButton1'
+                    data-bs-toggle='dropdown'
+                    aria-expanded='false'
+                  >
+                    {currentUser.displayName}
+                  </a>
+                  <ul
+                    className='dropdown-menu dropdown-menu-dark'
+                    aria-labelledby='dropdownMenuButton1'
+                  >
+                    <li className='text-center fs-5 p-2'>
+                      {currentUser.isAdmin ? (
+                        <Link
+                          className='dropdown-item text-primary fw-bold'
+                          style={{ cursor: 'pointer' }}
+                          to='/admin/products'
+                        >
+                          Admin
+                        </Link>
+                      ) : null}
+                    </li>
+                    <li className='p-2 text-center fs-5 '>
+                      <a
+                        className='dropdown-item text-danger fw-bold'
+                        onClick={signOutHandler}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        Sign Out
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <a
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    dispatch(updateURL(window.location.pathname));
+                    navigate('/signin', { state: location.state});
+                  }}
+                >
+                  Log in
+                </a>
+              )}
+            </div>
           </div>
         </div>
         <div className='pb-1 pt-1 d-flex justify-content-between m-auto container'>
@@ -56,13 +108,13 @@ const Navbar = () => {
                 height='45'
               />
             </Link>
-            <Link className='fs-4 ms-4' to='/mens'>
+            <Link className='fs-4 ms-4' to='/all'>
               <p className='fs-5'>All</p>
             </Link>
-            <Link className='fs-4 ms-4' to='/mens'>
+            <Link className='fs-4 ms-4' to='/themes'>
               <p className='fs-5'>Themes</p>
             </Link>
-            <Link className='fs-4 ms-4' to='/mens'>
+            <Link className='fs-4 ms-4' to='/seasonal'>
               <p className='fs-5'>Seasonal</p>
             </Link>
             <Link className='fs-4 ms-4' to='/mens'>
@@ -92,56 +144,6 @@ const Navbar = () => {
                 {renderNumberOfItemsInCart()}
               </a>
             </div>
-            {/* {currentUser ? (
-              <div className='dropstart'>
-                <a
-                  className='dropdown-toggle'
-                  type='button'
-                  id='dropdownMenuButton1'
-                  data-bs-toggle='dropdown'
-                  aria-expanded='false'
-                >
-                  <img
-                    src={
-                      currentUser.photoURL
-                        ? currentUser.photoURL
-                        : defaultUserImage
-                    }
-                    alt='user_IMG'
-                    style={{ width: '37px', borderRadius: '50%' }}
-                  />
-                </a>
-                <ul
-                  className='dropdown-menu dropdown-menu-dark'
-                  aria-labelledby='dropdownMenuButton1'
-                >
-                  <li className='text-center fs-5 p-2'>
-                    {currentUser.isAdmin ? (
-                      <Link
-                        className='dropdown-item text-primary fw-bold'
-                        style={{ cursor: 'pointer' }}
-                        to='/admin/products'
-                      >
-                        Admin
-                      </Link>
-                    ) : null}
-                  </li>
-                  <li className='p-2 text-center fs-5 '>
-                    <a
-                      className='dropdown-item text-danger fw-bold'
-                      onClick={signOutHandler}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      Sign Out
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <Link className='navbar-brand' to='/signin'>
-                Sign In
-              </Link>
-            )} */}
           </div>
 
           <div

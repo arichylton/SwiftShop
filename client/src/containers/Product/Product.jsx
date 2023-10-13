@@ -1,14 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from '../../store/cartItems/cartItemsSlice';
 import { addUserCartItem } from '../../store/user/userSlice';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import RatingIcons from '../../components/RatingIcons/RatingIcons';
 import { Rating } from 'semantic-ui-react';
 import { updateProduct, updateUserCart } from '../../utils/firebase.utils';
 import Button from '../../components/button/button';
-import FormInput from '../../components/form-input/form-input';
-import { formatDateToMonthDDYYYY, getAverageRating } from '../../utils';
+import starSolid from '../../assets/images/components/star-solid.svg';
+
+import {
+  formatDateToMonthDDYYYY,
+  getAverageRating,
+  isProductNew,
+} from '../../utils';
+import ProductPageItem from '../ProductPageItem/ProductPageItem';
 
 const defaultFormFields = {
   title: '',
@@ -19,6 +25,8 @@ const defaultFormFields = {
 
 const Product = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [currentSize, setCurrentSize] = useState();
   const [updatedProductData, setUpdatedProductData] = useState(location.state);
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -26,6 +34,8 @@ const Product = () => {
   const [productRating, setProductRating] = useState(0);
   const [doesUserReviewExist, setDoesUserReviewExist] = useState(false);
   const currentUser = useSelector((store) => store.USER.currentUser);
+  const [productsData, setProductsData] = useState(null);
+
   let {
     name,
     productImage,
@@ -35,18 +45,66 @@ const Product = () => {
     featured,
     userRatings,
     docID,
+    season,
+    theme,
   } = updatedProductData;
 
   useEffect(() => {
-    if (updatedProductData.userRatings.length > 0) {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    fetch('/products-data').then(async (result) => {
+      const { productsDataInfo } = await result.json();
+      setProductsData(productsDataInfo);
+    });
+  }, []);
+
+  const renderSimilarProducts = () => {
+    if (productsData) {
+      return productsData
+        .filter((product) => {
+          return (
+            product.name != name &&
+            (product.season == season || product.theme == theme)
+          );
+        })
+        .map((product, index) => {
+          if (index > 3) {
+            return;
+          }
+          return (
+            <Link
+              key={index}
+              to={`/product/${product.docID}`}
+              onClick={() =>
+                navigate(`/product/${product.docID}`, {
+                  state: product,
+                  replace: true,
+                })
+              }
+            >
+              <ProductPageItem product={product} />
+            </Link>
+          );
+        });
+    } else {
+      return <div>No Product Information Yet</div>;
+    }
+  };
+
+  useEffect(() => {
+    if (userRatings.length > 0) {
       if (currentUser) {
-        if (updatedProductData.userRatings[i].userEmail === currentUser.email) {
-          setDoesUserReviewExist(true);
+        for (let i = 0; i < userRatings.length; i++) {
+          if (userRatings[i].userEmail === currentUser.email) {
+            setDoesUserReviewExist(true);
+          }
         }
       }
       setProductRating(getAverageRating(updatedProductData));
     }
-  }, [updatedProductData, currentUser]);
+  }, []);
 
   useEffect(() => {
     if (sizes['s'] != 0) {
@@ -70,7 +128,7 @@ const Product = () => {
     }
   }, [currentUser]);
 
-  const dispatch = useDispatch();
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -97,6 +155,7 @@ const Product = () => {
       <button
         onClick={() => changeSize(size)}
         type='button'
+        style={{ borderRadius: '0' }}
         className={`list-group-item list-group-item-action text-center ${
           sizes[size] != 0 ? '' : `disabled text-danger`
         } ${currentSize === size ? 'active' : ''}`}
@@ -232,14 +291,16 @@ const Product = () => {
             <h5 className='d-flex' style={{ marginBottom: '.5em' }}>
               {<RatingIcons userRating={review.rating} />}
             </h5>
-            <h5 className=''>{review.title}</h5>
             <div>
-              <h5 className=''>User: {review.displayName}</h5>
-              <h5 className=''>
+              <div className='fst-italic' style={{ fontSize: '16px' }}>
+                {review.title}
+              </div>
+              <span className='fs-5 fw-bold'>{review.displayName}</span>
+              <span> on </span>
+              <span className='fs-5 fw-bold'>
                 {formatDateToMonthDDYYYY(review.dateReviewed)}
-              </h5>
-
-              <p className='card-text'>{review.reviewDescription}</p>
+              </span>
+              <p className='card-text pt-3'>{review.reviewDescription}</p>
             </div>
           </div>
         );
@@ -248,50 +309,80 @@ const Product = () => {
   };
 
   return (
-    <section className='container d-flex flex-column justify-content-center mt-5 pt-5'>
+    <section
+      className='container d-flex flex-column justify-content-center'
+      style={{ marginTop: '120px' }}
+    >
       <div className='d-flex'>
         <div className='p-5 text-center'>
-          <img
-            style={{ width: '30vw' }}
-            src={updatedProductData.productImage}
-            alt='productImage'
-          />
+          <div className='image-container'>
+            <img
+              className='product__image'
+              src={productImage}
+              alt='productImage'
+            />
+            <div className='product__overlay'>
+              <div className='p-2 d-flex'>
+                {productRating ? (
+                  <div
+                    style={{ minWidth: '4rem', backgroundColor: '#eee' }}
+                    className='product__text-bubble d-flex align-items-center justify-content-center'
+                  >
+                    <div className='text-dark pe-1'>
+                      {productRating.toFixed(1)}
+                    </div>
+                    <img
+                      src={starSolid}
+                      style={{ width: 14, height: 14 }}
+                      className='h-100'
+                    />
+                  </div>
+                ) : null}
+                {featured ? (
+                  <div className='product__text-bubble'>Featured</div>
+                ) : null}
+                {isProductNew(updatedProductData) ? (
+                  <div className='product__text-bubble'>New</div>
+                ) : null}
+              </div>
+            </div>
+          </div>
         </div>
         <div className='vr'></div>
         <div className='p-5 d-flex flex-column'>
-          <h2 className='text-capitalize fw-bold'>{name}</h2>
-          {featured ? (
-            <h6 className='fw-bold text-warning bg-dark p-2 w-25 text-center'>
-              FEATURED
-            </h6>
-          ) : null}
-          <div className='d-flex align-items-center'>
-            <RatingIcons userRating={productRating} size={'fs-5'} />
-            <span className='f2-4 fw-bold ms-1'>{`(${updatedProductData.userRatings.length})`}</span>
-          </div>
-          <h4 className='mt-2 mb-2 fs-3'>${price}</h4>
+          <h2 className='text-capitalize fst-italic me-2'>{name}</h2>
+
+          <h4
+            className='mt-2 mb-2 pb-4 fs-5'
+            style={{ borderBottom: 'solid 1px #d9d9d9' }}
+          >
+            ${price}
+          </h4>
           <p className='m-1 mt-4 fs-5'>
             Size: {currentSize && currentSize.toUpperCase()}
           </p>
-          <div className='list-group list-group-horizontal w-50'>
+          <div
+            className='list-group list-group-horizontal w-50'
+            style={{ borderRadius: '40' }}
+          >
             {renderButtonSize('s')}
             {renderButtonSize('m')}
             {renderButtonSize('l')}
             {renderButtonSize('xl')}
           </div>
-          <button
-            className='btn btn-primary ps-4 pe-4 mt-4 mb-4 w-50'
-            onClick={addToCart}
-          >
-            Add To Cart
-          </button>
+          <div className='mt-3 mb-5 w-100'>
+            <Button onClick={addToCart} buttonType='google'>
+              Add To Cart - ${price}
+            </Button>
+          </div>
+
           <p className='mb-1 fw-bold'>Description: </p>
           <h3 className='fs-5' style={{ minWidth: '33vw' }}>
             {description}
           </h3>
-          {renderReview()}
         </div>
       </div>
+
       <div
         style={{
           border: 'solid .1rem #ECECEC',
@@ -300,20 +391,27 @@ const Product = () => {
           margin: '100px 0',
         }}
       >
-        <div style={{  }}>
-          <h4 style={{ fontFamily: 'merriweather' }} className='mb-3'>
-            Customer Reviews
-          </h4>
-          <div className='text-white fs-4'>
-            ⭐⭐⭐⭐⭐ Over 1000+ 5 star reviews
-          </div>
-          <div className='fs-4'>Based on 1 Review</div>
-          <div className='fs-5 text-decoration-underline text-end'>
-            Leave Review
-          </div>
+        <h4 style={{ fontFamily: 'merriweather' }} className='mb-3'>
+          Customer Reviews
+        </h4>
+        {productRating ? <RatingIcons userRating={productRating} /> : null}
+        <div className='fs-4'>
+          Based on {updatedProductData.userRatings.length}{' '}
+          {updatedProductData.userRatings.length == 1 ? 'Review' : 'Reviews'}
         </div>
+        <div className='fs-5'>{renderReview()}</div>
 
         {renderProductReviews()}
+      </div>
+
+      <div style={{ paddingBottom: 100 }} className=' h-100'>
+        <h4
+          className='fw-bold fs-3 mb-4'
+          style={{ fontFamily: 'merriweather' }}
+        >
+          Check these out
+        </h4>
+        <div className='grid grid-cols-4'>{renderSimilarProducts()}</div>
       </div>
     </section>
   );

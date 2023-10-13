@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import heroBackground from '../../assets/images/backgrounds/heroBackground_1.jpg';
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
 import './ProductPage.scss';
@@ -15,6 +15,7 @@ import winterCategorySolid from '../../assets/images/backgrounds/winter_category
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
   const [heroFeature, setHeroFeature] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
@@ -23,37 +24,26 @@ const ProductsPage = () => {
     });
   }, []);
 
-  // const renderProducts = () => {
-  //   if (productsData) {
-  //     return productsData.map((product, index) => {
-  //       if (index > 3) {
-  //         return;
-  //       }
-  //       return (
-  //         <Link to={`/product/${product.docID}`} state={product} key={index}>
-  //           <ProductPageItem product={product} />
-  //         </Link>
-  //       );
-  //     });
-  //   } else {
-  //     return <div>No Product Information Yet</div>;
-  //   }
-  // };
-
   const renderNewProducts = () => {
     if (productsData) {
       return productsData
-        .filter((product) => {
-          return isProductNew(product);
+        .sort((a, b) => {
+          return b.dateCreated.seconds - a.dateCreated.seconds;
         })
         .map((product, index) => {
           if (index > 3) {
             return;
           }
           return (
-            <Link to={`/product/${product.docID}`} state={product} key={index}>
+            <a
+              style={{ cursor: 'pointer' }}
+              key={index}
+              onClick={() =>
+                navigate(`/product/${product.docID}`, { state: product })
+              }
+            >
               <ProductPageItem product={product} />
-            </Link>
+            </a>
           );
         });
     } else {
@@ -72,9 +62,15 @@ const ProductsPage = () => {
         })
         .map((product, index) => {
           return (
-            <Link to={`/product/${product.docID}`} state={product} key={index}>
+            <a
+              style={{ cursor: 'pointer' }}
+              key={index}
+              onClick={() =>
+                navigate(`/product/${product.docID}`, { state: product })
+              }
+            >
               <ProductPageItem product={product} />
-            </Link>
+            </a>
           );
         });
     } else {
@@ -107,7 +103,7 @@ const ProductsPage = () => {
                   Bring Your Wardrobe to Life With Our Stunning Collection
                 </h1>
                 <div
-                  className='d-flex justify-content-evenly m-auto'
+                  className='d-flex justify-content-evenly m-auto gap-3'
                   style={{ width: '70%' }}
                 >
                   <Button buttonType={'google'}>Shop Now</Button>
@@ -127,7 +123,6 @@ const ProductsPage = () => {
               style={{
                 paddingTop: '30px',
                 paddingBottom: '30px',
-
               }}
             >
               <div className='row'>
@@ -350,13 +345,12 @@ const ProductsPage = () => {
             borderBottom: '1rem solid #161625',
           }}
         >
-          <div className='container d-flex flex-column justify-content-center align-items-center h-100 position-relative'>
+          <div className='container d-flex flex-column justify-content-center align-items-center h-100 position-relative p-0'>
             <h1
               style={{
                 fontSize: '3rem',
                 color: '#161625',
                 marginTop: 30,
-                paddingLeft: 40,
               }}
               className='position-absolute top-0 start-0'
             >
@@ -373,7 +367,6 @@ const ProductsPage = () => {
                 fontSize: '3rem',
                 color: '#161625',
                 marginBottom: 30,
-                paddingRight: 40,
               }}
               className='position-absolute bottom-0 end-0'
             >
@@ -397,7 +390,7 @@ const ProductsPage = () => {
           >
             New
           </h4>
-          <div className='grid grid-cols-4'>{renderNewProducts()}</div>
+          <div className='grid grid-cols-4 '>{renderNewProducts()}</div>
         </div>
       </div>
     </div>

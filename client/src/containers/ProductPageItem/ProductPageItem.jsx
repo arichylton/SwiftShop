@@ -16,7 +16,11 @@ const ProductPageItem = ({ product }) => {
   return (
     <div className='mb-4'>
       <div className='image-container'>
-        <img className='product__image' src={productImage} alt='productImage' />
+        <img
+          className='product__image'
+          src={productImage}
+          alt='productImage'
+        />
         <div className='product__overlay'>
           <div className='p-2 d-flex'>
             {productAvgRating ? (
@@ -38,7 +42,7 @@ const ProductPageItem = ({ product }) => {
               <div className='product__text-bubble'>Featured</div>
             ) : null}
             {isProductNew(product) ? (
-              <div className='product__text-bubble'>New</div>
+              <div className='product__text-bubble'>Just Added</div>
             ) : null}
           </div>
         </div>

@@ -30,7 +30,7 @@ const Footer = () => {
             <h5 className='fw-bold mb-3'>Save 10%</h5>
             <div className='fs-5'>Keep up to date on our new collections.</div>
             <form className='fs-5'>
-              <div class='mb-3'>
+              <div className='mb-3'>
                 <input
                   type='email'
                   placeholder='Enter your email address'
@@ -48,7 +48,6 @@ const Footer = () => {
           <div></div>
           <div>
             <h5 className='fw-bold mb-3'>Shop</h5>
-            <div className='fs-5'>All</div>
             <div className='fs-5'>Themes</div>
             <div className='fs-5'>Seasonal</div>
             <div className='fs-5'>Mens</div>
@@ -61,9 +60,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div style={{ borderTop: 'solid 1px #d9d9d9' }}>
+      <div style={{ borderTop: 'solid 1px #d9d9d9' }} className='container'>
         <div
-          className='container d-flex flex-wrap flex-column'
+          className=' d-flex flex-wrap flex-column'
           style={{
             gap: '1rem',
             paddingTop: '.5rem',
@@ -79,15 +78,14 @@ const Footer = () => {
           </div>
           <div className='d-flex align-items-center'>
             <div className='text-secondary flex-fill d-flex align-items-center'>
-              <Button buttonType='small'>Log in</Button>
               <div className='ms-4'>$ USD &#183; EN</div>
             </div>
             <div>Copyright 2023. All rights reserved.</div>
-            {/* <Button buttonType='small'>Back to top</Button> */}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Footer;

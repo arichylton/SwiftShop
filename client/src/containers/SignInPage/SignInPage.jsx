@@ -26,7 +26,7 @@ const SignInPage = () => {
             margin: '30px auto',
           }}
         >
-          {}
+          
           <SignInForm loadFromLogin={loadFromLogin} />
           <SignUpForm loadFromLogin={loadFromLogin} />
         </div>

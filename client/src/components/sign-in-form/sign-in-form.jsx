@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser as scu } from '../../store/user/userSlice';
 import {
   createUserDocumentFromAuth,
@@ -12,7 +12,7 @@ import { getRedirectResult } from 'firebase/auth';
 import './sign-in-form.styles.scss';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const defaultFormFields = {
   email: '',
@@ -20,10 +20,16 @@ const defaultFormFields = {
 };
 
 const SignInForm = ({ loadFromLogin }) => {
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let currentURL = useSelector((store) => store.URL.currentURL);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  if (currentURL == '') {
+    currentURL = '/';
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,12 +40,12 @@ const SignInForm = ({ loadFromLogin }) => {
         const { displayName, email, reviews, cart, photoURL, isAdmin } =
           await getUserData();
         dispatch(scu({ displayName, email, reviews, cart, photoURL, isAdmin }));
-        navigate('/');
+        loadFromLogin(false);
+        navigate(`${currentURL}`, { state: location.state });
       }
     };
     fetchData();
   }, []);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -49,12 +55,14 @@ const SignInForm = ({ loadFromLogin }) => {
     try {
       await signInAuthUserWithEmailAndPassword(email, password).then(
         async (res) => {
-          console.log(res.user);
           loadFromLogin(true);
           const { displayName, email, reviews, cart, photoURL, isAdmin } =
             await getUserData();
-          dispatch(scu({ displayName, email, reviews, cart, photoURL, isAdmin }));
-          navigate('/');
+          dispatch(
+            scu({ displayName, email, reviews, cart, photoURL, isAdmin })
+          );
+          loadFromLogin(false);
+          navigate(`${currentURL}`, { state: location.state });
         }
       );
 
