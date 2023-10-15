@@ -36,6 +36,10 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "npm run heroku-postbuild",
+    "install-client": "cd client && npm install && npm run build && cd ..",
+    "install-server": "cd server && npm install && cd .. ",
+    "heroku-postbuild": "npm run install-client && npm run install-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
