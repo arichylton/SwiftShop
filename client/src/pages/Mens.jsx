@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import Button from '../components/button/button.jsx';
 import ProductPageItem from '../containers/ProductPageItem/ProductPageItem.jsx';
 
-const Men = () => {
+const Mens = () => {
   const [productsData, setProductsData] = useState();
   const [sortOption, setSortOption] = useState(null);
+  const [sizeOption, setSizeOption] = useState(null);
 
-  console.log(productsData);
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
       const { productsDataInfo } = await result.json();
@@ -43,14 +43,34 @@ const Men = () => {
       }
 
       return sortedProducts
-        .filter((product) => product.gender === 'M')
-
+        .filter((product) => {
+          if (!sizeOption) {
+            return product.gender === 'M';
+          } else {
+            return product.gender === 'M' && product.sizes[sizeOption] != 0;
+          }
+        })
         .map((product, index) => (
           <Link key={index} to={`/product/${product.docID}`} state={product}>
             <ProductPageItem product={product} />
           </Link>
         ));
     }
+  };
+
+  const handleClearFilters = () => {
+    setSizeOption(null);
+    setSortOption(null);
+
+    // Clear selected radio buttons in the Sort dropdown
+    document
+      .querySelectorAll('[name="flexRadioDefault"]')
+      .forEach((radio) => (radio.checked = false));
+
+    // Clear selected radio buttons in the Availability dropdown
+    document
+      .querySelectorAll('[name="flexRadioDefault2"]')
+      .forEach((radio) => (radio.checked = false));
   };
 
   return (
@@ -79,6 +99,15 @@ const Men = () => {
           className='container mb-5 pb-3 p-0 d-flex gap-2'
           style={{ borderBottom: 'solid 1px #d9d9d9' }}
         >
+          <button
+            className={`dropdown-button-container ${
+              !sortOption && !sizeOption ? 'd-none' : ''
+            }`}
+            style={{ backgroundColor: '#d9d9d9' }}
+            onClick={handleClearFilters}
+          >
+            X Clear All
+          </button>
           <div className='dropdown'>
             <a
               className='dropdown-button-container dropdown-toggle'
@@ -98,7 +127,7 @@ const Men = () => {
             >
               <div className='p-2 d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input m-0 '
+                  className='form-check-input m-0'
                   type='radio'
                   name='flexRadioDefault'
                   id='flexRadioDefault1'
@@ -168,7 +197,7 @@ const Men = () => {
               className='dropdown-button-container dropdown-toggle'
               href='#'
               role='button'
-              id='dropdownMenuLink'
+              id='dropdownMenuLink2'
               data-bs-toggle='dropdown'
               aria-expanded='false'
             >
@@ -176,72 +205,71 @@ const Men = () => {
             </a>
 
             <div
-              className='dropdown-menu p-0'
-              style={{ width: '250px' }}
-              aria-labelledby='dropdownMenuLink'
+              className='dropdown-menu p-0 mt-2'
+              aria-labelledby='dropdownMenuLink2'
             >
-              <div className='p-2 d-flex align-items-center gap-2 dropdown-button-item'>
+              <div className=' d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input m-0 '
+                  className='form-check-input p-2 ms-2'
                   type='radio'
-                  name='flexRadioDefault'
-                  id='flexRadioDefault1'
-                  onChange={() => handleSortChange('featured')}
+                  name='flexRadioDefault2'
+                  id='flexRadioDefault21'
+                  onChange={() => setSizeOption('s')}
                 />
                 <label
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
                   className='form-check-label fs-5 w-100'
-                  htmlFor='flexRadioDefault1'
+                  htmlFor='flexRadioDefault21'
                 >
-                  Featured
+                  s
                 </label>
               </div>
-              <div className='p-2 d-flex align-items-center gap-2 dropdown-button-item'>
+              <div className='d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input m-0'
+                  className='form-check-input ms-2 p-2'
                   type='radio'
-                  name='flexRadioDefault'
-                  id='flexRadioDefault2'
-                  onChange={() => handleSortChange('new')}
+                  name='flexRadioDefault2'
+                  id='flexRadioDefault22'
+                  onChange={() => setSizeOption('m')}
                 />
                 <label
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
                   className='form-check-label fs-5 w-100'
-                  htmlFor='flexRadioDefault2'
+                  htmlFor='flexRadioDefault22'
                 >
-                  New
+                  m
                 </label>
               </div>
-              <div className='p-2 d-flex align-items-center gap-2 dropdown-button-item'>
+              <div className='d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input m-0'
+                  className='form-check-input ms-2 p-2'
                   type='radio'
-                  name='flexRadioDefault'
-                  id='flexRadioDefault3'
-                  onChange={() => handleSortChange('lowToHigh')}
+                  name='flexRadioDefault2'
+                  id='flexRadioDefault23'
+                  onChange={() => setSizeOption('l')}
                 />
                 <label
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
                   className='form-check-label fs-5 w-100'
-                  htmlFor='flexRadioDefault3'
+                  htmlFor='flexRadioDefault23'
                 >
-                  Price, low to high
+                  l
                 </label>
               </div>
-              <div className='p-2 d-flex align-items-center gap-2 dropdown-button-item'>
+              <div className='d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input m-0'
+                  className='form-check-input ms-2 p-2'
                   type='radio'
-                  name='flexRadioDefault'
-                  id='flexRadioDefault4'
-                  onChange={() => handleSortChange('highToLow')}
+                  name='flexRadioDefault2'
+                  id='flexRadioDefault24'
+                  onChange={() => setSizeOption('xl')}
                 />
                 <label
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
                   className='form-check-label fs-5 w-100'
-                  htmlFor='flexRadioDefault4'
+                  htmlFor='flexRadioDefault24'
                 >
-                  Price, high to low
+                  xl
                 </label>
               </div>
             </div>
@@ -252,4 +280,4 @@ const Men = () => {
     </div>
   );
 };
-export default Men;
+export default Mens;

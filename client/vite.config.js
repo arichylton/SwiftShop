@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-
+  base: '/swiftshop/', // Adjust to match your Heroku app name
+  build: {
+    outDir: '../server/public', // Output directory relative to the client directory
+    assetsDir: '.', // Assets directory relative to the outDir
+  },
   server: {
     port: 4242,
     // client/vite.config.js

@@ -1,0 +1,11 @@
+@media (max-width: 1045px) {
+  .sign-in-container {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .vr-signin {
+    display: none;
+  }
+}

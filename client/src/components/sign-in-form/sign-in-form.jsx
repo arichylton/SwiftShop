@@ -56,8 +56,10 @@ const SignInForm = ({ loadFromLogin }) => {
       await signInAuthUserWithEmailAndPassword(email, password).then(
         async (res) => {
           loadFromLogin(true);
+          console.log(res.user)
           const { displayName, email, reviews, cart, photoURL, isAdmin } =
             await getUserData();
+            
           dispatch(
             scu({ displayName, email, reviews, cart, photoURL, isAdmin })
           );

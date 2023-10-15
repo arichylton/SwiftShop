@@ -90,7 +90,7 @@ const Navbar = () => {
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
                     dispatch(updateURL(window.location.pathname));
-                    navigate('/signin', { state: location.state});
+                    navigate('/signin', { state: location.state });
                   }}
                 >
                   Log in
@@ -152,8 +152,11 @@ const Navbar = () => {
             id='offcanvasRight'
             aria-labelledby='offcanvasRightLabel'
           >
-            <div className='offcanvas-header'>
-              <h5 id='offcanvasRightLabel'>Cart</h5>
+            <div
+              className='offcanvas-header'
+              style={{ borderBottom: 'solid 1px #d9d9d9' }}
+            >
+              <h4 id='offcanvasRightLabel' >Cart</h4>
               <button
                 type='button'
                 className='btn-close text-reset'

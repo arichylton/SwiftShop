@@ -8,13 +8,10 @@ export const Cart = () => {
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
 
   return (
-    <div
-      className='d-flex flex-column align-items-center justify-content-between'
-      style={{ height: '100%' }}
-    >
-      <div>
+    <div className='d-flex flex-column align-items-center justify-content-between overflow-auto p-0'>
+      <div style={{ flex: 1, overflowY: 'auto' }} className='w-100 d-flex'>
         {(cartItemsList && (
-          <div className='d-flex flex-column'>
+          <div className='d-flex flex-column m-auto'>
             {addToCartSet(cartItemsList).map((item, i) => {
               const itemCount = countOccurrences(
                 cartItemsList,
@@ -22,7 +19,7 @@ export const Cart = () => {
                 item.size
               );
               return (
-                <div key={i}>
+                <div key={i} style={{ width: '100%' }}>
                   <CartItem product={{ ...item, count: itemCount }} />
                 </div>
               );
@@ -31,7 +28,11 @@ export const Cart = () => {
         )) || <div>Nothing in your cart yet!</div>}
       </div>
       {(cartItemsList.length > 0 && (
-        <Link to='/payment' className='mb-4'>
+        <Link
+          to='/payment'
+          className='w-100 mb-4 d-flex justify-content-center pt-4'
+          style={{ borderTop: 'solid 1px #d9d9d9' }}
+        >
           <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'
@@ -42,7 +43,7 @@ export const Cart = () => {
           </Button>
         </Link>
       )) || (
-        <div className='mb-4'>
+        <div className='w-100 mb-4 d-flex justify-content-center pt-4'>
           <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'

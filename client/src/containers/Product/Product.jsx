@@ -8,6 +8,7 @@ import { Rating } from 'semantic-ui-react';
 import { updateProduct, updateUserCart } from '../../utils/firebase.utils';
 import Button from '../../components/button/button';
 import starSolid from '../../assets/images/components/star-solid.svg';
+import './Product.styles.css';
 
 import {
   formatDateToMonthDDYYYY,
@@ -76,6 +77,7 @@ const Product = () => {
           return (
             <Link
               key={index}
+              reloadDocument
               to={`/product/${product.docID}`}
               onClick={() =>
                 navigate(`/product/${product.docID}`, {
@@ -128,8 +130,6 @@ const Product = () => {
     }
   }, [currentUser]);
 
-  
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -155,10 +155,9 @@ const Product = () => {
       <button
         onClick={() => changeSize(size)}
         type='button'
-        style={{ borderRadius: '0' }}
-        className={`list-group-item list-group-item-action text-center ${
+        className={`text-center button-17 ${
           sizes[size] != 0 ? '' : `disabled text-danger`
-        } ${currentSize === size ? 'active' : ''}`}
+        } ${currentSize === size ? '' : ''}`}
       >
         {size.toUpperCase()}
       </button>
@@ -186,22 +185,22 @@ const Product = () => {
   const renderLeaveReview = () => {
     return (
       <div className='accordion accordian-flush mt-4' id='accordionExample'>
-        <div className='accordion-item'>
-          <h2 className='accordion-header' id='headingOne'>
-            <button
-              className='accordion-button'
-              type='button'
+        <div>
+          <h5 id='headingOne' className='text-end'>
+            <a
+              className='text-end'
               data-bs-toggle='collapse'
               data-bs-target='#collapseOne'
-              aria-expanded='true'
+              aria-expanded='false'
               aria-controls='collapseOne'
+              style={{ cursor: 'pointer', textDecoration: 'underline' }}
             >
-              Leave a review!
-            </button>
-          </h2>
+              Write a review
+            </a>
+          </h5>
           <div
             id='collapseOne'
-            className='accordion-collapse collapse show'
+            className='accordion-collapse collapse'
             aria-labelledby='headingOne'
             data-bs-parent='#accordionExample'
           >
@@ -271,7 +270,13 @@ const Product = () => {
         return renderLeaveReview();
       }
     } else {
-      return <h4 className='mt-3'>Sign in to leave a review.</h4>;
+      return (
+        <Link to='/signin'>
+          <h5 className='mt-3 text-end' style={{ textDecoration: 'underline' }}>
+            Write a review
+          </h5>
+        </Link>
+      );
     }
   };
 
@@ -361,10 +366,7 @@ const Product = () => {
           <p className='m-1 mt-4 fs-5'>
             Size: {currentSize && currentSize.toUpperCase()}
           </p>
-          <div
-            className='list-group list-group-horizontal w-50'
-            style={{ borderRadius: '40' }}
-          >
+          <div className='d-flex mt-2' style={{ gap: '.5rem' }}>
             {renderButtonSize('s')}
             {renderButtonSize('m')}
             {renderButtonSize('l')}

@@ -1,4 +1,5 @@
 import Button from '../button/button';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -47,11 +48,21 @@ const Footer = () => {
           <div></div>
           <div></div>
           <div>
-            <h5 className='fw-bold mb-3'>Shop</h5>
-            <div className='fs-5'>Themes</div>
-            <div className='fs-5'>Seasonal</div>
-            <div className='fs-5'>Mens</div>
-            <div className='fs-5'>Womens</div>
+            <h5 className='fw-bold mb-3'>
+              <Link to='all'>Shop</Link>
+            </h5>
+            <div className='fs-5'>
+              <Link to='themes'>Themes</Link>
+            </div>
+            <div className='fs-5'>
+              <Link to='seasonal'>Seasonal</Link>
+            </div>
+            <div className='fs-5'>
+              <Link to='mens'>Mens</Link>
+            </div>
+            <div className='fs-5'>
+              <Link to='womens'>Womens</Link>
+            </div>
           </div>
           <div>
             <h5 className='fw-bold mb-3'>Brand</h5>

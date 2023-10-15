@@ -2,12 +2,6 @@
   position: relative;
 }
 
-.image {
-  width: 100vw;
-  height: 63vh;
-  object-fit: cover;
-}
-
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -68,9 +62,6 @@
   z-index: 1; /* Ensure the overlay is on top of the image */
 }
 
-.product__feature__overlay-img {
-
-}
 
 .product__feature__overlay-img::after {
   content: '' attr(alt) !important;

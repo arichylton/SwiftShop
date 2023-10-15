@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
@@ -14,8 +15,36 @@ import Seasonal from '../src/pages/Seasonal';
 import Themes from '../src/pages/Themes';
 import Womens from '../src/pages/Womens';
 import Footer from './components/Footer/Footer';
+import {
+  onAuthStateChangedListener,
+  getUserData,
+} from './utils/firebase.utils';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from './store/user/userSlice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChangedListener(async (authUser) => {
+      if (authUser) {
+        const { displayName, email, reviews, cart, photoURL, isAdmin } =
+          await getUserData();
+        dispatch(
+          setCurrentUser({
+            displayName,
+            email,
+            reviews,
+            cart,
+            photoURL,
+            isAdmin,
+          })
+        );
+      }
+    });
+  }, []);
+
+
   return (
     <main className='bg-light'>
       <Navbar />

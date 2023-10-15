@@ -13,13 +13,10 @@ export const CartUser = () => {
     setUserCart(currentUser.cart);
   }, [currentUser.cart])
   return (
-    <div
-      className='d-flex flex-column align-items-center justify-content-between'
-      style={{ height: '100%' }}
-    >
-      <div>
+    <div className='d-flex flex-column align-items-center justify-content-between overflow-auto p-0'>
+      <div style={{ flex: 1, overflowY: 'auto' }} className='w-100 d-flex'>
         {(userCart && (
-          <div className='d-flex flex-column'>
+          <div className='d-flex flex-column m-auto'>
             {addToCartSet(userCart).map((item, i) => {
               const itemCount = countOccurrences(
                 userCart,
@@ -27,7 +24,7 @@ export const CartUser = () => {
                 item.size
               );
               return (
-                <div key={i}>
+                <div key={i} style={{ width: '100%' }}>
                   <CartItem product={{ ...item, count: itemCount }} />
                 </div>
               );
@@ -36,7 +33,11 @@ export const CartUser = () => {
         )) || <div>Nothing in your cart yet!</div>}
       </div>
       {(userCart.length > 0 && (
-        <Link to='/payment' className='mb-4'>
+        <Link
+          to='/payment'
+          className='w-100 mb-4 d-flex justify-content-center pt-4'
+          style={{ borderTop: 'solid 1px #d9d9d9' }}
+        >
           <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'
@@ -47,7 +48,7 @@ export const CartUser = () => {
           </Button>
         </Link>
       )) || (
-        <div className='mb-4'>
+        <div className='w-100 mb-4 '>
           <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'

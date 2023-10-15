@@ -4,18 +4,34 @@ import heroBackground from '../../assets/images/backgrounds/heroBackground_1.jpg
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
 import './ProductPage.scss';
 import { isProductNew } from '../../utils';
+import { auth } from '../../utils/firebase.utils';
 import Button from '../button/button';
 import themesCategory from '../../assets/images/backgrounds/themes_category.jpg';
 import starSolid from '../../assets/images/components/star-solid.svg';
 import truckFast from '../../assets/images/components/truck-fast-solid.svg';
 import planeSolid from '../../assets/images/components/plane-solid.svg';
 import summerCategorySolid from '../../assets/images/backgrounds/summer_category.jpg';
+import { HashLink } from 'react-router-hash-link';
 import winterCategorySolid from '../../assets/images/backgrounds/winter_category.jpg';
+
 
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
   const [heroFeature, setHeroFeature] = useState(null);
   const navigate = useNavigate();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    console.log(user);
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
@@ -81,13 +97,13 @@ const ProductsPage = () => {
   const renderHero = () => {
     if (heroFeature) {
       return (
-        <div>
-          <div className='image-container'>
+        <div className='w-100'>
+          <div className='image-container w-100'>
             {/* Hero Background Image */}
             <img
               src={heroBackground}
-              style={{ height: '88vh', width: '100vw', objectFit: 'cover' }}
-              className='image'
+              style={{ height: '88vh', objectFit: 'cover' }}
+              className='w-100'
             />
 
             {/* Overlay with Featured Products */}
@@ -107,7 +123,9 @@ const ProductsPage = () => {
                   style={{ width: '70%' }}
                 >
                   <Button buttonType={'google'}>Shop Now</Button>
-                  <Button buttonType={'inverted'}>Learn More</Button>
+                  <Button buttonType={'inverted'}>
+                    <span style={{ fontSize: '90%' }}>Learn More</span>
+                  </Button>
                 </div>
                 <div className='mt-5'>
                   <span className='text-white fs-4'>
@@ -187,7 +205,7 @@ const ProductsPage = () => {
   };
   renderFeatured();
   return (
-    <div className='d-flex flex-column align-items-center'>
+    <div className='d-flex flex-column align-items-center' style={{width: '100vw'}}>
       {renderHero()}
       <div className='m-5 d-flex flex-column container align-items-center'>
         <div
@@ -236,7 +254,9 @@ const ProductsPage = () => {
                   <div className='mb-2'>
                     <p className='fs-5'>Find what style fits you</p>
                   </div>
-                  <Button>Shop themes</Button>
+                  <Link to='themes'>
+                    <Button>Shop themes</Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -279,7 +299,9 @@ const ProductsPage = () => {
                   <div className='mb-2'>
                     <p className='fs-5'>Stay warm with our winter collection</p>
                   </div>
-                  <Button>Shop winter</Button>
+                  <HashLink smooth to='/seasonal#winter'>
+                    <Button>Shop winter</Button>
+                  </HashLink>
                 </div>
               </div>
             </div>
@@ -326,7 +348,9 @@ const ProductsPage = () => {
                   <div className='mb-2'>
                     <p className='fs-5'>Perfect for hot summer days</p>
                   </div>
-                  <Button>Shop summer</Button>
+                  <HashLink smooth to='/seasonal#summer'>
+                    <Button>Shop summer</Button>
+                  </HashLink>
                 </div>
               </div>
             </div>
