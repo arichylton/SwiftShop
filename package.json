@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "is an ecommerce web app that allows users to recieve specialized recommendations for products they would like.",
   "main": "index.js",
+  "engines": {
+    "node": "18.14.0"
+  },
   "dependencies": {
     "debug": "^2.6.9",
     "depd": "^2.0.0",
@@ -34,7 +37,10 @@
     "toidentifier": "^1.0.1",
     "util": "^0.10.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "vite": "^4.4.0"
+
+  },
   "scripts": {
     "start": "npm run heroku-postbuild",
     "install-client": "cd client && npm install && npm run build && cd ..",
