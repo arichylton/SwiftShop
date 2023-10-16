@@ -47,10 +47,12 @@
     "stripe": "^8.191.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "cd client && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "start": "node server.js",
+  "devStart": "nodemon server.js",
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "format": "prettier --write \"**/*.{js,jsx}\""
+},
   "keywords": [],
   "author": "",
   "license": "ISC"
