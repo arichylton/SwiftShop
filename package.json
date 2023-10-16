@@ -4,7 +4,7 @@
   "description": "is an ecommerce web app that allows users to recieve specialized recommendations for products they would like.",
   "main": "index.js",
   "engines": {
-    "node": "18.18.2",
+    "node": "18.14.0",
     "npm": "9.3.1"
   },
   "dependencies": {
