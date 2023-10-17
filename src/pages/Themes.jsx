@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/button/button.jsx';
 import ProductPageItem from '../containers/ProductPageItem/ProductPageItem.jsx';
+import { getAllProducts } from '../utils/firebase.utils.js';
 
 const Themes = () => {
   const [productsData, setProductsData] = useState();
@@ -11,7 +12,7 @@ const Themes = () => {
   const [sizedarkOption, setSizedarkOption] = useState(null);
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
+    getAllProducts().then(async (result) => {
       setProductsData(result);
     });
   }, []);
