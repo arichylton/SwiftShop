@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/button/button.jsx';
 import ProductPageItem from '../containers/ProductPageItem/ProductPageItem.jsx';
+import { getAllProducts } from '../utils/firebase.utils.js';
 
 const Mens = () => {
   const [productsData, setProductsData] = useState();
@@ -9,9 +10,8 @@ const Mens = () => {
   const [sizeOption, setSizeOption] = useState(null);
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+    getAllProducts().then(async (result) => {
+      setProductsData(result);
     });
   }, []);
 

@@ -304,4 +304,21 @@ export const removeAllFromUserCart = async () => {
   }
 };
 
+// PRODUCTS /////////////////////////////////////////////////////////////////
+export const getAllProducts = async () => {
+  const querySnapshot = await getDocs(collection(db, 'products'));
+
+  let products = [];
+  
+  try {
+    querySnapshot.forEach((doc) => {
+      let docID = doc.id
+      products.push({ ...doc.data(), docID });
+    });
+    return products;
+  } catch (error) {
+    console.log('error fetching products', error.message);
+  }
+};
+
 export const signOutUser = async () => await signOut(auth);

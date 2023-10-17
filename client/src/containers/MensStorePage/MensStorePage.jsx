@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
+import { getAllProducts } from '../../utils/firebase.utils.js';
 
 const MensStorePage = () => {
   const [productsData, setProductsData] = useState();
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+    getAllProducts().then(async (result) => {
+      setProductsData(result);
     });
   }, []);
 
@@ -16,7 +16,7 @@ const MensStorePage = () => {
     if (productsData) {
       return productsData
         .filter((product) => {
-          return product.gender === 'M'
+          return product.gender === 'M';
         })
         .map((product, index) => {
           return (

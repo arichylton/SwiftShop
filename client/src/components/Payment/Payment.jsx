@@ -5,6 +5,7 @@ import CheckoutForm from '../CheckoutForm/CheckoutForm.jsx';
 import { Elements } from '@stripe/react-stripe-js';
 import CartItem from '../CartItem/CartItem.jsx';
 import { countOccurrences, addToCartSet } from '../../utils/index.js';
+import { createPaymentIntent, updatePaymentIntent } from '../../utils/payment.utils.js';
 
 function Payment(props) {
   const [stripePromise, setStripePromise] = useState(null);
@@ -12,28 +13,22 @@ function Payment(props) {
   const [cartTotalAmount, setCartTotalAmount] = useState(null);
   const [intentID, setIntentID] = useState(null);
 
-
   let cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const currentUser = useSelector((store) => store.USER.currentUser);
   if (currentUser) {
-    cartItemsList = currentUser.cart
+    cartItemsList = currentUser.cart;
   }
 
   useEffect(() => {
-    fetch('/config').then(async (result) => {
-      const { publishableKey } = await result.json();
-      setStripePromise(loadStripe(publishableKey));
-    });
+    setStripePromise(loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY));
   }, []);
 
   useEffect(() => {
     if (cartItemsList.length > 0) {
-      fetch('/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cartItemsList }),
-      }).then(async (result) => {
-        const { clientSecret, cartTotal, intentId } = await result.json();
+      createPaymentIntent({
+        cartItemsList,
+      }).then((result) => {
+        const { clientSecret, cartTotal, intentId } = result;
         const floatAmount = parseFloat((cartTotal / 100).toFixed(2));
 
         setIntentID(intentId);
@@ -45,15 +40,11 @@ function Payment(props) {
 
   useEffect(() => {
     if (intentID && clientSecret && cartItemsList.length > 0) {
-      fetch('/update-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          cartItemsList,
-          intentId: intentID,
-        }),
-      }).then(async (result) => {
-        const { cartTotal, clientSecret } = await result.json();
+      updatePaymentIntent({
+        cartItemsList,
+        intentId: intentID,
+      }).then((result) => {
+        const { cartTotal, clientSecret } = result;
         const floatAmount = parseFloat((cartTotal / 100).toFixed(2));
 
         setClientSecret(clientSecret);
@@ -62,9 +53,7 @@ function Payment(props) {
     }
   }, [cartItemsList, clientSecret, intentID]);
 
-  useEffect(() => {
-
-  }, [cartItemsList])
+  useEffect(() => {}, [cartItemsList]);
 
   const renderCartItems = () => {
     return addToCartSet(cartItemsList).map((item, i) => {

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
+import { getAllProducts } from '../../utils/firebase.utils.js';
 
 const WomensStorePage = () => {
   const [productsData, setProductsData] = useState();
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+    getAllProducts.then(async (result) => {
+      setProductsData(result);
     });
   }, []);
 

@@ -4,7 +4,7 @@ import heroBackground from '../../assets/images/backgrounds/heroBackground_1.jpg
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
 import './ProductPage.scss';
 import { isProductNew } from '../../utils';
-import { auth } from '../../utils/firebase.utils';
+import { auth, getAllProducts } from '../../utils/firebase.utils';
 import Button from '../button/button';
 import themesCategory from '../../assets/images/backgrounds/themes_category.jpg';
 import starSolid from '../../assets/images/components/star-solid.svg';
@@ -34,9 +34,8 @@ const ProductsPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+    getAllProducts().then(async (result) => {
+      setProductsData(result);
     });
   }, []);
 

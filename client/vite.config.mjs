@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/swiftshop/', // Adjust to match your Heroku app name
+  base: '', // Adjust to match your Heroku app name
   build: {
     outDir: '../server/public', // Output directory relative to the client directory
     assetsDir: '.', // Assets directory relative to the outDir

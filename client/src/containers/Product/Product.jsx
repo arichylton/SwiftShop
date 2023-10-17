@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import RatingIcons from '../../components/RatingIcons/RatingIcons';
 import { Rating } from 'semantic-ui-react';
-import { updateProduct, updateUserCart } from '../../utils/firebase.utils';
+import { getAllProducts, updateProduct, updateUserCart } from '../../utils/firebase.utils';
 import Button from '../../components/button/button';
 import starSolid from '../../assets/images/components/star-solid.svg';
 import './Product.styles.css';
@@ -55,9 +55,8 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+    getAllProducts().then(async (result) => {
+      setProductsData(result);
     });
   }, []);
 

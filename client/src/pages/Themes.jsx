@@ -12,8 +12,7 @@ const Themes = () => {
 
   useEffect(() => {
     fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+      setProductsData(result);
     });
   }, []);
 

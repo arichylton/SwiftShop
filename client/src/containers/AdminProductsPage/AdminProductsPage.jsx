@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductAdminItem from '../ProductAdminItem/ProductAdminItem';
+import { getAllProducts } from '../../utils/firebase.utils';
 
 
 const AdminProductsPage = () => {
@@ -8,9 +9,8 @@ const AdminProductsPage = () => {
   const [productChangeMade, setProductChangeMade] = useState(false);
 
   useEffect(() => {
-    fetch('/products-data').then(async (result) => {
-      const { productsDataInfo } = await result.json();
-      setProductsData(productsDataInfo);
+    getAllProducts().then(async (result) => {
+      setProductsData(result);
     });
   }, [productChangeMade]);
 
