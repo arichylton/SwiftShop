@@ -122,14 +122,14 @@ const ProductsPage = () => {
                 >
                   <Button buttonType={'google'}>Shop Now</Button>
                   <Button buttonType={'inverted'}>
-                    <span style={{ fontSize: '85%' }}>Learn More</span>
+                    Learn More
                   </Button>
                 </div>
                 <div className='mt-5'>
                   <span className='text-white fs-4'>
                     <span className='fs-5' style={{ letterSpacing: 0.01 }}>
                       ⭐⭐⭐⭐⭐
-                    </span>{' '}
+                    </span>
                     Over 1000+ 5 star reviews
                   </span>
                 </div>
