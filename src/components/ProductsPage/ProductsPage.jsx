@@ -119,7 +119,7 @@ const ProductsPage = () => {
                 </h1>
                 <div
                   className='d-flex justify-content-evenly m-auto gap-3'
-                  style={{ width: '70%' }}
+                  style={{ width: '45%', maxWidth: '' }}
                 >
                   <Button buttonType={'google'}>Shop Now</Button>
                   <Button buttonType={'inverted'}>
@@ -128,7 +128,7 @@ const ProductsPage = () => {
                 </div>
                 <div className='mt-5'>
                   <span className='text-white fs-4'>
-                    ⭐⭐⭐⭐⭐ Over 1000+ 5 star reviews
+                    <span className='fs-5' style={{letterSpacing: .01}}>⭐⭐⭐⭐⭐</span> Over 1000+ 5 star reviews
                   </span>
                 </div>
               </div>

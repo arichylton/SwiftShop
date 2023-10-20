@@ -6,6 +6,7 @@ import { CartUser } from '../Cart_User/CartUser.jsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { updateURL } from '../../store/currentURL/currentURLSlice';
 import './style.module.scss';
+import logo from '../../assets/images/logos/logo.png'
 import { signOutUser } from '../../utils/firebase.utils';
 import { setCurrentUser } from '../../store/user/userSlice';
 
@@ -102,11 +103,7 @@ const Navbar = () => {
         <div className='pb-1 pt-1 d-flex justify-content-between m-auto container'>
           <div className='d-flex align-items-center'>
             <Link className='navbar-brand' to='/'>
-              <img
-                src='../../../src/assets/images/logos/logo.png'
-                alt='Logo'
-                height='45'
-              />
+              <img src={logo} alt='Logo' height='45' />
             </Link>
             <Link className='fs-4 ms-4' to='/all'>
               <p className='fs-5'>All</p>
@@ -156,7 +153,7 @@ const Navbar = () => {
               className='offcanvas-header'
               style={{ borderBottom: 'solid 1px #d9d9d9' }}
             >
-              <h4 id='offcanvasRightLabel' >Cart</h4>
+              <h4 id='offcanvasRightLabel'>Cart</h4>
               <button
                 type='button'
                 className='btn-close text-reset'
