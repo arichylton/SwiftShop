@@ -5,7 +5,10 @@ import CheckoutForm from '../CheckoutForm/CheckoutForm.jsx';
 import { Elements } from '@stripe/react-stripe-js';
 import CartItem from '../CartItem/CartItem.jsx';
 import { countOccurrences, addToCartSet } from '../../utils/index.js';
-import { createPaymentIntent, updatePaymentIntent } from '../../utils/payment.utils.js';
+import {
+  createPaymentIntent,
+  updatePaymentIntent,
+} from '../../utils/payment.utils.js';
 
 function Payment(props) {
   const [stripePromise, setStripePromise] = useState(null);
@@ -69,7 +72,10 @@ function Payment(props) {
   const loader = 'auto';
 
   return (
-    <section className='container d-flex justify-content-center  mt-5'>
+    <section
+      className='container d-flex justify-content-center'
+      style={{ marginTop: '120px', marginBottom: '80px' }}
+    >
       <div className='p-5'>
         {stripePromise && clientSecret && (
           <Elements stripe={stripePromise} options={{ clientSecret, loader }}>
@@ -79,14 +85,19 @@ function Payment(props) {
       </div>
       <div className='vr'></div>
       <div className='p-5 d-flex flex-column'>
-        <div className='flex-fill'>
+        <div className='flex-fill '>
           <h3 className='fw-bold'>Cart</h3>
-          {cartItemsList && renderCartItems()}
+          <div
+            className='cart-items-container'
+            style={{ maxHeight: '580px', overflowY: 'auto' }}
+          >
+            {cartItemsList && renderCartItems()}
+          </div>
         </div>
 
         <h3 className='pt-3'>
           Total: $
-          {cartTotalAmount && cartItemsList.length != 0 && cartTotalAmount}
+          {cartTotalAmount && cartItemsList.length !== 0 && cartTotalAmount}
         </h3>
       </div>
     </section>

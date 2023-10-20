@@ -10,7 +10,7 @@ export const config = () => {
   };
 };
 
-const calculateCartTotal = (cart) => {
+export const calculateCartTotal = (cart) => {
   let currentCartTotal = 0;
 
   for (let i = 0; i < cart.length; i++) {

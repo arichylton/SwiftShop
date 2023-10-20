@@ -11,7 +11,7 @@ import { removeAllFromUserCart } from '../../utils/firebase.utils';
 import { clearCart } from '../../store/cartItems/cartItemsSlice';
 import { clearUserCart } from '../../store/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, redirect, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
