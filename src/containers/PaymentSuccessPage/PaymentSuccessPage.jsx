@@ -1,8 +1,8 @@
 const PaymentSuccessPage = () => {
   return (
-    <div className='mt-5 pt-5 d-flex'>
-      <div className='card' style={{ width: '40rem' }}>
-        <div className='card-body'>
+    <div className='d-flex' style={{minHeight: '55vh', marginTop: '200px', marginBottom: '80px'}}>
+      <div style={{ width: '40rem' }}>
+        <div>
           <h2 className='card-title'>Order placed, thanks!</h2>
           <h5 className='card-subtitle mb-2 text-muted'>
             Confirmation will be sent to your email.

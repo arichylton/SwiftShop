@@ -48,7 +48,7 @@ function App() {
   return (
     <main className='bg-light'>
       <Navbar />
-      <div className=' d-flex flex-column align-items-center'>
+      <div className='d-flex flex-column align-items-center' >
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>
           <Route path='payment' element={<Payment />}></Route>
