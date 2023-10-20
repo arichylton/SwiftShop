@@ -6,7 +6,7 @@ import { CartUser } from '../Cart_User/CartUser.jsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { updateURL } from '../../store/currentURL/currentURLSlice';
 import './style.module.scss';
-import logo from '../../assets/images/logos/logo.png'
+import logo from '../../assets/images/logos/logo.png';
 import { signOutUser } from '../../utils/firebase.utils';
 import { setCurrentUser } from '../../store/user/userSlice';
 import { calculateCartTotal } from '../../utils/payment.utils';
@@ -154,14 +154,7 @@ const Navbar = () => {
               className='offcanvas-header'
               style={{ borderBottom: 'solid 1px #d9d9d9' }}
             >
-              <div className='d-flex align-items-center'>
-                <h4 id='offcanvasRightLabel' className='m-0'>
-                  Cart -{' '}
-                </h4>
-                <h5 className='ms-1 fst-italic'>
-                  ${(calculateCartTotal(cartItemsList) / 100).toFixed(2)}
-                </h5>
-              </div>
+              <h4 id='offcanvasRightLabel' className='m-0'>Cart</h4>
 
               <button
                 type='button'

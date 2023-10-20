@@ -14,7 +14,6 @@ import summerCategorySolid from '../../assets/images/backgrounds/summer_category
 import { HashLink } from 'react-router-hash-link';
 import winterCategorySolid from '../../assets/images/backgrounds/winter_category.jpg';
 
-
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
   const [heroFeature, setHeroFeature] = useState(null);
@@ -123,12 +122,15 @@ const ProductsPage = () => {
                 >
                   <Button buttonType={'google'}>Shop Now</Button>
                   <Button buttonType={'inverted'}>
-                    <span style={{ fontSize: '90%' }}>Learn More</span>
+                    <span style={{ fontSize: '85%' }}>Learn More</span>
                   </Button>
                 </div>
                 <div className='mt-5'>
                   <span className='text-white fs-4'>
-                    <span className='fs-5' style={{letterSpacing: .01}}>⭐⭐⭐⭐⭐</span> Over 1000+ 5 star reviews
+                    <span className='fs-5' style={{ letterSpacing: 0.01 }}>
+                      ⭐⭐⭐⭐⭐
+                    </span>{' '}
+                    Over 1000+ 5 star reviews
                   </span>
                 </div>
               </div>
@@ -204,7 +206,10 @@ const ProductsPage = () => {
   };
   renderFeatured();
   return (
-    <div className='d-flex flex-column align-items-center' style={{width: '100vw'}}>
+    <div
+      className='d-flex flex-column align-items-center'
+      style={{ width: '100vw' }}
+    >
       {renderHero()}
       <div className='m-5 d-flex flex-column container align-items-center'>
         <div

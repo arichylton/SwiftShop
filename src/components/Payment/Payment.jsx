@@ -74,7 +74,7 @@ function Payment(props) {
   return (
     <section
       className='container d-flex justify-content-center'
-      style={{ marginTop: '120px', marginBottom: '80px' }}
+      style={{ paddingTop: '200px', paddingBottom: '280px', minHeight: '100vh' }}
     >
       <div className='p-5'>
         {stripePromise && clientSecret && (
