@@ -71,27 +71,29 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div style={{ borderTop: 'solid 1px #d9d9d9' }} className='container'>
-        <div
-          className=' d-flex flex-wrap flex-column'
-          style={{
-            gap: '1rem',
-            paddingTop: '.5rem',
-            paddingBottom: '.5rem',
-            height: '100%',
-          }}
-        >
-          <div className='d-flex justify-content-end fs-5 '>
-            <div className='me-3 text-decoration-underline'>
-              Terms of Service
+      <div style={{ borderTop: 'solid 1px #d9d9d9' }}>
+        <div className='container'>
+          <div
+            className=' d-flex flex-wrap flex-column'
+            style={{
+              gap: '1rem',
+              paddingTop: '.5rem',
+              paddingBottom: '.5rem',
+              height: '100%',
+            }}
+          >
+            <div className='d-flex justify-content-end fs-5 '>
+              <div className='me-3 text-decoration-underline'>
+                Terms of Service
+              </div>
+              <div className='text-decoration-underline'>Privacy Policy</div>
             </div>
-            <div className='text-decoration-underline'>Privacy Policy</div>
-          </div>
-          <div className='d-flex align-items-center'>
-            <div className='text-secondary flex-fill d-flex align-items-center'>
-              <div className='ms-4'>$ USD &#183; EN</div>
+            <div className='d-flex align-items-center'>
+              <div className='text-secondary flex-fill d-flex align-items-center'>
+                <div className='ms-4'>$ USD &#183; EN</div>
+              </div>
+              <div>Copyright 2023. All rights reserved.</div>
             </div>
-            <div>Copyright 2023. All rights reserved.</div>
           </div>
         </div>
       </div>

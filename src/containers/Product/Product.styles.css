@@ -2,6 +2,8 @@
   text-align: center;
 }
 
+
+
 /* CSS */
 .button-17 {
   align-items: center;
@@ -25,7 +27,7 @@
   line-height: normal;
   max-width: 100%;
   overflow: visible;
-  padding: 2px 24px;
+  padding: 1px 20px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -55,6 +57,11 @@
   border: 2px solid #4285f4;
 }
 
+.button-17-disabled {
+  pointer-events: none;
+  background-color: #dddd;
+}
+
 .button-17:not(:disabled):hover {
   box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
     rgba(60, 64, 67, 0.15) 0 3px 4px 2px;
@@ -73,4 +80,10 @@
 .button-17:disabled {
   box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
     rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+.btnActive {
+  outline: none;
+  color: #4285f4;
+  border: 2px solid #4285f4;
 }

@@ -5,7 +5,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import RatingIcons from '../../components/RatingIcons/RatingIcons';
 import { Rating } from 'semantic-ui-react';
-import { getAllProducts, updateProduct, updateUserCart } from '../../utils/firebase.utils';
+import {
+  getAllProducts,
+  updateProduct,
+  updateUserCart,
+} from '../../utils/firebase.utils';
 import Button from '../../components/button/button';
 import starSolid from '../../assets/images/components/star-solid.svg';
 import './Product.styles.css';
@@ -49,10 +53,8 @@ const Product = () => {
     season,
     theme,
   } = updatedProductData;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  
+  window.scrollTo(0, 0);
 
   useEffect(() => {
     getAllProducts().then(async (result) => {
@@ -155,8 +157,10 @@ const Product = () => {
         onClick={() => changeSize(size)}
         type='button'
         className={`text-center button-17 ${
-          sizes[size] != 0 ? '' : `disabled text-danger`
-        } ${currentSize === size ? '' : ''}`}
+          sizes[size] != 0
+            ? ''
+            : `button-17-disabled text-decoration-line-through text-danger`
+        } ${currentSize === size ? 'btnActive' : ''}`}
       >
         {size.toUpperCase()}
       </button>
@@ -318,14 +322,14 @@ const Product = () => {
       style={{ marginTop: '120px' }}
     >
       <div className='d-flex'>
-        <div className='p-5 text-center'>
-          <div className='image-container'>
+        <div className='p-5 '>
+          <div className='image-container '>
             <img
               className='product__image'
               src={productImage}
               alt='productImage'
             />
-            <div className='product__overlay'>
+            <div className='product__overlay '>
               <div className='p-2 d-flex'>
                 {productRating ? (
                   <div
@@ -352,8 +356,8 @@ const Product = () => {
             </div>
           </div>
         </div>
-        <div className='vr'></div>
-        <div className='p-5 d-flex flex-column'>
+        <div className='vr '></div>
+        <div className='p-5 d-flex flex-column w-50'>
           <h2 className='text-capitalize fst-italic me-2'>{name}</h2>
 
           <h4
@@ -365,13 +369,13 @@ const Product = () => {
           <p className='m-1 mt-4 fs-5'>
             Size: {currentSize && currentSize.toUpperCase()}
           </p>
-          <div className='d-flex mt-2' style={{ gap: '.5rem' }}>
+          <div className='d-flex mt-3' style={{ gap: '.7rem' }}>
             {renderButtonSize('s')}
             {renderButtonSize('m')}
             {renderButtonSize('l')}
             {renderButtonSize('xl')}
           </div>
-          <div className='mt-3 mb-5 w-100'>
+          <div className='mt-4 mb-5 w-100'>
             <Button onClick={addToCart} buttonType='google'>
               Add To Cart - ${price}
             </Button>

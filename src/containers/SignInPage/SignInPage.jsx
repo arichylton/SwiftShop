@@ -10,7 +10,7 @@ const SignInPage = () => {
   const loadFromLogin = (isLoading) => {
     setLoading(isLoading);
   };
-
+  window.scrollTo(0, 0);
   return (
     <div
       style={{ height: '100vh' }}

@@ -15,6 +15,7 @@ import Seasonal from '../src/pages/Seasonal';
 import Themes from '../src/pages/Themes';
 import Womens from '../src/pages/Womens';
 import Footer from './components/Footer/Footer';
+import About from './pages/About';
 import {
   onAuthStateChangedListener,
   getUserData,
@@ -48,7 +49,7 @@ function App() {
   return (
     <main className='bg-light'>
       <Navbar />
-      <div className='d-flex flex-column align-items-center' >
+      <div className='d-flex flex-column align-items-center'>
         <Routes>
           <Route path='/' element={<ProductsPage />}></Route>
           <Route path='payment' element={<Payment />}></Route>
@@ -59,6 +60,7 @@ function App() {
           <Route path='womens' element={<Womens />} />
           <Route path='seasonal' element={<Seasonal />} />
           <Route path='themes' element={<Themes />} />
+          <Route path='about' element={<About />} />
           <Route path={`payment/completion`} element={<PaymentSuccessPage />} />
           <Route path={`admin/products`} element={<AdminProductsPage />} />
           <Route path='admin/products/new' element={<NewProductPage />} />

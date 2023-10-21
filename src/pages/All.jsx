@@ -205,35 +205,35 @@ const All = () => {
             </a>
 
             <div
-              className='dropdown-menu p-0 mt-2'
+              className='dropdown-menu p-0 mt-2 text-uppercase'
               aria-labelledby='dropdownMenuLink2'
             >
-              <div className=' d-flex align-items-center gap-2 dropdown-button-item'>
+              <div className=' d-flex align-items-center gap-2 dropdown-button-item '>
                 <input
-                  className='form-check-input p-2 ms-2'
+                  className='form-check-input p-2 ms-2 mt-0'
                   type='radio'
                   name='flexRadioDefault2'
                   id='flexRadioDefault21'
                   onChange={() => setSizeOption('s')}
                 />
                 <label
-                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
+                  style={{ cursor: 'pointer', padding: '4px 0px 4px 0' }}
                   className='form-check-label fs-5 w-100'
                   htmlFor='flexRadioDefault21'
                 >
-                  s
+                  S
                 </label>
               </div>
               <div className='d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input ms-2 p-2'
+                  className='form-check-input ms-2 p-2 mt-0'
                   type='radio'
                   name='flexRadioDefault2'
                   id='flexRadioDefault22'
                   onChange={() => setSizeOption('m')}
                 />
                 <label
-                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
+                  style={{ cursor: 'pointer', padding: '4px 0px 4px 0' }}
                   className='form-check-label fs-5 w-100'
                   htmlFor='flexRadioDefault22'
                 >
@@ -242,14 +242,14 @@ const All = () => {
               </div>
               <div className='d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input ms-2 p-2'
+                  className='form-check-input ms-2 p-2 mt-0'
                   type='radio'
                   name='flexRadioDefault2'
                   id='flexRadioDefault23'
                   onChange={() => setSizeOption('l')}
                 />
                 <label
-                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
+                  style={{ cursor: 'pointer', padding: '4px 0px 4px 0' }}
                   className='form-check-label fs-5 w-100'
                   htmlFor='flexRadioDefault23'
                 >
@@ -258,14 +258,14 @@ const All = () => {
               </div>
               <div className='d-flex align-items-center gap-2 dropdown-button-item'>
                 <input
-                  className='form-check-input ms-2 p-2'
+                  className='form-check-input ms-2 p-2 mt-0'
                   type='radio'
                   name='flexRadioDefault2'
                   id='flexRadioDefault24'
                   onChange={() => setSizeOption('xl')}
                 />
                 <label
-                  style={{ cursor: 'pointer', padding: '3px 3px 3px 0' }}
+                  style={{ cursor: 'pointer', padding: '4px 0px 4px 0' }}
                   className='form-check-label fs-5 w-100'
                   htmlFor='flexRadioDefault24'
                 >

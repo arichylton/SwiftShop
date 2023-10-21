@@ -96,12 +96,13 @@ const ProductsPage = () => {
     if (heroFeature) {
       return (
         <div className='w-100'>
-          <div className='image-container w-100'>
+          <div className='image-container' style={{ height: '88vh' }}>
             {/* Hero Background Image */}
             <img
               src={heroBackground}
-              style={{ height: '88vh', objectFit: 'cover' }}
+              style={{ objectFit: 'cover' }}
               className='w-100'
+              loading='lazy'
             />
 
             {/* Overlay with Featured Products */}
@@ -121,9 +122,7 @@ const ProductsPage = () => {
                   style={{ width: '45%', maxWidth: '' }}
                 >
                   <Button buttonType={'google'}>Shop Now</Button>
-                  <Button buttonType={'inverted'}>
-                    Learn More
-                  </Button>
+                  <Button buttonType={'inverted'}>Learn More</Button>
                 </div>
                 <div className='mt-5'>
                   <span className='text-white fs-4'>
