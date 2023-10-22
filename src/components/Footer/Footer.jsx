@@ -1,11 +1,12 @@
 import Button from '../button/button';
 import { Link } from 'react-router-dom';
+import './Footer.scss'
 
 const Footer = () => {
   return (
     <div
       style={{
-        height: 350,
+        minHeight: 350,
         width: '100vw',
         backgroundColor: '#eee',
         borderTop: 'solid 1px #d9d9d9',
@@ -18,14 +19,9 @@ const Footer = () => {
       <div className='container d-flex flex-column' style={{ height: '70%' }}>
         <div
           style={{
-            paddingTop: '2rem',
-            paddingBottom: '2rem',
-            gap: '3rem',
-            display: 'flex',
-            flexGrow: 1,
-            justifyContent: 'space-between',
+            
           }}
-          className='flex-wrap'
+          className='flex-wrap ps-4 pe-4 top-footer-container'
         >
           <div>
             <h5 className='fw-bold mb-3'>Save 10%</h5>
@@ -74,7 +70,7 @@ const Footer = () => {
       <div style={{ borderTop: 'solid 1px #d9d9d9' }}>
         <div className='container'>
           <div
-            className=' d-flex flex-wrap flex-column'
+            className=' d-flex flex-wrap flex-column ps-4 pe-4'
             style={{
               gap: '1rem',
               paddingTop: '.5rem',
@@ -82,15 +78,25 @@ const Footer = () => {
               height: '100%',
             }}
           >
-            <div className='d-flex justify-content-end fs-5 '>
-              <div className='me-3 text-decoration-underline'>
-                Terms of Service
+            <div className='d-flex fs-5 bottom-footer-container'>
+              <a href='/#'>
+                <Button type='submit' buttonType='small'>
+                  Back To Top
+                </Button>
+              </a>
+
+              <div className='d-flex'>
+                <div className='me-3 text-decoration-underline text-nowrap text-center'>
+                  Terms of Service
+                </div>
+                <div className='text-decoration-underline text-nowrap'>
+                  Privacy Policy
+                </div>
               </div>
-              <div className='text-decoration-underline'>Privacy Policy</div>
             </div>
             <div className='d-flex align-items-center'>
               <div className='text-secondary flex-fill d-flex align-items-center'>
-                <div className='ms-4'>$ USD &#183; EN</div>
+                <div className=''>$ USD &#183; EN</div>
               </div>
               <div>Copyright 2023. All rights reserved.</div>
             </div>

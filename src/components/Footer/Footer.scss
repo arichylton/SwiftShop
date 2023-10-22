@@ -1,0 +1,25 @@
+.top-footer-container {
+  justify-content: space-between;
+  display: flex;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  gap: 3rem;
+  flex-grow: 1;
+}
+
+.bottom-footer-container{
+    justify-content: space-between;
+  }
+
+@media (max-width: 766px) {
+  .top-footer-container {
+    justify-content: start;
+  }
+
+  .bottom-footer-container{
+    padding-top: 8px;
+    flex-direction: column;
+    gap: .5rem;
+    align-items: start;
+  }
+}

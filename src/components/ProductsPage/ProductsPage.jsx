@@ -144,9 +144,7 @@ const ProductsPage = () => {
               </div>
             </div>
           </div>
-          <section
-            style={{ backgroundColor: '#eeeeee' }}
-          >
+          <section style={{ backgroundColor: '#eeeeee' }}>
             <div
               className='container d-flex justify-content-center'
               style={{
@@ -214,15 +212,13 @@ const ProductsPage = () => {
       ) : (
         <></>
       )}
-      <div className='m-5 d-flex flex-column container align-items-center'>
+      <div className='m-5 d-flex flex-column container align-items-center '>
         <div
           style={{
             gridTemplateColumns: 'repeat(3, minmax(0,1fr))',
             gap: '10px',
-            display: 'grid',
-            paddingTop: 100,
-            paddingBottom: 100,
           }}
+          className='grid-sm'
         >
           <div
             style={{
@@ -232,7 +228,7 @@ const ProductsPage = () => {
             className='h-full'
           >
             <div
-              className='pt-0 pb-0 w-100 h-100'
+              className='pt-0 pb-0 w-100 h-100 grid-sm-item'
               style={{
                 borderRadius: '3px',
                 borderWidth: '1px',
@@ -277,7 +273,7 @@ const ProductsPage = () => {
             className='h-full'
           >
             <div
-              className='pt-0 pb-0 w-100 h-100'
+              className='pt-0 pb-0 w-100 h-100 grid-sm-item'
               style={{
                 borderRadius: '3px',
                 borderWidth: '1px',
@@ -321,7 +317,7 @@ const ProductsPage = () => {
             className='h-full'
           >
             <div
-              className='pt-0 pb-0 w-100 h-100'
+              className='pt-0 pb-0 w-100 h-100 grid-sm-item'
               style={{
                 borderRadius: '3px',
                 borderWidth: '1px',
@@ -376,33 +372,31 @@ const ProductsPage = () => {
             borderBottom: '1rem solid #161625',
           }}
         >
-          <div className='container d-flex flex-column justify-content-center align-items-center h-100 position-relative p-0'>
-            <h1
+          <div className='container d-flex flex-column justify-content-center align-items-center h-100 position-relative p-0 styled-text-container'>
+            <div
               style={{
-                fontSize: '3rem',
                 color: '#161625',
                 marginTop: 30,
               }}
               className='position-absolute top-0 start-0'
             >
               Get Outside.
-            </h1>
-            <h1
-              style={{ fontSize: '3rem', color: '#161625' }}
+            </div>
+            <div
+              style={{ color: '#161625' }}
               className='position-absolute top-50 start-50 translate-middle'
             >
               Look Amazing.
-            </h1>
-            <h1
+            </div>
+            <div
               style={{
-                fontSize: '3rem',
                 color: '#161625',
                 marginBottom: 30,
               }}
               className='position-absolute bottom-0 end-0'
             >
               Be innovative.
-            </h1>
+            </div>
           </div>
         </div>
         <div style={{ paddingBottom: 100 }}>

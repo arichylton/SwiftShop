@@ -54,7 +54,7 @@ const Navbar = () => {
         <div style={{ backgroundColor: '#eeeeee', height: '35px' }}>
           <div className='container d-flex justify-content-between align-items-center h-100'>
             <div>$ USD &#183; EN</div>
-            <div className=' fs-5'>We donate $1 from every purchase</div>
+            <div className='fs-5 donation-message'>We donate $1 from every purchase</div>
             <div>
               {currentUser ? (
                 <div className='dropstart'>
