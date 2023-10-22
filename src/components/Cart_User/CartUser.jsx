@@ -30,7 +30,7 @@ export const CartUser = () => {
               );
             })}
           </div>
-        )) || <div>Nothing in your cart yet!</div>}
+        )) || <></>}
       </div>
       {(userCart.length > 0 && (
         <Link
@@ -48,7 +48,7 @@ export const CartUser = () => {
           </Button>
         </Link>
       )) || (
-        <div className='w-100 mb-4 '>
+        <div className='w-100 mb-4 d-flex justify-content-center pt-4'>
           <Button
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvasRight'

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getAverageRating, isProductNew } from '../../utils';
 import starSolid from '../../assets/images/components/star-solid.svg';
 import './ProductPageItem.styles.scss';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ProductPageItem = ({ product }) => {
   const { name, productImage, price, size, userRatings } = product;
@@ -17,7 +16,7 @@ const ProductPageItem = ({ product }) => {
   return (
     <div className='mb-4'>
       <div className='image-container'>
-        <LazyLoadImage className='product__image' src={productImage} alt='productImage'/>
+        <img className='product__image' src={productImage} alt='productImage'/>
         <div className='product__overlay'>
           <div className='p-2 d-flex'>
             {productAvgRating ? (

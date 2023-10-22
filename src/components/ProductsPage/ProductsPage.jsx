@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import heroBackground from '../../assets/images/backgrounds/heroBackground_1.jpg';
 import ProductPageItem from '../../containers/ProductPageItem/ProductPageItem.jsx';
 import './ProductPage.scss';
-import { isProductNew } from '../../utils';
 import { auth, getAllProducts } from '../../utils/firebase.utils';
 import Button from '../button/button';
 import themesCategory from '../../assets/images/backgrounds/themes_category.jpg';
@@ -13,10 +12,12 @@ import planeSolid from '../../assets/images/components/plane-solid.svg';
 import summerCategorySolid from '../../assets/images/backgrounds/summer_category.jpg';
 import { HashLink } from 'react-router-hash-link';
 import winterCategorySolid from '../../assets/images/backgrounds/winter_category.jpg';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const ProductsPage = () => {
   const [productsData, setProductsData] = useState();
   const [heroFeature, setHeroFeature] = useState(null);
+  const [productsLoaded, setProductsLoaded] = useState(false);
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
@@ -36,6 +37,7 @@ const ProductsPage = () => {
     getAllProducts().then(async (result) => {
       setProductsData(result);
     });
+    setProductsLoaded(true);
   }, []);
 
   const renderNewProducts = () => {
@@ -92,24 +94,29 @@ const ProductsPage = () => {
     }
   };
 
-  const renderHero = () => {
-    if (heroFeature) {
-      return (
+  return !productsLoaded ? (
+    <div className='align-items-center' style={{ height: '100vh' }}>
+      <ClipLoader />
+    </div>
+  ) : (
+    <div
+      className='d-flex flex-column align-items-center'
+      style={{ width: '100vw' }}
+    >
+      {heroFeature ? (
         <div className='w-100'>
-          <div className='image-container' style={{ height: '88vh' }}>
+          <div className='image-container'>
             {/* Hero Background Image */}
             <img
               src={heroBackground}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'cover', height: '88vh' }}
               className='w-100'
-              loading='lazy'
             />
 
             {/* Overlay with Featured Products */}
             <div className='d-flex overlay'>
               <div
-                style={{ width: '30%' }}
-                className='text-center mb-5 justify-self-center'
+                className='text-center mb-5 justify-self-center product-overlay__container'
               >
                 <h1
                   className='text-white mb-5'
@@ -121,12 +128,16 @@ const ProductsPage = () => {
                   className='d-flex justify-content-evenly m-auto gap-3'
                   style={{ width: '45%', maxWidth: '' }}
                 >
-                  <Button buttonType={'google'}>Shop Now</Button>
-                  <Button buttonType={'inverted'}>Learn More</Button>
+                  <Link to='all' className='m-0 p-0'>
+                    <Button buttonType={'google'}>Shop Now</Button>
+                  </Link>
+                  <Link to='all' className='m-0 p-0'>
+                    <Button buttonType={'inverted'}>Learn More</Button>
+                  </Link>
                 </div>
                 <div className='mt-5'>
                   <span className='text-white fs-4'>
-                    <span className='fs-5' style={{ letterSpacing: 0.01 }}>
+                    <span className='fs-5 me-1' style={{ letterSpacing: 0.01 }}>
                       ⭐⭐⭐⭐⭐
                     </span>
                     Over 1000+ 5 star reviews
@@ -200,16 +211,9 @@ const ProductsPage = () => {
             </div>
           </section>
         </div>
-      );
-    }
-  };
-  renderFeatured();
-  return (
-    <div
-      className='d-flex flex-column align-items-center'
-      style={{ width: '100vw' }}
-    >
-      {renderHero()}
+      ) : (
+        <></>
+      )}
       <div className='m-5 d-flex flex-column container align-items-center'>
         <div
           style={{
@@ -244,7 +248,7 @@ const ProductsPage = () => {
               }}
             >
               <div className='w-100' style={{ position: 'relative' }}>
-                <img src={themesCategory} alt='' className='w-100' />
+                <img src={themesCategory} className='w-100' />
               </div>
               <div
                 className='w-100'

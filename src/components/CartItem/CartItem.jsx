@@ -35,7 +35,7 @@ const CartItem = ({ product }) => {
   };
 
   return (
-    <div className='d-flex mb-3 mt-3 w-100'>
+    <div className='d-flex mb-3 mt-3 w-100 ps-3'>
       <img
         className='me-3'
         style={{ width: '120px' }}

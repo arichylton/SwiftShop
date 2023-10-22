@@ -5,17 +5,19 @@ import { Cart } from '../Cart/Cart.jsx';
 import { CartUser } from '../Cart_User/CartUser.jsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { updateURL } from '../../store/currentURL/currentURLSlice';
-import './style.module.scss';
+import './Navbar.css';
 import logo from '../../assets/images/logos/logo.png';
 import { signOutUser } from '../../utils/firebase.utils';
 import { setCurrentUser } from '../../store/user/userSlice';
 import { calculateCartTotal } from '../../utils/payment.utils';
+import { useState } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const cartItemsList = useSelector((store) => store.CART.cartItemsList);
   const currentUser = useSelector((store) => store.USER.currentUser);
+  const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
   const signOutHandler = async () => {
@@ -37,6 +39,10 @@ const Navbar = () => {
         </span>
       );
     }
+  };
+
+  const changeChecked = () => {
+    setChecked(!checked);
   };
 
   return (
@@ -101,28 +107,39 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className='pb-1 pt-1 d-flex justify-content-between m-auto container'>
-          <div className='d-flex align-items-center'>
-            <Link className='navbar-brand' to='/'>
+        <div className='pb-1 pt-1 d-flex justify-content-between  container'>
+          <ul
+            className='navbar__items-container ps-0'
+            style={{ marginBottom: 0 }}
+          >
+            <Link className=' pe-4' to='/'>
               <img src={logo} alt='Logo' height='45' />
             </Link>
-            <Link className='fs-4 ms-4' to='/all'>
-              <p className='fs-5'>All</p>
-            </Link>
-            <Link className='fs-4 ms-4' to='/themes'>
-              <p className='fs-5'>Themes</p>
-            </Link>
-            <Link className='fs-4 ms-4' to='/seasonal'>
-              <p className='fs-5'>Seasonal</p>
-            </Link>
-            <Link className='fs-4 ms-4' to='/mens'>
-              <p className='fs-5'>Mens</p>
-            </Link>
+            <input
+              type='checkbox'
+              id='checkbox_toggle'
+              checked={checked}
+              readOnly={true}
+            />
 
-            <Link className='fs-4 ms-4' to='/womens'>
-              <p className='fs-5'>Womens</p>
-            </Link>
-          </div>
+            <div className='menu d-flex justify-content-center gap-4'>
+              <Link to='/all' onClick={changeChecked}>
+                <p className='fs-5'>All</p>
+              </Link>
+              <Link to='/themes' onClick={changeChecked}>
+                <p className='fs-5'>Themes</p>
+              </Link>
+              <Link to='/seasonal' onClick={changeChecked}>
+                <p className='fs-5'>Seasonal</p>
+              </Link>
+              <Link to='/mens' onClick={changeChecked}>
+                <p className='fs-5'>Mens</p>
+              </Link>
+              <Link to='/womens' onClick={changeChecked}>
+                <p className='fs-5'>Womens</p>
+              </Link>
+            </div>
+          </ul>
 
           <div className='d-flex'>
             <div className='d-flex align-items-center'>
@@ -141,6 +158,29 @@ const Navbar = () => {
                 />
                 {renderNumberOfItemsInCart()}
               </a>
+              <input
+                type='checkbox'
+                id='checkbox_toggle'
+                checked={checked}
+                readOnly={true}
+              />
+              {!checked ? (
+                <label
+                  htmlFor='checkbox_toggle'
+                  className='hamburger pt-1 ms-4'
+                  onClick={changeChecked}
+                >
+                  &#9776;
+                </label>
+              ) : (
+                <label
+                  htmlFor='checkbox_toggle'
+                  className='hamburger pt-1 ms-4'
+                  onClick={changeChecked}
+                >
+                  &#9932;
+                </label>
+              )}
             </div>
           </div>
 
@@ -154,7 +194,9 @@ const Navbar = () => {
               className='offcanvas-header'
               style={{ borderBottom: 'solid 1px #d9d9d9' }}
             >
-              <h4 id='offcanvasRightLabel' className='m-0'>Cart</h4>
+              <h4 id='offcanvasRightLabel' className='m-0'>
+                Cart
+              </h4>
 
               <button
                 type='button'

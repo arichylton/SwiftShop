@@ -1,0 +1,123 @@
+.shadowed {
+  box-shadow: 0 10px 30px -15px var(--navy-shadow);
+}
+
+.navbar-navz {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 50px 0 50px;
+  position: relative;
+  color: var(--lightest-slate);
+  font-family: var(--font-mono);
+  counter-reset: item 0;
+  z-index: 12;
+  font-size: var(--fz-md);
+}
+
+.hidden {
+  height: 4rem;
+  width: 100%;
+  z-index: 40;
+  box-shadow: 0 10px 30px -15px var(--navy-shadow);
+  position: fixed;
+  top: -70px;
+  transition: 0.3s linear;
+}
+
+.navbar__items-container {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  list-style: none;
+}
+
+.resume-link {
+  color: var(--green);
+  background-color: transparent;
+  border: 1px solid var(--green);
+  border-radius: var(--border-radius);
+  margin-left: 13px;
+  padding: 0.9rem 1.2rem;
+  font-size: var(--fz-m);
+  font-family: var(--font-mono);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.resume-link:hover {
+  padding: 0.65rem 0.8rem;
+  background-color: var(--green);
+  color: #fff;
+  text-shadow: 0px 1px 6px rgb(4, 16, 31);
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  user-select: none;
+  
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  user-select: none;
+}
+
+.hamburger:hover {
+  scale: 1.1;
+}
+
+.menu {
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* APPLYING MEDIA QUERIES */
+@media (max-width: 832px) {
+  .navbar__items-container {
+    display: block;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu {
+    z-index: 1;
+    display: block;
+    position: absolute;
+    opacity: 0%;
+    right: 0;
+    left: 0;
+    top: 87px;
+    background-color: rgb(248,249,250);
+    text-align: center;
+    padding: 12px 0 12px;
+  }
+
+  input[type='checkbox']:checked ~ .menu {
+    opacity: 100%;
+    box-shadow: 0 10px 30px -15px var(--navy-shadow);
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+}
