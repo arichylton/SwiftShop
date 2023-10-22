@@ -115,9 +115,7 @@ const ProductsPage = () => {
 
             {/* Overlay with Featured Products */}
             <div className='d-flex overlay'>
-              <div
-                className='text-center mb-5 justify-self-center product-overlay__container'
-              >
+              <div className='text-center mb-5 justify-self-center product-overlay__container'>
                 <h1
                   className='text-white mb-5'
                   style={{ fontFamily: 'merriweather' }}
@@ -146,15 +144,17 @@ const ProductsPage = () => {
               </div>
             </div>
           </div>
-          <section style={{ backgroundColor: '#eeeeee' }}>
+          <section
+            style={{ backgroundColor: '#eeeeee' }}
+          >
             <div
-              className='container'
+              className='container d-flex justify-content-center'
               style={{
                 paddingTop: '30px',
                 paddingBottom: '30px',
               }}
             >
-              <div className='row'>
+              <div className='row featured-stats-list'>
                 <div className='col d-flex'>
                   <div className='me-3'>
                     <img

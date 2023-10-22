@@ -103,10 +103,20 @@
   .grid-cols-4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .featured-stats-list {
+    display: flex;
+    flex-direction: column;
+    
+  }
 }
 
 @media (max-width: 620px) {
   .product-overlay__container {
     width: 80%;
+  }
+
+  .featured-stats-list {
+    gap: 30px 20px;
   }
 }
