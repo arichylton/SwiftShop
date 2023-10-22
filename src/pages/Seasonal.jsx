@@ -160,7 +160,7 @@ const Themes = () => {
           </div>
         </div>
         <div
-          className='container mb-5 pb-3 p-0 d-flex gap-2'
+          className='container mb-5 pb-3 d-flex gap-2 flex-wrap'
           style={{ borderBottom: 'solid 1px #d9d9d9' }}
         >
           <button
@@ -185,7 +185,7 @@ const Themes = () => {
             </a>
 
             <div
-              className='dropdown-menu p-0 mt-2'
+              className='dropdown-menu mt-2'
               style={{ width: '250px' }}
               aria-labelledby='dropdownMenuLink'
             >
@@ -269,7 +269,7 @@ const Themes = () => {
             </a>
 
             <div
-              className='dropdown-menu p-0 mt-2 text-uppercase'
+              className='dropdown-menu mt-2 text-uppercase'
               aria-labelledby='dropdownMenuLink2'
             >
               <div className=' d-flex align-items-center gap-2 dropdown-button-item'>
@@ -339,7 +339,7 @@ const Themes = () => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-4 container p-0'>
+        <div className='grid grid-cols-4 container'>
           {renderLightProducts()}
         </div>
       </div>
@@ -364,7 +364,7 @@ const Themes = () => {
           </div>
         </div>
         <div
-          className='container mb-5 pb-3 p-0 d-flex gap-2'
+          className='container mb-5 pb-3 d-flex gap-2'
           style={{ borderBottom: 'solid 1px #d9d9d9' }}
         >
           <button
@@ -389,7 +389,7 @@ const Themes = () => {
             </a>
 
             <div
-              className='dropdown-menu p-0 mt-2'
+              className='dropdown-menu mt-2'
               style={{ width: '250px' }}
               aria-labelledby='dropdownMenuLinkdark'
             >
@@ -474,7 +474,7 @@ const Themes = () => {
             </a>
 
             <div
-              className='dropdown-menu p-0 mt-2 text-uppercase'
+              className='dropdown-menu mt-2 text-uppercase'
               aria-labelledby='dropdownMenuLink2dark'
             >
               <div className=' d-flex align-items-center gap-2 dropdown-button-item'>
@@ -544,7 +544,7 @@ const Themes = () => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-4 container p-0'>
+        <div className='grid grid-cols-4 container'>
           {renderdarkProducts()}
         </div>
       </div>
