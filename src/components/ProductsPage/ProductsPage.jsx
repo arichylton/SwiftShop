@@ -123,7 +123,7 @@ const ProductsPage = () => {
                   Bring Your Wardrobe to Life With Our Stunning Collection
                 </h1>
                 <div
-                  className='d-flex justify-content-evenly m-auto gap-3'
+                  className='d-flex justify-content-evenly m-auto gap-3 flex-wrap flex-md-nowrap'
                   style={{ width: '45%', maxWidth: '' }}
                 >
                   <Link to='all' className='m-0 p-0'>

@@ -53,7 +53,7 @@ const Product = () => {
     season,
     theme,
   } = updatedProductData;
-  
+
   window.scrollTo(0, 0);
 
   useEffect(() => {
@@ -321,9 +321,9 @@ const Product = () => {
       className='container d-flex flex-column justify-content-center'
       style={{ marginTop: '120px' }}
     >
-      <div className='d-flex'>
+      <div className='d-flex product-container'>
         <div className='p-5 '>
-          <div className='image-container '>
+          <div className='image-container'>
             <img
               className='product__image'
               src={productImage}
@@ -357,7 +357,7 @@ const Product = () => {
           </div>
         </div>
         <div className='vr '></div>
-        <div className='p-5 d-flex flex-column w-50'>
+        <div className='p-5 d-flex flex-column'>
           <h2 className='text-capitalize fst-italic me-2'>{name}</h2>
 
           <h4

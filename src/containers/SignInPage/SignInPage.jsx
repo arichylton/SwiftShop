@@ -13,8 +13,8 @@ const SignInPage = () => {
   window.scrollTo(0, 0);
   return (
     <div
-      style={{ height: '100vh' }}
-      className='d-flex justify-content-center align-items-center w-100'
+      style={{ minHeight: '100vh' }}
+      className='d-flex justify-content-center align-items-center w-100 sign-in-container'
     >
       {loading ? (
         <div className='align-items-center'>

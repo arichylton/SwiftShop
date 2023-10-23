@@ -9,6 +9,7 @@ import {
   createPaymentIntent,
   updatePaymentIntent,
 } from '../../utils/payment.utils.js';
+import './Payment.scss';
 
 function Payment(props) {
   const [stripePromise, setStripePromise] = useState(null);
@@ -73,8 +74,12 @@ function Payment(props) {
 
   return (
     <section
-      className='container d-flex justify-content-center'
-      style={{ paddingTop: '200px', paddingBottom: '280px', minHeight: '100vh' }}
+      className='container d-flex justify-content-center payment-container'
+      style={{
+        paddingTop: '200px',
+        paddingBottom: '280px',
+        minHeight: '100vh',
+      }}
     >
       <div className='p-5'>
         {stripePromise && clientSecret && (

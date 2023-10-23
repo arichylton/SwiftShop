@@ -50,7 +50,7 @@ function App() {
     <main className='bg-light'>
       <Navbar />
       <div className='d-flex flex-column align-items-center'>
-        <Routes>
+        <Routes className='w-100'>
           <Route path='/' element={<ProductsPage />}></Route>
           <Route path='payment' element={<Payment />}></Route>
           <Route path={`product/:docID`} element={<Product />} />

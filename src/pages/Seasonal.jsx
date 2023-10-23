@@ -364,7 +364,7 @@ const Themes = () => {
           </div>
         </div>
         <div
-          className='container mb-5 pb-3 d-flex gap-2'
+          className='container mb-5 pb-3 d-flex gap-2 flex-wrap'
           style={{ borderBottom: 'solid 1px #d9d9d9' }}
         >
           <button
@@ -544,9 +544,7 @@ const Themes = () => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-4 container'>
-          {renderdarkProducts()}
-        </div>
+        <div className='grid grid-cols-4 container'>{renderdarkProducts()}</div>
       </div>
     </div>
   );
