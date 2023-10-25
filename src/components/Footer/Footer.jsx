@@ -17,12 +17,7 @@ const Footer = () => {
       }}
     >
       <div className='container d-flex flex-column' style={{ height: '70%' }}>
-        <div
-          style={{
-            
-          }}
-          className='flex-wrap ps-4 pe-4 top-footer-container'
-        >
+        <div style={{}} className='flex-wrap ps-4 pe-4 top-footer-container'>
           <div>
             <h5 className='fw-bold mb-3'>Save 10%</h5>
             <div className='fs-5'>Keep up to date on our new collections.</div>
@@ -41,8 +36,8 @@ const Footer = () => {
               </div>
             </form>
           </div>
-          <div></div>
-          <div></div>
+          <div className='empty-div'></div>
+          <div className='empty-div'></div>
           <div>
             <h5 className='fw-bold mb-3'>
               <Link to='all'>Shop</Link>
@@ -61,9 +56,12 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h5 className='fw-bold mb-3'>Brand</h5>
-            <div className='fs-5'>About Us</div>
-            <div className='fs-5'>Contact</div>
+            <h5 className='fw-bold mb-3'>
+              <Link to='about'>Brand</Link>
+            </h5>
+            <div className='fs-5'>
+              <Link to='about'>Contact</Link>
+            </div>
           </div>
         </div>
       </div>
