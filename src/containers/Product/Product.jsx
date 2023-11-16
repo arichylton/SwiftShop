@@ -325,6 +325,7 @@ const Product = () => {
         <div className='p-5 '>
           <div className='image-container'>
             <img
+              style={{ minWidth: '20vw' }}
               className='product__image'
               src={productImage}
               alt='productImage'
