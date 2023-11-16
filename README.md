@@ -11,11 +11,6 @@ swiftshop uses react, redux, swype, and express to get it up and running.
 simply get on an internet browser of your choice and go to swiftshop.com
 
 # setup
-cd into ./server 
-npm i
-npm run devStart
-
-cd into ./client
 npm i
 npm run dev
 
